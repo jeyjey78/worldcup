@@ -47,7 +47,6 @@ PODS:
   - "GoogleToolboxForMac/NSString+URLArguments (2.1.0)"
   - GTMSessionFetcher/Core (1.1.7)
   - JASON (3.1)
-  - Kingfisher (3.2.1)
   - SnapKit (3.0.2)
   - Willow (2.0.0)
 
@@ -57,7 +56,6 @@ DEPENDENCIES:
   - Firebase/Auth
   - FirebaseUI/Auth
   - JASON
-  - Kingfisher
   - SnapKit
   - Willow
 
@@ -78,7 +76,6 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GTMSessionFetcher
     - JASON
-    - Kingfisher
     - SnapKit
     - Willow
 
@@ -98,10 +95,9 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   JASON: c1204b01c9979eef35b6948ca939aac5e7bef081
-  Kingfisher: 64ef28c6d3d6f344e3ae2d7f5c9da80439505d99
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   Willow: 96581516a6382c7541b5e125f4e15804e6915ad9
 
-PODFILE CHECKSUM: 1691084dac1ec7c556a12addacc36a1852a1a446
+PODFILE CHECKSUM: 47719c13e530d80c8773c453b06d3b30f4a94ce0
 
 COCOAPODS: 1.5.0

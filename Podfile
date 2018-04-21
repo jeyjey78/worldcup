@@ -5,7 +5,6 @@ use_frameworks!
 target 'worldcup-pops' do
   pod 'Alamofire'
   pod 'JASON'
-  pod 'Kingfisher'
   pod 'SnapKit'
   pod 'FBSDKLoginKit'
   pod 'Firebase/Auth'
