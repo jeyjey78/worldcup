@@ -21,6 +21,12 @@
 		3FFFFC7A208B397B008A8865 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFFFC7B208B397B008A8865 /* Alamofire.framework */; };
 		3FFFFC7C208B3983008A8865 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFFFC7D208B3983008A8865 /* FBSDKCoreKit.framework */; };
 		3FFFFC7E208B3987008A8865 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFFFC7F208B3987008A8865 /* FBSDKLoginKit.framework */; };
+		3FFFFC86208CB978008A8865 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC85208CB978008A8865 /* UIColorExtension.swift */; };
+		3FFFFC89208CBA14008A8865 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC88208CBA14008A8865 /* Screen.swift */; };
+		3FFFFC8C208CBC64008A8865 /* CircularStd-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3FFFFC8B208CBC4F008A8865 /* CircularStd-Black.otf */; };
+		3FFFFC8E208CBC77008A8865 /* UIFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC8D208CBC77008A8865 /* UIFontExtensions.swift */; };
+		3FFFFC91208CCEA8008A8865 /* ProfileFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC90208CCEA8008A8865 /* ProfileFlow.swift */; };
+		3FFFFC93208CCECC008A8865 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC92208CCECC008A8865 /* ProfileViewController.swift */; };
 		7FD7CB9E1BA7958418698983 /* Pods_worldcup_pops.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +69,12 @@
 		3FFFFC7B208B397B008A8865 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FFFFC7D208B3983008A8865 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FFFFC7F208B3987008A8865 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FFFFC85208CB978008A8865 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		3FFFFC88208CBA14008A8865 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
+		3FFFFC8B208CBC4F008A8865 /* CircularStd-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Black.otf"; sourceTree = "<group>"; };
+		3FFFFC8D208CBC77008A8865 /* UIFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtensions.swift; sourceTree = "<group>"; };
+		3FFFFC90208CCEA8008A8865 /* ProfileFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFlow.swift; sourceTree = "<group>"; };
+		3FFFFC92208CCECC008A8865 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		49A919F9DC036B48A31FCCB0 /* Pods-worldcup-pops.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worldcup-pops.debug.xcconfig"; path = "Pods/Target Support Files/Pods-worldcup-pops/Pods-worldcup-pops.debug.xcconfig"; sourceTree = "<group>"; };
 		CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_worldcup_pops.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -127,6 +139,8 @@
 				3F955420208AA12200B2A478 /* Assets */,
 				3F955423208AA16900B2A478 /* Components */,
 				3F955421208AA14800B2A478 /* Controllers */,
+				3FFFFC84208CB95A008A8865 /* Extensions */,
+				3FFFFC87208CB9CC008A8865 /* Helper */,
 				3FFFFC80208CA4FF008A8865 /* XYZ */,
 				3F9553F22086908E00B2A478 /* AppDelegate.swift */,
 			);
@@ -154,6 +168,7 @@
 		3F955420208AA12200B2A478 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				3FFFFC8A208CBC3C008A8865 /* Fonts */,
 				3F9553FB2086908E00B2A478 /* LaunchScreen.storyboard */,
 				3F9553F92086908E00B2A478 /* Assets.xcassets */,
 			);
@@ -164,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				3F955422208AA15B00B2A478 /* Login */,
+				3FFFFC8F208CCE85008A8865 /* Profile */,
 				3F955426208AA22600B2A478 /* AppFlow.swift */,
 			);
 			path = Controllers;
@@ -191,6 +207,40 @@
 				3F9553FE2086908E00B2A478 /* Info.plist */,
 			);
 			path = XYZ;
+			sourceTree = "<group>";
+		};
+		3FFFFC84208CB95A008A8865 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3FFFFC85208CB978008A8865 /* UIColorExtension.swift */,
+				3FFFFC8D208CBC77008A8865 /* UIFontExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3FFFFC87208CB9CC008A8865 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				3FFFFC88208CBA14008A8865 /* Screen.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		3FFFFC8A208CBC3C008A8865 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3FFFFC8B208CBC4F008A8865 /* CircularStd-Black.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		3FFFFC8F208CCE85008A8865 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				3FFFFC90208CCEA8008A8865 /* ProfileFlow.swift */,
+				3FFFFC92208CCECC008A8865 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		76106D9A82508B36E5407194 /* Frameworks */ = {
@@ -326,6 +376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FFFFC8C208CBC64008A8865 /* CircularStd-Black.otf in Resources */,
 				3F9553FD2086908E00B2A478 /* LaunchScreen.storyboard in Resources */,
 				3F9553FA2086908E00B2A478 /* Assets.xcassets in Resources */,
 			);
@@ -459,8 +510,13 @@
 			files = (
 				3F955429208AA2FB00B2A478 /* LoginViewController.swift in Sources */,
 				3F955425208AA1BF00B2A478 /* Flow.swift in Sources */,
+				3FFFFC8E208CBC77008A8865 /* UIFontExtensions.swift in Sources */,
+				3FFFFC86208CB978008A8865 /* UIColorExtension.swift in Sources */,
 				3F955427208AA22600B2A478 /* AppFlow.swift in Sources */,
+				3FFFFC91208CCEA8008A8865 /* ProfileFlow.swift in Sources */,
+				3FFFFC93208CCECC008A8865 /* ProfileViewController.swift in Sources */,
 				3F9553F32086908E00B2A478 /* AppDelegate.swift in Sources */,
+				3FFFFC89208CBA14008A8865 /* Screen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
