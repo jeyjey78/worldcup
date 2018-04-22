@@ -1,7 +1,7 @@
 //
-//  SnapKit
+//  LogMessage.swift
 //
-//  Copyright (c) 2011-Present SnapKit Team - https://github.com/SnapKit
+//  Copyright (c) 2015-present Nike, Inc. (https://www.nike.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,17 +20,15 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
+//
 
-#if os(iOS) || os(tvOS)
-    import UIKit
-#endif
-    
-    
-@available(iOS 9.0, *)
-public extension ConstraintLayoutGuide {
-    
-    public var snp: ConstraintLayoutGuideDSL {
-        return ConstraintLayoutGuideDSL(guide: self)
-    }
-    
+import Foundation
+
+/// A LogMessage is a detailed log entry with a name and a dictionary of associated attributes.
+public protocol LogMessage {
+    /// Name of this message.
+    var name: String { get }
+
+    /// Attributes associated with this message.
+    var attributes: [String: Any] { get }
 }

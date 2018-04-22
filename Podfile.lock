@@ -47,8 +47,8 @@ PODS:
   - "GoogleToolboxForMac/NSString+URLArguments (2.1.0)"
   - GTMSessionFetcher/Core (1.1.7)
   - JASON (3.1)
-  - SnapKit (3.0.2)
-  - Willow (2.0.0)
+  - SnapKit (4.0.0)
+  - Willow (5.0.2)
 
 DEPENDENCIES:
   - Alamofire
@@ -56,8 +56,8 @@ DEPENDENCIES:
   - Firebase/Auth
   - FirebaseUI/Auth
   - JASON
-  - SnapKit
-  - Willow
+  - SnapKit (~> 4.0.0)
+  - Willow (~> 5.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -95,9 +95,9 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   JASON: c1204b01c9979eef35b6948ca939aac5e7bef081
-  SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
-  Willow: 96581516a6382c7541b5e125f4e15804e6915ad9
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  Willow: 959c8fd6906f95c4e78c344cbaded176816d1b16
 
-PODFILE CHECKSUM: 47719c13e530d80c8773c453b06d3b30f4a94ce0
+PODFILE CHECKSUM: 7c4310f650457f806c010a94eec8f9d4bd186668
 
 COCOAPODS: 1.5.0

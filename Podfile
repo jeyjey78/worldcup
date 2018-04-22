@@ -5,11 +5,11 @@ use_frameworks!
 target 'worldcup-pops' do
   pod 'Alamofire'
   pod 'JASON'
-  pod 'SnapKit'
+  pod 'SnapKit', '~> 4.0.0'
   pod 'FBSDKLoginKit'
   pod 'Firebase/Auth'
   pod 'FirebaseUI/Auth'
-  pod 'Willow'
+  pod 'Willow', '~> 5.0'
 end
 
 # After install, set VALID_ARCHS to arm64

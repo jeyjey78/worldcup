@@ -1,7 +1,7 @@
 //
-//  LogMessageModifier.swift
+//  LogModifier.swift
 //
-//  Copyright (c) 2015-2016 Nike, Inc. (https://www.nike.com)
+//  Copyright (c) 2015-present Nike, Inc. (https://www.nike.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,16 +24,16 @@
 
 import Foundation
 
-/// The LogMessageModifier protocol defines a single method for modifying a log message after it has been constructed.
+/// The LogModifier protocol defines a single method for modifying a log message after it has been constructed.
 /// This is very flexible allowing any object that conforms to modify messages in any way it wants.
-public protocol LogMessageModifier {
+public protocol LogModifier {
     func modifyMessage(_ message: String, with logLevel: LogLevel) -> String
 }
 
 // MARK: -
 
 /// The TimestampModifier class applies a timestamp to the beginning of the message.
-open class TimestampModifier: LogMessageModifier {
+open class TimestampModifier: LogModifier {
     private let timestampFormatter: DateFormatter = {
         var formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
@@ -42,17 +42,18 @@ open class TimestampModifier: LogMessageModifier {
 
     /// Initializes a `TimestampModifier` instance.
     ///
-    /// - returns: A new `TimestampModifier` instance.
+    /// - Returns: A new `TimestampModifier` instance.
     public init() {}
 
     /// Applies a timestamp to the beginning of the message.
     ///
-    /// - parameter message:  The original message to format.
-    /// - parameter logLevel: The log level set for the message.
+    /// - Parameters:
+    ///   - message:  The original message to format.
+    ///   - logLevel: The log level set for the message.
     ///
-    /// - returns: A newly formatted message.
+    /// - Returns: A newly formatted message.
     open func modifyMessage(_ message: String, with logLevel: LogLevel) -> String {
-        let timestampString = timestampFormatter.string(from: Date() as Date)
+        let timestampString = timestampFormatter.string(from: Date())
         return "\(timestampString) \(message)"
     }
 }
