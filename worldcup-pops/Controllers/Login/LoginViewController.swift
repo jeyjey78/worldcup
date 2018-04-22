@@ -11,10 +11,22 @@ import SnapKit
 
 class LoginViewController: UIViewController {
 
+    var appdelegate: AppFlowDelegate
+    
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var fifaImageView = UIImageView(image: UIImage(named: "fifa-logo"))
     
     fileprivate var facebookButton = UIButton()
+    
+    // MARK: - life cycle
+    init(_ delegate: AppFlowDelegate) {
+        self.appdelegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +76,6 @@ class LoginViewController: UIViewController {
     
     // MARK: - Actions
     @objc func loginAction() {
-        
+        self.appdelegate.continueToProfile()
     }
 }

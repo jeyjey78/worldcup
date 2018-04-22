@@ -17,7 +17,7 @@ class AppFlow: Flow {
     }
     
     func start() -> UIViewController {
-        self.rootFlow = LoginViewController()
+        self.rootFlow = LoginViewController(self)
         return self.rootFlow
     }
 }
@@ -25,11 +25,20 @@ class AppFlow: Flow {
 
 // MARK: - Protocol
 protocol AppFlowDelegate {
-    
+    func continueToProfile()
 }
 
 
 // MARK: - AppFlow Delegate
 extension AppFlow: AppFlowDelegate {
     
+    func continueToProfile() {
+        let profileController = ProfileFlow().start()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        UIView.transition(from: appDelegate.window!.rootViewController!.view, to: profileController.view, duration: 0.65, options: [], completion: { (finished) in
+            appDelegate.window!.rootViewController = profileController
+            
+        })
+    }
 }
