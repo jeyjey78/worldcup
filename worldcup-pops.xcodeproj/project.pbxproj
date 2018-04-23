@@ -27,6 +27,8 @@
 		3FFFFC8E208CBC77008A8865 /* UIFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC8D208CBC77008A8865 /* UIFontExtensions.swift */; };
 		3FFFFC91208CCEA8008A8865 /* ProfileFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC90208CCEA8008A8865 /* ProfileFlow.swift */; };
 		3FFFFC93208CCECC008A8865 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC92208CCECC008A8865 /* ProfileViewController.swift */; };
+		3FFFFC95208E91DA008A8865 /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC94208E91DA008A8865 /* CountriesViewController.swift */; };
+		3FFFFC98208E931A008A8865 /* CountriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC97208E931A008A8865 /* CountriesCollectionViewCell.swift */; };
 		7FD7CB9E1BA7958418698983 /* Pods_worldcup_pops.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +77,8 @@
 		3FFFFC8D208CBC77008A8865 /* UIFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtensions.swift; sourceTree = "<group>"; };
 		3FFFFC90208CCEA8008A8865 /* ProfileFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFlow.swift; sourceTree = "<group>"; };
 		3FFFFC92208CCECC008A8865 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		3FFFFC94208E91DA008A8865 /* CountriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
+		3FFFFC97208E931A008A8865 /* CountriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		49A919F9DC036B48A31FCCB0 /* Pods-worldcup-pops.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worldcup-pops.debug.xcconfig"; path = "Pods/Target Support Files/Pods-worldcup-pops/Pods-worldcup-pops.debug.xcconfig"; sourceTree = "<group>"; };
 		CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_worldcup_pops.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -178,6 +182,7 @@
 		3F955421208AA14800B2A478 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3FFFFC96208E92E2008A8865 /* Contries */,
 				3F955422208AA15B00B2A478 /* Login */,
 				3FFFFC8F208CCE85008A8865 /* Profile */,
 				3F955426208AA22600B2A478 /* AppFlow.swift */,
@@ -241,6 +246,15 @@
 				3FFFFC92208CCECC008A8865 /* ProfileViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		3FFFFC96208E92E2008A8865 /* Contries */ = {
+			isa = PBXGroup;
+			children = (
+				3FFFFC94208E91DA008A8865 /* CountriesViewController.swift */,
+				3FFFFC97208E931A008A8865 /* CountriesCollectionViewCell.swift */,
+			);
+			path = Contries;
 			sourceTree = "<group>";
 		};
 		76106D9A82508B36E5407194 /* Frameworks */ = {
@@ -511,8 +525,10 @@
 				3F955429208AA2FB00B2A478 /* LoginViewController.swift in Sources */,
 				3F955425208AA1BF00B2A478 /* Flow.swift in Sources */,
 				3FFFFC8E208CBC77008A8865 /* UIFontExtensions.swift in Sources */,
+				3FFFFC95208E91DA008A8865 /* CountriesViewController.swift in Sources */,
 				3FFFFC86208CB978008A8865 /* UIColorExtension.swift in Sources */,
 				3F955427208AA22600B2A478 /* AppFlow.swift in Sources */,
+				3FFFFC98208E931A008A8865 /* CountriesCollectionViewCell.swift in Sources */,
 				3FFFFC91208CCEA8008A8865 /* ProfileFlow.swift in Sources */,
 				3FFFFC93208CCECC008A8865 /* ProfileViewController.swift in Sources */,
 				3F9553F32086908E00B2A478 /* AppDelegate.swift in Sources */,
