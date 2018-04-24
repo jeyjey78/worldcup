@@ -112,7 +112,6 @@ extension CountriesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountriesCollectionViewCell.identifier, for: indexPath) as! CountriesCollectionViewCell
-        print("self.countries[indexPath.row]: \(self.countries[indexPath.row])")
         cell.image = UIImage(named: "flag-\(self.countries[indexPath.row])")!
         
         return cell

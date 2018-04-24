@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Matchs", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont.circularStdBlack(18.0)
+        button.titleLabel?.font = UIFont.circularStdBlack(17.0)
         button.backgroundColor = UIColor.white
         button.clipsToBounds = false
         button.layer.shadowColor = UIColor.black.cgColor
@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Bet", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont.circularStdBlack(18.0)
+        button.titleLabel?.font = UIFont.circularStdBlack(17.0)
         button.backgroundColor = UIColor.white
         button.clipsToBounds = false
         button.layer.shadowColor = UIColor.black.cgColor
@@ -47,9 +47,9 @@ class ProfileViewController: UIViewController {
     
     fileprivate var countryButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Country", for: .normal)
+        button.setTitle("Countries", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont.circularStdBlack(18.0)
+        button.titleLabel?.font = UIFont.circularStdBlack(17.0)
         button.backgroundColor = UIColor.white
         button.clipsToBounds = false
         button.layer.shadowColor = UIColor.black.cgColor
@@ -74,7 +74,7 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.textColor = UIColor.white
         label.textAlignment = .right
-        label.font = UIFont.circularStdBlack(17.0)
+        label.font = UIFont.circularStdBlack(20.0)
         label.adjustsFontSizeToFitWidth = true
         label.text = "2 win - 0 lose"
         return label
@@ -110,12 +110,13 @@ class ProfileViewController: UIViewController {
         
         
         // Win label
+        self.winLabel.transform = CGAffineTransform(rotationAngle: 0.3)
         self.view.addSubview(self.winLabel)
         self.winLabel.snp.makeConstraints { (make) in
             make.height.equalTo(30.0)
             make.width.equalTo(150.0)
-            make.right.equalTo(self.view.snp.right).offset(-40.0)
-            make.top.equalTo(self.view.snp.top).offset(Screen.size.height * 20)
+            make.right.equalTo(self.view.snp.right).offset(-50.0)
+            make.top.equalTo(self.view.snp.top).offset(Screen.size.height * 0.25)
         }
         
         // Profile Picture

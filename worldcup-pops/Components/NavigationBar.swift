@@ -25,7 +25,7 @@ class NavigationBar: UINavigationBar {
         
         self.titleTextAttributes = [
             NSAttributedStringKey.foregroundColor: UIColor.white,
-            NSAttributedStringKey.font: UIFont.circularStdBlack(17.0) as Any
+            NSAttributedStringKey.font: UIFont.circularStdBlack(20.0) as Any
         ]
     }
     
