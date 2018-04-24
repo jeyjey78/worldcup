@@ -20,10 +20,23 @@ class CountriesViewController: UIViewController {
     
     var countries = ["allemagne", "angleterre", "arabie-saoudite", "argentine", "australie", "belgique", "bresil", "cameroun", "coree-du-sud", "costa-rica", "croatie", "danemark", "egypte", "equateur", "espagne", "france", "iceland", "iran", "japon", "maroc", "mexique", "nigeria", "panama", "peru", "poland", "portugal", "russia", "serbie", "suede", "suisse", "tunisie", "uruguay"]
     
+    var flowDelegate: ProfileFlow?
     var collectionView: UICollectionView?
     var collectionViewFlowLayout: UICollectionViewFlowLayout?
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
+    fileprivate var customNavigationBar = NavigationBar()
+    
+    fileprivate var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.textAlignment = .center
+        label.font = UIFont.circularStdBlack(20.0)
+        label.adjustsFontSizeToFitWidth = true
+        label.text = "Countries"
+        return label
+    }()
+    
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -34,6 +47,22 @@ class CountriesViewController: UIViewController {
         self.backgroundImageView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
+        // navigationBar
+        self.view.addSubview(self.customNavigationBar)
+        self.customNavigationBar.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view)
+            make.left.right.equalTo(self.view)
+            make.height.equalTo(UIDevice.current.type == UIDevice.DeviceType.iPhoneX ? 88.0 : 64.0)
+        }
+        
+        let backBarButton = UIBarButtonItem(image: UIImage(named: "back-white-icon")!.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(backProfile))
+        backBarButton.imageInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
+        let navigationItem = UINavigationItem()
+        navigationItem.leftBarButtonItem = backBarButton
+        self.customNavigationBar.pushItem(navigationItem, animated: true)
+        
+        self.customNavigationBar.topItem?.title = "Countries"
         
         // CollectionView
         self.collectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -54,7 +83,7 @@ class CountriesViewController: UIViewController {
         self.collectionView?.allowsMultipleSelection = true
         self.view.addSubview(self.collectionView!)
         self.collectionView?.snp.makeConstraints({ (make) in
-            make.top.equalTo(self.view)
+            make.top.equalTo(self.customNavigationBar.snp.bottom)
             make.left.equalTo(self.view)
             make.bottom.equalTo(self.view)
             make.right.equalTo(self.view)
@@ -66,6 +95,11 @@ class CountriesViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    
+    // MARK: - Back
+    @objc func backProfile() {
+        self.flowDelegate?.backProfile(self)
+    }
 }
 
 // MARK: - UICollectionView DataSource
