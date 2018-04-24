@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Willow
 
 class CountriesViewController: UIViewController {
     
@@ -17,14 +18,23 @@ class CountriesViewController: UIViewController {
         return CGSize(width: width, height: height)
     }
     
+    var countries = ["allemagne", "angleterre", "arabie-saoudite", "argentine", "australie", "belgique", "bresil", "cameroun", "coree-du-sud", "costa-rica", "croatie", "danemark", "egypte", "equateur", "espagne", "france", "iceland", "iran", "japon", "maroc", "mexique", "nigeria", "panama", "peru", "poland", "portugal", "russia", "serbie", "suede", "suisse", "tunisie", "uruguay"]
+    
     var collectionView: UICollectionView?
     var collectionViewFlowLayout: UICollectionViewFlowLayout?
     
+    fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Background
+        self.view.addSubview(self.backgroundImageView)
+        self.backgroundImageView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
         // CollectionView
         self.collectionViewFlowLayout = UICollectionViewFlowLayout()
         self.collectionViewFlowLayout?.itemSize = CountriesViewController.itemSize
@@ -68,7 +78,8 @@ extension CountriesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountriesCollectionViewCell.identifier, for: indexPath) as! CountriesCollectionViewCell
-        
+        print("self.countries[indexPath.row]: \(self.countries[indexPath.row])")
+        cell.image = UIImage(named: "flag-\(self.countries[indexPath.row])")!
         
         return cell
     }
