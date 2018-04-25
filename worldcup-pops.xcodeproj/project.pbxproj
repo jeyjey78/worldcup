@@ -32,6 +32,11 @@
 		3FFFFC9A208FD5F9008A8865 /* ProfileNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC99208FD5F9008A8865 /* ProfileNavigationController.swift */; };
 		3FFFFC9C208FD9A4008A8865 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC9B208FD9A4008A8865 /* NavigationBar.swift */; };
 		3FFFFC9E208FDA41008A8865 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFC9D208FDA41008A8865 /* UIDeviceExtensions.swift */; };
+		3FFFFCA1208FDFDC008A8865 /* BetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFCA0208FDFDC008A8865 /* BetViewController.swift */; };
+		3FFFFCA3209124E2008A8865 /* BetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFCA2209124E2008A8865 /* BetTableViewCell.swift */; };
+		3FFFFCA720913147008A8865 /* CircularStd-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3FFFFCA620913137008A8865 /* CircularStd-Bold.otf */; };
+		3FFFFCA820913147008A8865 /* CircularStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3FFFFCA520913137008A8865 /* CircularStd-Book.otf */; };
+		3FFFFCA920913147008A8865 /* CircularStd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3FFFFCA420913136008A8865 /* CircularStd-Medium.otf */; };
 		7FD7CB9E1BA7958418698983 /* Pods_worldcup_pops.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +90,11 @@
 		3FFFFC99208FD5F9008A8865 /* ProfileNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigationController.swift; sourceTree = "<group>"; };
 		3FFFFC9B208FD9A4008A8865 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		3FFFFC9D208FDA41008A8865 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
+		3FFFFCA0208FDFDC008A8865 /* BetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetViewController.swift; sourceTree = "<group>"; };
+		3FFFFCA2209124E2008A8865 /* BetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetTableViewCell.swift; sourceTree = "<group>"; };
+		3FFFFCA420913136008A8865 /* CircularStd-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Medium.otf"; sourceTree = "<group>"; };
+		3FFFFCA520913137008A8865 /* CircularStd-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Book.otf"; sourceTree = "<group>"; };
+		3FFFFCA620913137008A8865 /* CircularStd-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.otf"; sourceTree = "<group>"; };
 		49A919F9DC036B48A31FCCB0 /* Pods-worldcup-pops.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worldcup-pops.debug.xcconfig"; path = "Pods/Target Support Files/Pods-worldcup-pops/Pods-worldcup-pops.debug.xcconfig"; sourceTree = "<group>"; };
 		CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_worldcup_pops.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -188,6 +198,7 @@
 		3F955421208AA14800B2A478 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3FFFFC9F208FDFC4008A8865 /* Bet */,
 				3F955422208AA15B00B2A478 /* Login */,
 				3FFFFC96208E92E2008A8865 /* Contries */,
 				3FFFFC8F208CCE85008A8865 /* Profile */,
@@ -243,6 +254,9 @@
 			isa = PBXGroup;
 			children = (
 				3FFFFC8B208CBC4F008A8865 /* CircularStd-Black.otf */,
+				3FFFFCA620913137008A8865 /* CircularStd-Bold.otf */,
+				3FFFFCA520913137008A8865 /* CircularStd-Book.otf */,
+				3FFFFCA420913136008A8865 /* CircularStd-Medium.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -264,6 +278,15 @@
 				3FFFFC97208E931A008A8865 /* CountriesCollectionViewCell.swift */,
 			);
 			path = Contries;
+			sourceTree = "<group>";
+		};
+		3FFFFC9F208FDFC4008A8865 /* Bet */ = {
+			isa = PBXGroup;
+			children = (
+				3FFFFCA0208FDFDC008A8865 /* BetViewController.swift */,
+				3FFFFCA2209124E2008A8865 /* BetTableViewCell.swift */,
+			);
+			path = Bet;
 			sourceTree = "<group>";
 		};
 		76106D9A82508B36E5407194 /* Frameworks */ = {
@@ -399,6 +422,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FFFFCA720913147008A8865 /* CircularStd-Bold.otf in Resources */,
+				3FFFFCA820913147008A8865 /* CircularStd-Book.otf in Resources */,
+				3FFFFCA920913147008A8865 /* CircularStd-Medium.otf in Resources */,
 				3FFFFC8C208CBC64008A8865 /* CircularStd-Black.otf in Resources */,
 				3F9553FD2086908E00B2A478 /* LaunchScreen.storyboard in Resources */,
 				3F9553FA2086908E00B2A478 /* Assets.xcassets in Resources */,
@@ -542,9 +568,11 @@
 				3FFFFC9A208FD5F9008A8865 /* ProfileNavigationController.swift in Sources */,
 				3FFFFC91208CCEA8008A8865 /* ProfileFlow.swift in Sources */,
 				3FFFFC93208CCECC008A8865 /* ProfileViewController.swift in Sources */,
+				3FFFFCA1208FDFDC008A8865 /* BetViewController.swift in Sources */,
 				3F9553F32086908E00B2A478 /* AppDelegate.swift in Sources */,
 				3FFFFC89208CBA14008A8865 /* Screen.swift in Sources */,
 				3FFFFC9E208FDA41008A8865 /* UIDeviceExtensions.swift in Sources */,
+				3FFFFCA3209124E2008A8865 /* BetTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

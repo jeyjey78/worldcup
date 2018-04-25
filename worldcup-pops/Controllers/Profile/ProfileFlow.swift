@@ -33,6 +33,7 @@ class ProfileFlow: Flow {
 protocol ProfileFlowDelegate {
     
     func continueToCountries(_ controller: UIViewController)
+    func continueToOwnerBet(_ controller: UIViewController)
     
     func backProfile(_ controller: UIViewController)
 }
@@ -47,6 +48,13 @@ extension ProfileFlow: ProfileFlowDelegate {
         countriesController.flowDelegate = self
         
         self.navigation.pushViewController(countriesController, animated: true)
+    }
+    
+    func continueToOwnerBet(_ controller: UIViewController) {
+        let betController = BetViewController()
+        betController.flowDelegate = self
+        
+        self.navigation.pushViewController(betController, animated: true)
     }
     
     // MARK: - Back

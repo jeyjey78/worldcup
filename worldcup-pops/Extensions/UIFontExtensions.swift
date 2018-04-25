@@ -12,4 +12,16 @@ extension UIFont {
     class func circularStdBlack(_ size: CGFloat) -> UIFont? {
         return UIFont(name: "CircularStd-Black", size: size)
     }
+    
+    class func circularStdBold(_ size: CGFloat) -> UIFont? {
+        return UIFont(name: "CircularStd-Bold", size: size)
+    }
+    
+    class func circularStdBook(_ size: CGFloat) -> UIFont? {
+        return UIFont(name: "CircularStd-Book", size: size)
+    }
+    
+    class func circularStdMedium(_ size: CGFloat) -> UIFont? {
+        return UIFont(name: "CircularStd-Medium", size: size)
+    }
 }

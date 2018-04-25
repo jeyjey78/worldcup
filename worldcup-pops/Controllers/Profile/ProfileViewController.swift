@@ -14,6 +14,7 @@ class ProfileViewController: UIViewController {
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var profilePicture = UIImageView(image: UIImage(named: "profile"))
+    fileprivate var popsImageView = UIImageView(image: UIImage(named: "pops-icon"))
     
     fileprivate var matchsButton: UIButton = {
         let button = UIButton()
@@ -74,7 +75,7 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.textColor = UIColor.white
         label.textAlignment = .right
-        label.font = UIFont.circularStdBlack(20.0)
+        label.font = UIFont.circularStdBold(30.0)
         label.adjustsFontSizeToFitWidth = true
         label.text = "2 win - 0 lose"
         return label
@@ -98,6 +99,15 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(self.backgroundImageView)
         self.backgroundImageView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
+        }
+        
+        // Pops icon
+        self.view.addSubview(self.popsImageView)
+        self.popsImageView.snp.makeConstraints { (make) in
+            make.height.equalTo(51.0)
+            make.width.equalTo(31.0)
+            make.right.equalTo(self.view.snp.right).offset(-25.0)
+            make.top.equalToSuperview().offset(30.0)
         }
         
         // Match button
@@ -136,6 +146,7 @@ class ProfileViewController: UIViewController {
         }
         
         // Bet button
+        self.betButton.addTarget(self, action: #selector(continueToBet), for: .touchUpInside)
         self.view.addSubview(self.betButton)
         self.betButton.snp.makeConstraints { (make) in
             make.height.width.equalTo(100.0)
@@ -163,5 +174,9 @@ class ProfileViewController: UIViewController {
     // MARK: - Actions
     @objc func continueToCountries() {
         self.flowDelegate?.continueToCountries(self)
+    }
+    
+    @objc func continueToBet() {
+        self.flowDelegate?.continueToOwnerBet(self)
     }
 }

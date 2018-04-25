@@ -50,7 +50,7 @@ class CountriesViewController: UIViewController {
         
         // navigationBar
         self.view.addSubview(self.customNavigationBar)
-        self.customNavigationBar.snp_makeConstraints { (make) in
+        self.customNavigationBar.snp.makeConstraints { (make) in
             make.top.equalTo(self.view)
             make.left.right.equalTo(self.view)
             make.height.equalTo(UIDevice.current.type == UIDevice.DeviceType.iPhoneX ? 88.0 : 64.0)
