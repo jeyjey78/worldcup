@@ -47,6 +47,7 @@ class BetViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.clear
 
         // Background
         self.view.addSubview(self.backgroundImageView)
@@ -151,6 +152,6 @@ extension BetViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-       
+       self.flowDelegate?.continueToMatch(self)
     }
 }
