@@ -67,6 +67,15 @@ class LoginViewController: UIViewController {
             make.width.equalTo(270.0)
             make.bottom.equalTo(self.view.snp.bottom).offset(-40.0)
         }
+        
+        let imageView = UIImageView(image: UIImage(named: "facebook-icon"))
+        imageView.contentMode = .scaleAspectFit
+        self.facebookButton.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.height.width.equalTo(21.0)
+            make.left.equalTo(self.facebookButton).offset(19.9)
+            make.centerY.equalTo(self.facebookButton)
+        }
     }
 
     override func didReceiveMemoryWarning() {

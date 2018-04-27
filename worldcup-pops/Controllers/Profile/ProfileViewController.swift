@@ -16,6 +16,12 @@ class ProfileViewController: UIViewController {
     fileprivate var profilePicture = UIImageView(image: UIImage(named: "profile"))
     fileprivate var popsImageView = UIImageView(image: UIImage(named: "pops-icon"))
     
+    fileprivate var scoreView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
+    
     fileprivate var matchsButton: UIButton = {
         let button = UIButton()
         button.setTitle("Matchs", for: .normal)
@@ -101,15 +107,6 @@ class ProfileViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        // Pops icon
-        self.view.addSubview(self.popsImageView)
-        self.popsImageView.snp.makeConstraints { (make) in
-            make.height.equalTo(51.0)
-            make.width.equalTo(31.0)
-            make.right.equalTo(self.view.snp.right).offset(-25.0)
-            make.top.equalToSuperview().offset(30.0)
-        }
-        
         // Match button
         self.view.addSubview(self.matchsButton)
         self.matchsButton.snp.makeConstraints { (make) in
@@ -118,15 +115,32 @@ class ProfileViewController: UIViewController {
             make.top.equalTo(self.view.snp.top).offset(Screen.size.height * 0.15)
         }
         
+        // Score view
+        self.view.addSubview(self.scoreView)
+        self.scoreView.snp.makeConstraints { (make) in
+            make.height.equalTo(150.0)
+            make.width.equalTo(150.0)
+            make.right.equalTo(self.view.snp.right).offset(-50.0)
+            make.top.equalTo(self.view.snp.top).offset(Screen.size.height * 0.15)
+        }
+        
+        // Pops icon
+        self.scoreView.addSubview(self.popsImageView)
+        self.popsImageView.snp.makeConstraints { (make) in
+            make.height.equalTo(51.0)
+            make.width.equalTo(31.0)
+            make.centerX.equalTo(self.scoreView)
+            make.top.equalToSuperview()
+        }
         
         // Win label
-        self.winLabel.transform = CGAffineTransform(rotationAngle: 0.3)
-        self.view.addSubview(self.winLabel)
+        self.scoreView.transform = CGAffineTransform(rotationAngle: 0.3)
+        self.scoreView.addSubview(self.winLabel)
         self.winLabel.snp.makeConstraints { (make) in
             make.height.equalTo(30.0)
             make.width.equalTo(150.0)
-            make.right.equalTo(self.view.snp.right).offset(-50.0)
-            make.top.equalTo(self.view.snp.top).offset(Screen.size.height * 0.25)
+            make.right.equalTo(self.scoreView.snp.right)
+            make.top.equalTo(self.popsImageView.snp.bottom)
         }
         
         // Profile Picture
