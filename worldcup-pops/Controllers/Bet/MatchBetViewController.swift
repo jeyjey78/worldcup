@@ -26,6 +26,30 @@ class MatchBetViewController: UIViewController {
         return label
     }()
     
+    fileprivate var betButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Bet", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.circularStdBlack(24.0)
+        button.layer.cornerRadius = 27.0
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1.0
+        button.backgroundColor = UIColor.clear
+        return button
+    }()
+    
+    var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = UIColor.clear
+        tableView.register(MatchBetTableViewCell.self, forCellReuseIdentifier: MatchBetTableViewCell.identifier)
+        tableView.contentInset = UIEdgeInsets(top: -35.0, left: 0.0, bottom: 80.0, right: 0.0)
+        return tableView
+    }()
+    
+    
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
@@ -76,6 +100,25 @@ class MatchBetViewController: UIViewController {
             make.centerY.equalTo(self.winnerImageView)
             make.right.equalTo(self.view.snp.right).offset(-40.0)
         }
+        
+        // Bet button
+        self.view.addSubview(self.betButton)
+        self.betButton.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.winnerImageView.snp.bottom).offset(20.0)
+            make.height.equalTo(54.0)
+            make.width.equalTo(250.0)
+        }
+        
+        // TableView
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        //self.tableView.tableHeaderView = self.headerView
+        self.view.addSubview(self.tableView)
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.betButton.snp.bottom).offset(20.0)
+            make.height.width.left.equalToSuperview()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,5 +130,46 @@ class MatchBetViewController: UIViewController {
     // MARK: - Actions
     @objc func backAction() {
         self.flowDelegate?.backAction(self)
+    }
+}
+
+// MARK: - UITableView Data Source
+extension MatchBetViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MatchBetTableViewCell.identifier) as! MatchBetTableViewCell
+        
+        return cell
+    }
+}
+
+
+// MARK: - UITableView Delegate
+extension MatchBetViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return MatchBetTableViewCell.height
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
