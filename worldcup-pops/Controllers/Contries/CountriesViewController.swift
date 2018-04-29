@@ -123,7 +123,7 @@ extension CountriesViewController: UICollectionViewDataSource {
 extension CountriesViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
+        self.flowDelegate?.continueToMatchCountry(self)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
