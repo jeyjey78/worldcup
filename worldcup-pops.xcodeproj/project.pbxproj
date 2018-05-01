@@ -41,6 +41,7 @@
 		3FFFFCAD20946911008A8865 /* MatchBetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFCAC20946911008A8865 /* MatchBetTableViewCell.swift */; };
 		3FFFFCAF20960378008A8865 /* MatchCountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFCAE20960378008A8865 /* MatchCountryViewController.swift */; };
 		3FFFFCB1209603C3008A8865 /* MatchCountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFCB0209603C3008A8865 /* MatchCountryTableViewCell.swift */; };
+		3FFFFCB3209916D3008A8865 /* MatchBetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFCB2209916D3008A8865 /* MatchBetCollectionViewCell.swift */; };
 		7FD7CB9E1BA7958418698983 /* Pods_worldcup_pops.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,7 @@
 		3FFFFCAC20946911008A8865 /* MatchBetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchBetTableViewCell.swift; sourceTree = "<group>"; };
 		3FFFFCAE20960378008A8865 /* MatchCountryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCountryViewController.swift; sourceTree = "<group>"; };
 		3FFFFCB0209603C3008A8865 /* MatchCountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCountryTableViewCell.swift; sourceTree = "<group>"; };
+		3FFFFCB2209916D3008A8865 /* MatchBetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchBetCollectionViewCell.swift; sourceTree = "<group>"; };
 		49A919F9DC036B48A31FCCB0 /* Pods-worldcup-pops.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worldcup-pops.debug.xcconfig"; path = "Pods/Target Support Files/Pods-worldcup-pops/Pods-worldcup-pops.debug.xcconfig"; sourceTree = "<group>"; };
 		CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_worldcup_pops.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -297,6 +299,7 @@
 				3FFFFCA2209124E2008A8865 /* BetTableViewCell.swift */,
 				3FFFFCAA2093BF5B008A8865 /* MatchBetViewController.swift */,
 				3FFFFCAC20946911008A8865 /* MatchBetTableViewCell.swift */,
+				3FFFFCB2209916D3008A8865 /* MatchBetCollectionViewCell.swift */,
 			);
 			path = Bet;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 			files = (
 				3F955429208AA2FB00B2A478 /* LoginViewController.swift in Sources */,
 				3F955425208AA1BF00B2A478 /* Flow.swift in Sources */,
+				3FFFFCB3209916D3008A8865 /* MatchBetCollectionViewCell.swift in Sources */,
 				3FFFFC8E208CBC77008A8865 /* UIFontExtensions.swift in Sources */,
 				3FFFFC95208E91DA008A8865 /* CountriesViewController.swift in Sources */,
 				3FFFFC9C208FD9A4008A8865 /* NavigationBar.swift in Sources */,

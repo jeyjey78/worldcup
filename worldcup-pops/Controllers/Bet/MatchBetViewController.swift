@@ -38,14 +38,22 @@ class MatchBetViewController: UIViewController {
         return button
     }()
     
-    var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = UIColor.clear
-        tableView.register(MatchBetTableViewCell.self, forCellReuseIdentifier: MatchBetTableViewCell.identifier)
-        tableView.contentInset = UIEdgeInsets(top: -35.0, left: 0.0, bottom: 80.0, right: 0.0)
-        return tableView
+    private var collectionViewFlowLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 27.0, bottom: 0.0, right: 27.0)
+        layout.itemSize = MatchBetCollectionViewCell.size
+        layout.minimumInteritemSpacing = 17.0
+        return layout
+    }()
+    
+    private var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        collectionView.backgroundColor = UIColor.clear
+        collectionView.isPagingEnabled = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(MatchBetCollectionViewCell.self, forCellWithReuseIdentifier: MatchBetCollectionViewCell.identifier)
+        return collectionView
     }()
     
     
@@ -81,7 +89,7 @@ class MatchBetViewController: UIViewController {
         self.winnerImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(100.0)
             make.left.equalTo(self.view).offset(40.0)
-            make.top.equalTo(self.customNavigationBar.snp.bottom).offset(30.0)
+            make.top.equalTo(self.customNavigationBar.snp.bottom).offset(40.0)
         }
         
         // score
@@ -105,19 +113,20 @@ class MatchBetViewController: UIViewController {
         self.view.addSubview(self.betButton)
         self.betButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.winnerImageView.snp.bottom).offset(20.0)
+            make.top.equalTo(self.winnerImageView.snp.bottom).offset(40.0)
             make.height.equalTo(54.0)
             make.width.equalTo(250.0)
         }
         
-        // TableView
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        //self.tableView.tableHeaderView = self.headerView
-        self.view.addSubview(self.tableView)
-        self.tableView.snp.makeConstraints { (make) in
+        // Collection View
+        self.collectionView.setCollectionViewLayout(self.collectionViewFlowLayout, animated: false)
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        self.view.addSubview(self.collectionView)
+        self.collectionView.snp.makeConstraints { (make) in
             make.top.equalTo(self.betButton.snp.bottom).offset(20.0)
-            make.height.width.left.equalToSuperview()
+            make.width.left.equalToSuperview()
+            make.height.equalTo(Screen.size.height/2)
         }
     }
 
@@ -133,43 +142,24 @@ class MatchBetViewController: UIViewController {
     }
 }
 
-// MARK: - UITableView Data Source
-extension MatchBetViewController: UITableViewDataSource {
+
+// MARK: - UICollectionView Data Source
+extension MatchBetViewController: UICollectionViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MatchBetTableViewCell.identifier) as! MatchBetTableViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MatchBetCollectionViewCell.identifier, for: indexPath) as! MatchBetCollectionViewCell
         
         return cell
     }
 }
 
 
-// MARK: - UITableView Delegate
-extension MatchBetViewController: UITableViewDelegate {
+// MARK: - UICollectionView Delegate
+extension MatchBetViewController: UICollectionViewDelegate {
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 1.0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 1.0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return MatchBetTableViewCell.height
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { }
 }
