@@ -148,7 +148,9 @@ class LoginViewController: UIViewController {
                 return
             }
             
-
+            // stock firebase uid
+            let defaults = UserDefaults.standard
+            defaults.set(user.uid , forKey: Constants.firebaseId)
             
             self.appdelegate.continueToProfile()
         }
