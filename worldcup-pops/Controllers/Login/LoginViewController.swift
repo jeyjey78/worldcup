@@ -8,6 +8,9 @@
 
 import UIKit
 import SnapKit
+import Firebase
+import FirebaseAuthUI
+import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
 
@@ -17,6 +20,8 @@ class LoginViewController: UIViewController {
     fileprivate var fifaImageView = UIImageView(image: UIImage(named: "fifa-logo"))
     
     fileprivate var facebookButton = UIButton()
+    
+    var loading = false
     
     // MARK: - life cycle
     init(_ delegate: AppFlowDelegate) {
@@ -85,6 +90,62 @@ class LoginViewController: UIViewController {
     
     // MARK: - Actions
     @objc func loginAction() {
-        self.appdelegate.continueToProfile()
+        self.handleCustomFBLogin()
+    }
+
+    @objc func handleCustomFBLogin() {
+        FBSDKLoginManager().logIn(withReadPermissions: ["email"], from: self) { (result, err) in
+            if err != nil {
+                return
+            }
+            
+            self.loading = true
+            self.facebookProfileDetails()
+        }
+    }
+
+    func facebookProfileDetails() {
+        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, first_name, email, picture.type(large)"]).start { (connection, result, err) in
+            if err != nil {
+                self.loading = false
+                
+                return
+            }
+            
+            guard let data = result as? [String:Any] else { return }
+            
+            let username = data["first_name"] ?? ""
+            
+            if let picture = data["picture"] as? [String: Any] {
+                if let dataPicture = picture["data"] as? [String: Any] {
+                    if let url = dataPicture["url"] as? String {
+                        
+                    }
+                }
+            }
+            
+            self.logInFirebaseWithFacebook()
+        }
+    }
+
+    func logInFirebaseWithFacebook() {
+        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+            if let error = error {
+                self.loading = false
+                return
+            }
+            
+            guard let user = user else {
+                if let error = error {
+                    self.loading = false
+                    log.errorMessage(error.localizedDescription)
+                }
+                
+                return
+            }
+            
+            self.appdelegate.continueToProfile()
+        }
     }
 }

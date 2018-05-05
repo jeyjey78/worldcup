@@ -9,6 +9,8 @@ target 'worldcup-pops' do
   pod 'FBSDKLoginKit'
   pod 'Firebase/Auth'
   pod 'FirebaseUI/Auth'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
   pod 'Willow', '~> 5.0'
 end
 
