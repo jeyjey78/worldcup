@@ -17,7 +17,17 @@ class AppFlow: Flow {
     }
     
     func start() -> UIViewController {
-        self.rootFlow = LoginViewController(self)
+        let defaults = UserDefaults.standard
+        let username = defaults.object(forKey: Constants.username)
+        if username != nil {
+            self.rootFlow = ProfileFlow().start()
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            appDelegate.window!.rootViewController = self.rootFlow
+        }
+        else {
+            self.rootFlow = LoginViewController(self)
+        }
         return self.rootFlow
     }
 }
@@ -36,9 +46,9 @@ extension AppFlow: AppFlowDelegate {
         let profileController = ProfileFlow().start()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        UIView.transition(from: appDelegate.window!.rootViewController!.view, to: profileController.view, duration: 0.65, options: [], completion: { (finished) in
-            appDelegate.window!.rootViewController = profileController
+        //UIView.transition(from: appDelegate.window!.rootViewController!.view, to: profileController.view, duration: 0.65, options: [], completion: { (finished) in
+        appDelegate.window!.rootViewController = profileController
             
-        })
+        //})
     }
 }

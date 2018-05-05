@@ -116,6 +116,9 @@ class LoginViewController: UIViewController {
             
             let username = data["first_name"] ?? ""
             
+            let defaults = UserDefaults.standard
+            defaults.set(username , forKey: Constants.username)
+            
             if let picture = data["picture"] as? [String: Any] {
                 if let dataPicture = picture["data"] as? [String: Any] {
                     if let url = dataPicture["url"] as? String {
@@ -144,6 +147,8 @@ class LoginViewController: UIViewController {
                 
                 return
             }
+            
+
             
             self.appdelegate.continueToProfile()
         }

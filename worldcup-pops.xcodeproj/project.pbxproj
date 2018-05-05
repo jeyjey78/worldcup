@@ -16,6 +16,7 @@
 		3F955427208AA22600B2A478 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F955426208AA22600B2A478 /* AppFlow.swift */; };
 		3F955429208AA2FB00B2A478 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F955428208AA2FB00B2A478 /* LoginViewController.swift */; };
 		3F97C029209DF4A400CD1652 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F97C028209DF4A400CD1652 /* Log.swift */; };
+		3F97C02B209E0D3900CD1652 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F97C02A209E0D3900CD1652 /* Constants.swift */; };
 		3FFFFC74208B3961008A8865 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFFFC75208B3961008A8865 /* SnapKit.framework */; };
 		3FFFFC76208B396C008A8865 /* Willow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFFFC77208B396C008A8865 /* Willow.framework */; };
 		3FFFFC78208B3975008A8865 /* JASON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFFFC79208B3975008A8865 /* JASON.framework */; };
@@ -81,6 +82,7 @@
 		3F955426208AA22600B2A478 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
 		3F955428208AA2FB00B2A478 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3F97C028209DF4A400CD1652 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		3F97C02A209E0D3900CD1652 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3FFFFC75208B3961008A8865 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FFFFC77208B396C008A8865 /* Willow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Willow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FFFFC79208B3975008A8865 /* JASON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JASON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,6 +179,7 @@
 				3FFFFC87208CB9CC008A8865 /* Helper */,
 				3FFFFC80208CA4FF008A8865 /* XYZ */,
 				3F9553F22086908E00B2A478 /* AppDelegate.swift */,
+				3F97C02A209E0D3900CD1652 /* Constants.swift */,
 			);
 			path = "worldcup-pops";
 			sourceTree = "<group>";
@@ -585,6 +588,7 @@
 				3FFFFCB3209916D3008A8865 /* MatchBetCollectionViewCell.swift in Sources */,
 				3FFFFC8E208CBC77008A8865 /* UIFontExtensions.swift in Sources */,
 				3FFFFC95208E91DA008A8865 /* CountriesViewController.swift in Sources */,
+				3F97C02B209E0D3900CD1652 /* Constants.swift in Sources */,
 				3FFFFC9C208FD9A4008A8865 /* NavigationBar.swift in Sources */,
 				3FFFFC86208CB978008A8865 /* UIColorExtension.swift in Sources */,
 				3F955427208AA22600B2A478 /* AppFlow.swift in Sources */,
