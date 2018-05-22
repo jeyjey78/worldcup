@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class ProfileViewController: UIViewController {
 
     var flowDelegate: ProfileFlow?
+    var country: FIRDatabaseReference!
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var profilePicture = UIImageView(image: UIImage(named: "profile"))
@@ -100,6 +102,8 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //self.addCountry()
 
         // Background
         self.view.addSubview(self.backgroundImageView)
@@ -192,5 +196,67 @@ class ProfileViewController: UIViewController {
     
     @objc func continueToBet() {
         self.flowDelegate?.continueToOwnerBet(self)
+    }
+    
+    // Firebase
+    func configureDatabase() {
+        self.country = FIRDatabase.database().reference().child("france")
+        self.country.observe(.value) { (snapshot) in
+            for artists in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                //getting values
+                let country = artists.value as? [String: AnyObject]
+                log.debugMessage("country: \(country)")
+                
+                
+//                //creating artist object with model and fetched values
+//                let artist = ArtistModel(id: artistId as! String?, name: artistName as! String?, genre: artistGenre as! String?)
+//
+//                //appending it to list
+//                self.artistList.append(artist)
+            }
+        }
+    
+    }
+    
+    func addCountry(){
+
+        let countries = ["allemagne", "angleterre", "arabie-saoudite", "argentine", "australie", "belgique", "bresil", "coree-du-sud", "costa-rica", "croatie", "danemark", "egypte", "equateur", "espagne", "france", "iceland", "iran", "japon", "maroc", "mexique", "nigeria", "panama", "peru", "poland", "portugal", "russia", "senegal", "serbie", "suede", "suisse", "tunisie", "uruguay"]
+        
+        for country in countries {
+            let raw = FIRDatabase.database().reference().child(country)
+            let key = raw.childByAutoId().key
+            
+            let value = [
+                "poule": "A",
+                "espagne": [
+                "phase": "poule",
+                "score": "2-1",
+                "bets": [
+                    "antoine": [
+                        "score": "3-0",
+                        "winner": "france"
+                    ],
+                    "paulo": [
+                        "score": "3-0",
+                        "winner": "france"
+                    ]
+                    ]]] as [String : Any]
+            
+            raw.setValue(value)
+        }
+//        self.country = FIRDatabase.database().reference().child("country")
+//        let key = self.country.childByAutoId().key
+//
+//        //creating artist with the given values
+//        let artist = ["id":key,
+//                      "step": "poule",
+//                      "country": "france"
+//        ]
+//
+//        //adding the artist inside the generated unique key
+//        country.child(key).setValue(artist)
+//
+        //displaying message
+        self.configureDatabase()
     }
 }

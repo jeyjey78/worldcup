@@ -17,6 +17,7 @@
 		3F955429208AA2FB00B2A478 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F955428208AA2FB00B2A478 /* LoginViewController.swift */; };
 		3F97C029209DF4A400CD1652 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F97C028209DF4A400CD1652 /* Log.swift */; };
 		3F97C02B209E0D3900CD1652 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F97C02A209E0D3900CD1652 /* Constants.swift */; };
+		3FB661C220B46640004F59D4 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB661C120B46640004F59D4 /* File.swift */; };
 		3FFFFC74208B3961008A8865 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFFFC75208B3961008A8865 /* SnapKit.framework */; };
 		3FFFFC76208B396C008A8865 /* Willow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFFFC77208B396C008A8865 /* Willow.framework */; };
 		3FFFFC78208B3975008A8865 /* JASON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFFFC79208B3975008A8865 /* JASON.framework */; };
@@ -83,6 +84,7 @@
 		3F955428208AA2FB00B2A478 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3F97C028209DF4A400CD1652 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		3F97C02A209E0D3900CD1652 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3FB661C120B46640004F59D4 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		3FFFFC75208B3961008A8865 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FFFFC77208B396C008A8865 /* Willow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Willow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FFFFC79208B3975008A8865 /* JASON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JASON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -239,6 +241,7 @@
 				3F955424208AA1BF00B2A478 /* Flow.swift */,
 				3FFFFC9B208FD9A4008A8865 /* NavigationBar.swift */,
 				3F97C028209DF4A400CD1652 /* Log.swift */,
+				3FB661C120B46640004F59D4 /* File.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 				3FFFFCAF20960378008A8865 /* MatchCountryViewController.swift in Sources */,
 				3FFFFC98208E931A008A8865 /* CountriesCollectionViewCell.swift in Sources */,
 				3FFFFC9A208FD5F9008A8865 /* ProfileNavigationController.swift in Sources */,
+				3FB661C220B46640004F59D4 /* File.swift in Sources */,
 				3FFFFC91208CCEA8008A8865 /* ProfileFlow.swift in Sources */,
 				3FFFFC93208CCECC008A8865 /* ProfileViewController.swift in Sources */,
 				3FFFFCAD20946911008A8865 /* MatchBetTableViewCell.swift in Sources */,
@@ -766,6 +770,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S37C7P2STP;
 				INFOPLIST_FILE = "$(SRCROOT)/worldcup-pops/XYZ/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jeremygros.worldcup-pops";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -782,6 +787,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S37C7P2STP;
 				INFOPLIST_FILE = "$(SRCROOT)/worldcup-pops/XYZ/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jeremygros.worldcup-pops";
 				PRODUCT_NAME = "$(TARGET_NAME)";

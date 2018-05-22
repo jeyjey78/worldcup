@@ -136,6 +136,7 @@ class LoginViewController: UIViewController {
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             if let error = error {
                 self.loading = false
+                
                 return
             }
             
