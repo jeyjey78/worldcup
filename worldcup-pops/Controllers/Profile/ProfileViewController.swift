@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import JASON
 
 class ProfileViewController: UIViewController {
 
@@ -221,28 +222,61 @@ class ProfileViewController: UIViewController {
     func addCountry(){
 
         let countries = ["allemagne", "angleterre", "arabie-saoudite", "argentine", "australie", "belgique", "bresil", "coree-du-sud", "costa-rica", "croatie", "danemark", "egypte", "equateur", "espagne", "france", "iceland", "iran", "japon", "maroc", "mexique", "nigeria", "panama", "peru", "poland", "portugal", "russia", "senegal", "serbie", "suede", "suisse", "tunisie", "uruguay"]
+
+        var rawValue: Any!
         
-        for country in countries {
-            let raw = FIRDatabase.database().reference().child(country)
+        if let path = Bundle.main.path(forResource: "data", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                log.debugMessage("Data: \(jsonResult)")
+                rawValue = jsonResult
+                if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let person = jsonResult as? [Any] {
+                    // do stuff
+                    log.debugMessage("raw")
+                    
+                }
+            } catch {
+                // handle error
+            }
+        }
+        
+        for (index, country) in countries.enumerated() {
+            let raw = FIRDatabase.database().reference().child("country\(index)")
             let key = raw.childByAutoId().key
             
-            let value = [
-                "poule": "A",
-                "espagne": [
-                "phase": "poule",
-                "score": "2-1",
-                "bets": [
-                    "antoine": [
-                        "score": "3-0",
-                        "winner": "france"
-                    ],
-                    "paulo": [
-                        "score": "3-0",
-                        "winner": "france"
-                    ]
-                    ]]] as [String : Any]
+//            let value: [String : Any] =  [ "country" : "\(country)",
+//                        "poule" : "A",
+//                        "matchs": [{
+//                            "adversaire" : "France",
+//                            "score" : "2-0",
+//                            "bets" : [{
+//                                "parieur" : "Antoine",
+//                                "score" : "2-1",
+//                                "winner" : "France"
+//                                }, {
+//                                "parieur" : "Paulo",
+//                                "score" : "0-1",
+//                                "winner" : "France"
+//                            }]
+//                            }, {
+//                                "adversaire" : "Espagne",
+//                                "score" : "2-0",
+//                                "bets" : [{
+//                                "parieur" : "Antoine",
+//                                "score" : "2-1",
+//                                "winner" : "France"
+//                                }, {
+//                                "parieur" : "Paulo",
+//                                "score" : "0-1",
+//                                "winner" : "France"
+//                                }]
+//                            }
+//                        ]
+//                }
+//                ]
             
-            raw.setValue(value)
+            raw.setValue(rawValue)
         }
 //        self.country = FIRDatabase.database().reference().child("country")
 //        let key = self.country.childByAutoId().key

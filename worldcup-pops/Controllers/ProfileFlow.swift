@@ -35,7 +35,7 @@ protocol ProfileFlowDelegate {
     func continueToCountries(_ controller: UIViewController)
     func continueToOwnerBet(_ controller: UIViewController)
     func continueToMatch(_ controller: UIViewController)
-    func continueToMatchCountry(_ controller: UIViewController)
+    func continueToMatchCountry(_ controller: UIViewController, country: String)
     
     func backProfile(_ controller: UIViewController)
     func backAction(_ controller: UIViewController)
@@ -67,8 +67,8 @@ extension ProfileFlow: ProfileFlowDelegate {
         self.navigation.pushViewController(matchController, animated: true)
     }
     
-    func continueToMatchCountry(_ controller: UIViewController) {
-        let matchController = MatchCountryViewController()
+    func continueToMatchCountry(_ controller: UIViewController, country: String) {
+        let matchController = MatchCountryViewController(country)
         matchController.flowDelegate = self
         
         self.navigation.pushViewController(matchController, animated: true)

@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class MatchCountryViewController: UIViewController {
     
     var flowDelegate: ProfileFlow?
+    var countryDB: FIRDatabaseReference!
+    var country = ""
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
-    fileprivate var countryImageView = UIImageView(image: UIImage(named: "flag-france"))
+    fileprivate var countryImageView = UIImageView()
     fileprivate var customNavigationBar = NavigationBar()
     fileprivate var headerTitle = ["Poules", "1/8ème de finale", "1/4 de finale", "1/2 finale", "Finale"]
     
@@ -26,10 +29,21 @@ class MatchCountryViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 80.0, right: 0.0)
         return tableView
     }()
-
+    
+    init(_ country: String) {
+        self.country = country
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
+        
+        self.configureDatabase()
         
         // Background
         self.view.addSubview(self.backgroundImageView)
@@ -51,9 +65,10 @@ class MatchCountryViewController: UIViewController {
         navigationItem.leftBarButtonItem = backBarButton
         self.customNavigationBar.pushItem(navigationItem, animated: true)
         
-        self.customNavigationBar.topItem?.title = "France"
+        self.customNavigationBar.topItem?.title = self.country
         
         // country imageView
+        self.countryImageView.image = UIImage(named: "flag-\(self.country)")
         self.view.addSubview(self.countryImageView)
         self.countryImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -81,6 +96,47 @@ class MatchCountryViewController: UIViewController {
     // MARK: - Back
     @objc func backAction() {
         self.flowDelegate?.backAction(self)
+    }
+    
+    // Firebase
+    func configureDatabase() {
+        self.countryDB = FIRDatabase.database().reference().child(self.country)
+        
+        self.countryDB.observe(.value) { (snapshot) in
+            for artists in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                
+                for artist in artists.children.allObjects as! [FIRDataSnapshot] {
+                    let country = artist.value as? [String : Any]
+                    log.debugMessage("🙁 \(country!["adversaire"])")
+                }
+                
+                log.debugMessage("adversaire: \(artists)")
+                //getting values
+                let country = artists.value as? [String]
+                log.debugMessage("country: \(country)")
+                
+//                if let score = country?["score"] {
+//                    log.debugMessage("😝 \(score)")
+//                }
+//
+//                if let bets = country?["bets"] {
+//                    for bet in bets as!  [String: AnyObject] {
+//                        log.debugMessage("name of bet: \(bet.key)")
+//                    }
+//
+//                    log.debugMessage("bets: \(bets)")
+//                }
+                
+                
+                
+                //                //creating artist object with model and fetched values
+                //                let artist = ArtistModel(id: artistId as! String?, name: artistName as! String?, genre: artistGenre as! String?)
+                //
+                //                //appending it to list
+                //                self.artistList.append(artist)
+            }
+        }
+        
     }
 }
 
