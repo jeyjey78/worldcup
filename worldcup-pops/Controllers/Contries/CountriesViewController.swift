@@ -42,6 +42,8 @@ class CountriesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        log.infoMessage("flow countries: \(self.flowDelegate?.countries[0].name)")
+        
         // Background
         self.view.addSubview(self.backgroundImageView)
         self.backgroundImageView.snp.makeConstraints { (make) in

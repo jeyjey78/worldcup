@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class ProfileFlow: Flow {
     
@@ -14,10 +15,13 @@ class ProfileFlow: Flow {
     
     var navigation: ProfileNavigationController!
     var appFlowDelegate: AppFlowDelegate?
+    var countries = Array<Country2>()
     
     init () {
         let shopController = ProfileViewController(self)
         shopController.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        self.loadFirebaseData()
         
         self.navigation = ProfileNavigationController(rootViewController: shopController)
     }
@@ -25,6 +29,17 @@ class ProfileFlow: Flow {
     func start() -> UIViewController {
         
         return self.navigation
+    }
+    
+    // MARK: - Firebase
+    func loadFirebaseData(_ completion:(() -> Void)? = nil) {
+        for (index, country) in Constants.countries.enumerated() {
+            let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("country\(index)")
+            let country2  = Country2(reference)
+            self.countries.append(country2)
+        }
+        
+        log.debugMessage("😍 \(self.countries)")
     }
 }
 
