@@ -103,8 +103,6 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //self.addCountry()
 
         // Background
         self.view.addSubview(self.backgroundImageView)
@@ -230,6 +228,9 @@ class ProfileViewController: UIViewController {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
                 log.debugMessage("Data: \(jsonResult)")
+                let raw = FIRDatabase.database().reference().child("worldcuppops")
+                raw.setValue(rawValue)
+                
                 rawValue = jsonResult
                 if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let person = jsonResult as? [Any] {
                     // do stuff
@@ -241,56 +242,13 @@ class ProfileViewController: UIViewController {
             }
         }
         
-        for (index, country) in countries.enumerated() {
-            let raw = FIRDatabase.database().reference().child("country\(index)")
-            let key = raw.childByAutoId().key
-            
-//            let value: [String : Any] =  [ "country" : "\(country)",
-//                        "poule" : "A",
-//                        "matchs": [{
-//                            "adversaire" : "France",
-//                            "score" : "2-0",
-//                            "bets" : [{
-//                                "parieur" : "Antoine",
-//                                "score" : "2-1",
-//                                "winner" : "France"
-//                                }, {
-//                                "parieur" : "Paulo",
-//                                "score" : "0-1",
-//                                "winner" : "France"
-//                            }]
-//                            }, {
-//                                "adversaire" : "Espagne",
-//                                "score" : "2-0",
-//                                "bets" : [{
-//                                "parieur" : "Antoine",
-//                                "score" : "2-1",
-//                                "winner" : "France"
-//                                }, {
-//                                "parieur" : "Paulo",
-//                                "score" : "0-1",
-//                                "winner" : "France"
-//                                }]
-//                            }
-//                        ]
-//                }
-//                ]
-            
-            raw.setValue(rawValue)
-        }
-//        self.country = FIRDatabase.database().reference().child("country")
-//        let key = self.country.childByAutoId().key
+//        for (index, country) in countries.enumerated() {
+//            let raw = FIRDatabase.database().reference().child("country\(index)")
+//            let key = raw.childByAutoId().key
 //
-//        //creating artist with the given values
-//        let artist = ["id":key,
-//                      "step": "poule",
-//                      "country": "france"
-//        ]
-//
-//        //adding the artist inside the generated unique key
-//        country.child(key).setValue(artist)
-//
-        //displaying message
+//            raw.setValue(rawValue)
+//        }
+        
         self.configureDatabase()
     }
 }

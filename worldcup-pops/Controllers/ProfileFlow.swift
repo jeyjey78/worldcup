@@ -15,13 +15,12 @@ class ProfileFlow: Flow {
     
     var navigation: ProfileNavigationController!
     var appFlowDelegate: AppFlowDelegate?
-    var countries = Array<Country2>()
+    var teams = Array<Teams>()
     
     init () {
         let shopController = ProfileViewController(self)
         shopController.navigationController?.setNavigationBarHidden(true, animated: false)
         
-        self.loadFirebaseData()
         
         self.navigation = ProfileNavigationController(rootViewController: shopController)
     }
@@ -35,11 +34,11 @@ class ProfileFlow: Flow {
     func loadFirebaseData(_ completion:(() -> Void)? = nil) {
         for (index, country) in Constants.countries.enumerated() {
             let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("country\(index)")
-            let country2  = Country2(reference)
-            self.countries.append(country2)
+            let country2  = Teams()
+            self.teams.append(country2)
         }
         
-        log.debugMessage("😍 \(self.countries)")
+        log.debugMessage("😍 \(self.teams)")
     }
 }
 

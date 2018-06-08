@@ -48,6 +48,38 @@ class Country {
     }
 }
 
+class Teams {
+    var name = ""
+    var shortName = ""
+    var id = 0
+    let reference = FIRDatabase.database().reference().child("teams")
+    
+    init() {
+        self.loadData()
+    }
+    
+    func loadData() {
+        reference.observe(.value) { (snapshot) in
+            for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                for element in elements.children.allObjects as! [FIRDataSnapshot] {
+                log.debugMessage("element: \(element)")
+                if element.key == "name" {
+                    self.name = element.value as! String
+                }
+                log.debugMessage("🐈 \(self.name)")
+//                else if element.key == "poule" {
+//                    self.poule = element.value as! String
+//                }
+//                else if element.key == "matches" {
+//                    //self.matches.append(Match(
+                }
+            }
+        }
+    }
+    
+    
+}
+
 
 class Country2 {
     var name: String = ""
