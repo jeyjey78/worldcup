@@ -13,26 +13,28 @@ class MatchCountryViewController: UIViewController {
     
     var flowDelegate: ProfileFlow?
     var countryDB: FIRDatabaseReference!
-    var country = ""
+    var countryId: Int
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var countryImageView = UIImageView()
     fileprivate var customNavigationBar = NavigationBar()
     fileprivate var headerTitle = ["Poules", "1/8ème de finale", "1/4 de finale", "1/2 finale", "Finale"]
+    fileprivate var matches: [Match] = []
     
     var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = UIColor.clear
-        tableView.register(BetTableViewCell.self, forCellReuseIdentifier: BetTableViewCell.identifier)
+        tableView.register(MatchCountryTableViewCell.self, forCellReuseIdentifier: MatchCountryTableViewCell.identifier)
         tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 80.0, right: 0.0)
         return tableView
     }()
     
-    init(_ country: String) {
-        self.country = country
+    init(_ country: Int) {
+        self.countryId = country
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,7 +45,7 @@ class MatchCountryViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
         
-        self.configureDatabase()
+        self.getAllMatch()
         
         // Background
         self.view.addSubview(self.backgroundImageView)
@@ -65,10 +67,10 @@ class MatchCountryViewController: UIViewController {
         navigationItem.leftBarButtonItem = backBarButton
         self.customNavigationBar.pushItem(navigationItem, animated: true)
         
-        self.customNavigationBar.topItem?.title = self.country
+        self.customNavigationBar.topItem?.title = self.flowDelegate?.teams[self.countryId-1].name
         
         // country imageView
-        self.countryImageView.image = UIImage(named: "flag-\(self.country)")
+        self.countryImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.countryId-1].name))")
         self.view.addSubview(self.countryImageView)
         self.countryImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -98,46 +100,22 @@ class MatchCountryViewController: UIViewController {
         self.flowDelegate?.backAction(self)
     }
     
-    // Firebase
-    func configureDatabase() {
-        self.countryDB = FIRDatabase.database().reference().child(self.country)
-        
-        self.countryDB.observe(.value) { (snapshot) in
-            for artists in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                
-                for artist in artists.children.allObjects as! [FIRDataSnapshot] {
-                    let country = artist.value as? [String : Any]
-                    log.debugMessage("🙁 \(country!["adversaire"])")
-                }
-                
-                log.debugMessage("adversaire: \(artists)")
-                //getting values
-                let country = artists.value as? [String]
-                log.debugMessage("country: \(country)")
-                
-//                if let score = country?["score"] {
-//                    log.debugMessage("😝 \(score)")
-//                }
-//
-//                if let bets = country?["bets"] {
-//                    for bet in bets as!  [String: AnyObject] {
-//                        log.debugMessage("name of bet: \(bet.key)")
-//                    }
-//
-//                    log.debugMessage("bets: \(bets)")
-//                }
-                
-                
-                
-                //                //creating artist object with model and fetched values
-                //                let artist = ArtistModel(id: artistId as! String?, name: artistName as! String?, genre: artistGenre as! String?)
-                //
-                //                //appending it to list
-                //                self.artistList.append(artist)
+    // MARK: - Action
+    func getAllMatch() {
+        log.debugMessage("countryId: \(self.countryId)")
+        for match in self.flowDelegate!.matchs {
+            log.debugMessage("\(match.homeScore) - \(match.awayScore)")
+            if match.awayTeam == self.countryId {
+                log.debugMessage("awayTeam: \(match.homeTeam)")
+                self.matches.append(match)
+            }
+            else if match.homeTeam == self.countryId {
+                log.debugMessage("awayTeam: \(match.awayTeam)")
+                self.matches.append(match)
             }
         }
-        
     }
+    
 }
 
 
@@ -154,7 +132,31 @@ extension MatchCountryViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: BetTableViewCell.identifier) as! BetTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MatchCountryTableViewCell.identifier) as! MatchCountryTableViewCell
+        var index = 0
+        if indexPath.section == 0 {
+            index = indexPath.row
+        }
+        else {
+            index = 2 + indexPath.section
+        }
+        if index < self.matches.count {
+            cell.leftLabel.text = self.flowDelegate?.teams[self.matches[index].homeTeam - 1].name ?? ""
+            cell.rightLabel.text = self.flowDelegate?.teams[self.matches[index].awayTeam - 1].name ?? ""
+            
+            
+            if let homeScore = self.matches[index].homeScore, let awayScore = self.matches[index].awayScore {
+                cell.scoreLabel.text = "\(homeScore) - \(awayScore)"
+            }
+            else {
+                cell.scoreLabel.text = "-"
+            }
+        }
+        else {
+            cell.leftLabel.text = "-"
+            cell.rightLabel.text = "-"
+            cell.scoreLabel.text = "-"
+        }
         
         return cell
     }

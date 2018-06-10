@@ -18,7 +18,7 @@ class CountriesViewController: UIViewController {
         return CGSize(width: width, height: height)
     }
     
-    var countries = ["allemagne", "angleterre", "arabie-saoudite", "argentine", "australie", "belgique", "bresil", "coree-du-sud", "costa-rica", "croatie", "danemark", "egypte", "equateur", "espagne", "france", "iceland", "iran", "japon", "maroc", "mexique", "nigeria", "panama", "peru", "poland", "portugal", "russia", "senegal", "serbie", "suede", "suisse", "tunisie", "uruguay"]
+    var countries = ["allemagne", "angleterre", "arabie-saoudite", "argentine", "australie", "belgique", "bresil", "coree-du-sud", "costa-rica", "croatie", "danemark", "egypte", "equateur", "espagne", "france", "iran", "islande", "japon", "maroc", "mexique", "nigeria", "panama", "perou", "pologne", "portugal", "russie", "senegal", "serbie", "suede", "suisse", "tunisie", "uruguay"]
     
     var flowDelegate: ProfileFlow?
     var collectionView: UICollectionView?
@@ -33,7 +33,7 @@ class CountriesViewController: UIViewController {
         label.textAlignment = .center
         label.font = UIFont.circularStdBlack(20.0)
         label.adjustsFontSizeToFitWidth = true
-        label.text = "Countries"
+        label.text = "Pays"
         return label
     }()
     
@@ -62,7 +62,7 @@ class CountriesViewController: UIViewController {
         navigationItem.leftBarButtonItem = backBarButton
         self.customNavigationBar.pushItem(navigationItem, animated: true)
         
-        self.customNavigationBar.topItem?.title = "Countries"
+        self.customNavigationBar.topItem?.title = "Pays"
         
         // CollectionView
         self.collectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -123,7 +123,12 @@ extension CountriesViewController: UICollectionViewDataSource {
 extension CountriesViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.flowDelegate?.continueToMatchCountry(self, country: "country\(indexPath.row)")
+        for team in self.flowDelegate!.teams {
+            log.debugMessage("id : \(team.id) - \(team.name) ")
+            if team.name == self.countries[indexPath.row] {
+                self.flowDelegate?.continueToMatchCountry(self, countryId: team.id)
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

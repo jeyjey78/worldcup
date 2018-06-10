@@ -13,7 +13,7 @@ class MatchCountryTableViewCell: UITableViewCell {
     static let identifier = "MatchCountryTableViewCell"
     static let height: CGFloat = 80.0
     
-    fileprivate var winLabel: UILabel = {
+    var leftLabel: UILabel = {
         let label = UILabel()
         label.text = "France"
         label.textColor = UIColor.white
@@ -22,7 +22,7 @@ class MatchCountryTableViewCell: UITableViewCell {
         return label
     }()
     
-    fileprivate var loseLabel: UILabel = {
+    var rightLabel: UILabel = {
         let label = UILabel()
         label.text = "Espagne"
         label.textColor = UIColor.white
@@ -31,7 +31,7 @@ class MatchCountryTableViewCell: UITableViewCell {
         return label
     }()
     
-    fileprivate var scoreLabel: UILabel = {
+    var scoreLabel: UILabel = {
         let label = UILabel()
         label.text = "2 - 0"
         label.textColor = UIColor.white
@@ -60,14 +60,22 @@ class MatchCountryTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.leftLabel.text = nil
+        self.rightLabel.text = nil
+        self.scoreLabel.text = nil
+    }
+    
     
     // MARK: - View
     func configureView() {
         let proportionalWidth: CGFloat = Screen.size.width / 2
         
         // Win label
-        self.addSubview(self.winLabel)
-        self.winLabel.snp.makeConstraints { (make) in
+        self.addSubview(self.leftLabel)
+        self.leftLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(30.0)
             make.height.equalTo(20.0)
             make.width.equalTo(proportionalWidth)
@@ -75,21 +83,21 @@ class MatchCountryTableViewCell: UITableViewCell {
         }
         
         // Lose label
-        self.addSubview(self.loseLabel)
-        self.loseLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.winLabel)
+        self.addSubview(self.rightLabel)
+        self.rightLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.leftLabel)
             make.height.equalTo(20.0)
             make.width.equalTo(proportionalWidth)
-            make.left.equalTo(self.winLabel.snp.right)
+            make.left.equalTo(self.leftLabel.snp.right)
         }
         
         // Score label
         self.addSubview(self.scoreLabel)
         self.scoreLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.winLabel)
+            make.centerY.equalTo(self.leftLabel)
             make.height.equalTo(25.0)
             make.width.equalTo(50.0)
-            make.left.equalTo(self.winLabel.snp.right).offset(-25.0)
+            make.left.equalTo(self.leftLabel.snp.right).offset(-25.0)
         }
         
         self.addSubview(self.separator)
