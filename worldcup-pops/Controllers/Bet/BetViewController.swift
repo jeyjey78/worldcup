@@ -151,6 +151,6 @@ extension BetViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-       self.flowDelegate?.continueToMatch(self)
+        //self.flowDelegate?.continueToMatch(self, match: )
     }
 }

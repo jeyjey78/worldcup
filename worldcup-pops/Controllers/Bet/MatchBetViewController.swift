@@ -11,24 +11,40 @@ import UIKit
 class MatchBetViewController: UIViewController {
     
     var flowDelegate: ProfileFlow?
+    var match: Match
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var customNavigationBar = NavigationBar()
-    fileprivate var winnerImageView = UIImageView(image: UIImage(named: "flag-france"))
-    fileprivate var loserImageView = UIImageView(image: UIImage(named: "flag-espagne"))
+    fileprivate var leftImageView = UIImageView()
+    fileprivate var rightImageView = UIImageView()
     
     fileprivate var scoreLabel: UILabel = {
         let label = UILabel()
-        label.text = "2 - 0"
         label.textColor = UIColor.white
         label.font = UIFont.circularStdBold(32.0)
         label.textAlignment = .center
         return label
     }()
     
+    fileprivate var leftLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.font = UIFont.circularStdBook(17.0)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    fileprivate var rightLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.font = UIFont.circularStdBook(17.0)
+        label.textAlignment = .center
+        return label
+    }()
+    
     fileprivate var betButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Bet", for: .normal)
+        button.setTitle("Parier 💸", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.circularStdBlack(24.0)
         button.layer.cornerRadius = 27.0
@@ -58,6 +74,16 @@ class MatchBetViewController: UIViewController {
     
     
     // MARK: - Life cycle
+    init(_ match: Match) {
+        self.match = match
+        super.init(nibName: nil, bundle: nil)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
@@ -85,35 +111,61 @@ class MatchBetViewController: UIViewController {
         self.customNavigationBar.topItem?.title = "Match"
         
         // winner
-        self.view.addSubview(self.winnerImageView)
-        self.winnerImageView.snp.makeConstraints { (make) in
+        self.leftImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.match.homeTeam-1].name))")
+        self.view.addSubview(self.leftImageView)
+        self.leftImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(100.0)
             make.left.equalTo(self.view).offset(40.0)
-            make.top.equalTo(self.customNavigationBar.snp.bottom).offset(40.0)
+            make.top.equalTo(self.customNavigationBar.snp.bottom).offset(20.0)
+        }
+        
+        self.leftLabel.text = self.flowDelegate?.teams[self.match.homeTeam - 1].name ?? ""
+        self.view.addSubview(self.leftLabel)
+        self.leftLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.leftImageView)
+            make.height.equalTo(20.0)
+            make.width.equalTo(150.0)
+            make.top.equalTo(self.leftImageView.snp.bottom).offset(4.0)
         }
         
         // score
+        if let homeScore = self.match.homeScore, let awayScore = self.match.awayScore {
+            self.scoreLabel.text = "\(homeScore) - \(awayScore)"
+        }
+        else {
+            self.scoreLabel.text = "-"
+        }
         self.view.addSubview(self.scoreLabel)
         self.scoreLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.winnerImageView)
+            make.centerY.equalTo(self.leftImageView)
             make.height.equalTo(30.0)
             make.width.equalTo(70.0)
             make.centerX.equalTo(self.view)
         }
         
         // loser
-        self.view.addSubview(self.loserImageView)
-        self.loserImageView.snp.makeConstraints { (make) in
+        self.rightImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.match.awayTeam-1].name))")
+        self.view.addSubview(self.rightImageView)
+        self.rightImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(100.0)
-            make.centerY.equalTo(self.winnerImageView)
+            make.centerY.equalTo(self.leftImageView)
             make.right.equalTo(self.view.snp.right).offset(-40.0)
+        }
+        
+        self.rightLabel.text = self.flowDelegate?.teams[self.match.awayTeam - 1].name ?? ""
+        self.view.addSubview(self.rightLabel)
+        self.rightLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.rightImageView)
+            make.height.equalTo(20.0)
+            make.width.equalTo(150.0)
+            make.top.equalTo(self.rightImageView.snp.bottom).offset(4.0)
         }
         
         // Bet button
         self.view.addSubview(self.betButton)
         self.betButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.winnerImageView.snp.bottom).offset(40.0)
+            make.top.equalTo(self.leftLabel.snp.bottom).offset(40.0)
             make.height.equalTo(54.0)
             make.width.equalTo(250.0)
         }

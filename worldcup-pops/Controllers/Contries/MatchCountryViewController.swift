@@ -31,6 +31,8 @@ class MatchCountryViewController: UIViewController {
         return tableView
     }()
     
+    
+    // MARK: - Life cycle
     init(_ country: Int) {
         self.countryId = country
         super.init(nibName: nil, bundle: nil)
@@ -102,15 +104,11 @@ class MatchCountryViewController: UIViewController {
     
     // MARK: - Action
     func getAllMatch() {
-        log.debugMessage("countryId: \(self.countryId)")
         for match in self.flowDelegate!.matchs {
-            log.debugMessage("\(match.homeScore) - \(match.awayScore)")
             if match.awayTeam == self.countryId {
-                log.debugMessage("awayTeam: \(match.homeTeam)")
                 self.matches.append(match)
             }
             else if match.homeTeam == self.countryId {
-                log.debugMessage("awayTeam: \(match.awayTeam)")
                 self.matches.append(match)
             }
         }
@@ -207,7 +205,16 @@ extension MatchCountryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        var index = 0
+        if indexPath.section == 0 {
+            index = indexPath.row
+        }
+        else {
+            index = 2 + indexPath.section
+        }
         
-        self.flowDelegate?.continueToMatch(self)
+        if index < self.matches.count {
+            self.flowDelegate?.continueToMatch(self, match: self.matches[index])
+        }
     }
 }
