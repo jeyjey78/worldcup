@@ -69,7 +69,7 @@ class BetViewController: UIViewController {
         navigationItem.leftBarButtonItem = backBarButton
         self.customNavigationBar.pushItem(navigationItem, animated: true)
         
-        self.customNavigationBar.topItem?.title = "Bet"
+        self.customNavigationBar.topItem?.title = "Tous mes paris"
         
         // Win label
         self.view.addSubview(self.winLabel)

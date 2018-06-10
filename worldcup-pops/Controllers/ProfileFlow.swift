@@ -206,6 +206,7 @@ protocol ProfileFlowDelegate {
     
     func backProfile(_ controller: UIViewController)
     func backAction(_ controller: UIViewController)
+    func closeAction()
 }
 
 
@@ -241,6 +242,13 @@ extension ProfileFlow: ProfileFlowDelegate {
         self.navigation.pushViewController(matchController, animated: true)
     }
     
+    func continueToAddBet(_ controller: UIViewController, match: Match) {
+        let betController = AddBetViewController(match)
+        betController.flowDelegate = self
+        
+        self.navigation.present(betController, animated: true, completion: nil)
+    }
+    
     
     // MARK: - Back
     func backProfile(_ controller: UIViewController) {
@@ -249,5 +257,9 @@ extension ProfileFlow: ProfileFlowDelegate {
     
     func backAction(_ controller: UIViewController) {
         self.navigation.popViewController(animated: true)
+    }
+    
+    func closeAction() {
+        self.navigation.dismiss(animated: true, completion: nil)
     }
 }

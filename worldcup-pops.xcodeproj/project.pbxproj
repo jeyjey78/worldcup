@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F4E87AE20CDC059003F2517 /* AddBetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4E87AD20CDC059003F2517 /* AddBetViewController.swift */; };
 		3F9553F32086908E00B2A478 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9553F22086908E00B2A478 /* AppDelegate.swift */; };
 		3F9553FA2086908E00B2A478 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F9553F92086908E00B2A478 /* Assets.xcassets */; };
 		3F9553FD2086908E00B2A478 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F9553FB2086908E00B2A478 /* LaunchScreen.storyboard */; };
@@ -70,6 +71,7 @@
 
 /* Begin PBXFileReference section */
 		273F29AFFDE153095CB96B87 /* Pods-worldcup-pops.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worldcup-pops.release.xcconfig"; path = "Pods/Target Support Files/Pods-worldcup-pops/Pods-worldcup-pops.release.xcconfig"; sourceTree = "<group>"; };
+		3F4E87AD20CDC059003F2517 /* AddBetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBetViewController.swift; sourceTree = "<group>"; };
 		3F9553EF2086908E00B2A478 /* worldcup-pops.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "worldcup-pops.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F9553F22086908E00B2A478 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F9553F92086908E00B2A478 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				3FFFFCAA2093BF5B008A8865 /* MatchBetViewController.swift */,
 				3FFFFCAC20946911008A8865 /* MatchBetTableViewCell.swift */,
 				3FFFFCB2209916D3008A8865 /* MatchBetCollectionViewCell.swift */,
+				3F4E87AD20CDC059003F2517 /* AddBetViewController.swift */,
 			);
 			path = Bet;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				3FFFFC86208CB978008A8865 /* UIColorExtension.swift in Sources */,
 				3F955427208AA22600B2A478 /* AppFlow.swift in Sources */,
 				3FFFFCAF20960378008A8865 /* MatchCountryViewController.swift in Sources */,
+				3F4E87AE20CDC059003F2517 /* AddBetViewController.swift in Sources */,
 				3FFFFC98208E931A008A8865 /* CountriesCollectionViewCell.swift in Sources */,
 				3FFFFC9A208FD5F9008A8865 /* ProfileNavigationController.swift in Sources */,
 				3FB661C220B46640004F59D4 /* File.swift in Sources */,

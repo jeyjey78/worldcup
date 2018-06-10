@@ -162,6 +162,7 @@ class MatchBetViewController: UIViewController {
         }
         
         // Bet button
+        self.betButton.addTarget(self, action: #selector(betAction), for: .touchUpInside)
         self.view.addSubview(self.betButton)
         self.betButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -189,6 +190,10 @@ class MatchBetViewController: UIViewController {
     
     
     // MARK: - Actions
+    @objc func betAction() {
+        self.flowDelegate?.continueToAddBet(self, match: self.match)
+    }
+    
     @objc func backAction() {
         self.flowDelegate?.backAction(self)
     }
