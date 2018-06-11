@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F4E87AE20CDC059003F2517 /* AddBetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4E87AD20CDC059003F2517 /* AddBetViewController.swift */; };
+		3F4E87B020CF113A003F2517 /* AppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4E87AF20CF113A003F2517 /* AppExtensions.swift */; };
 		3F9553F32086908E00B2A478 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9553F22086908E00B2A478 /* AppDelegate.swift */; };
 		3F9553FA2086908E00B2A478 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F9553F92086908E00B2A478 /* Assets.xcassets */; };
 		3F9553FD2086908E00B2A478 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F9553FB2086908E00B2A478 /* LaunchScreen.storyboard */; };
@@ -74,6 +75,7 @@
 /* Begin PBXFileReference section */
 		273F29AFFDE153095CB96B87 /* Pods-worldcup-pops.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worldcup-pops.release.xcconfig"; path = "Pods/Target Support Files/Pods-worldcup-pops/Pods-worldcup-pops.release.xcconfig"; sourceTree = "<group>"; };
 		3F4E87AD20CDC059003F2517 /* AddBetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBetViewController.swift; sourceTree = "<group>"; };
+		3F4E87AF20CF113A003F2517 /* AppExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtensions.swift; sourceTree = "<group>"; };
 		3F9553EF2086908E00B2A478 /* worldcup-pops.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "worldcup-pops.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F9553F22086908E00B2A478 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F9553F92086908E00B2A478 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				3FFFFC85208CB978008A8865 /* UIColorExtension.swift */,
 				3FFFFC8D208CBC77008A8865 /* UIFontExtensions.swift */,
 				3FFFFC9D208FDA41008A8865 /* UIDeviceExtensions.swift */,
+				3F4E87AF20CF113A003F2517 /* AppExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F4E87B020CF113A003F2517 /* AppExtensions.swift in Sources */,
 				3F97C029209DF4A400CD1652 /* Log.swift in Sources */,
 				3F955429208AA2FB00B2A478 /* LoginViewController.swift in Sources */,
 				3F955425208AA1BF00B2A478 /* Flow.swift in Sources */,

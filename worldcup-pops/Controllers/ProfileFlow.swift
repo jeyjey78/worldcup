@@ -181,7 +181,7 @@ class ProfileFlow: Flow {
                 var name = ""
                 var city = ""
                 var id = 0
-                
+               
                 for element in elements.children.allObjects as! [FIRDataSnapshot] {
                     if element.key == "name" {
                         name = element.value as! String
@@ -249,6 +249,7 @@ class ProfileFlow: Flow {
                 let bet = Bet(userid, userName, date, homeTeam, homeScore, homePen, awayTeam, awayScore, awayPen)
                 self.bets.append(bet)
             }
+            log.debugMessage("Bets flow count : \(self.bets.count)")
         }
     }
 
@@ -313,8 +314,14 @@ extension ProfileFlow: ProfileFlowDelegate {
     // MARK: - Bet
     func saveBet(_ controller: UIViewController, bet: Bet) {
         log.debugMessage("number of bets 2: \(self.bets.count)")
-        self.bets.append(bet)
-        log.debugMessage("number of bets 3: \(self.bets.count)")
+        self.loadBets()
+        
+        if let controller = self.navigation.viewControllers.last as? MatchBetViewController {
+            controller.bets.append(bet)
+            controller.updateBetButton()
+            controller.collectionView.reloadData()
+        }
+        
         self.navigation.dismiss(animated: true, completion: nil)
     }
     

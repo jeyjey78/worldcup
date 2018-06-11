@@ -42,7 +42,7 @@ class ProfileViewController: UIViewController {
     
     fileprivate var betButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Paris", for: .normal)
+        button.setTitle("Mes paris", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont.circularStdBlack(17.0)
         button.backgroundColor = UIColor.white
@@ -76,7 +76,6 @@ class ProfileViewController: UIViewController {
         label.textAlignment = .center
         label.font = UIFont.circularStdBlack(17.0)
         label.adjustsFontSizeToFitWidth = true
-        label.text = "Jeremy"
         return label
     }()
     
@@ -104,6 +103,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.pseudoLabel.text = UserDefaults.standard.object(forKey: Constants.username) as! String
+        
         // Background
         self.view.addSubview(self.backgroundImageView)
         self.backgroundImageView.snp.makeConstraints { (make) in
@@ -179,7 +180,7 @@ class ProfileViewController: UIViewController {
             make.right.equalTo(-50.0)
             make.top.equalTo(self.pseudoLabel.snp.bottom).offset(Screen.size.height * 0.15)
         }
-        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -195,6 +196,16 @@ class ProfileViewController: UIViewController {
     
     @objc func continueToBet() {
         self.flowDelegate?.continueToOwnerBet(self)
+    }
+    
+    // Animation
+    func animeButtons() {
+        UIView.animate(withDuration: 0.3, delay: 1.0, options: [.repeat, .autoreverse, .curveEaseInOut], animations: {
+            self.betButton.transform = CGAffineTransform(translationX: 0.0, y: -20.0)
+            
+        }, completion: { (finished) in
+            self.betButton.transform = CGAffineTransform.identity
+        })
     }
     
     // Firebase

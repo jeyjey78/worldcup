@@ -322,6 +322,18 @@ class AddBetViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @available(iOS 11, *)
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        
+        // Bottom safe area
+        let bottomSafeArea: CGFloat = self.view.safeAreaInsets.bottom
+        
+        self.warningLabel.snp.updateConstraints { (make) in
+            make.bottom.equalToSuperview().offset(-30.0 - bottomSafeArea)
+        }
+    }
+    
     
     // MARK: - View
     func penaltyBetView() {
@@ -467,7 +479,7 @@ class AddBetViewController: UIViewController {
         }
         
         let userName = defaults.object(forKey: Constants.username) as! String
-        let date = ""
+        let date = Date().toString(dateFormat: "yyyy-MM-dd HH:mm")
         
         let value = [
             "user_id": userId,

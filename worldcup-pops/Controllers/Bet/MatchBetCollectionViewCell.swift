@@ -15,9 +15,9 @@ class MatchBetCollectionViewCell: UICollectionViewCell {
     
     fileprivate var iconImageView = UIImageView(image: UIImage(named: "win-icon"))
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-bet"))
-    fileprivate var flagImageView = UIImageView(image: UIImage(named: "flag-france"))
+    var flagImageView = UIImageView(image: UIImage(named: "flag-france"))
     
-    fileprivate var pseudoLabel: UILabel = {
+    var pseudoLabel: UILabel = {
         let label = UILabel()
         label.text = "Jeyjey"
         label.textColor = UIColor.white
@@ -26,7 +26,7 @@ class MatchBetCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    fileprivate var scoreLabel: UILabel = {
+    var scoreLabel: UILabel = {
         let label = UILabel()
         label.text = "2 - 0"
         label.textColor = UIColor.white

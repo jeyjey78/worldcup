@@ -88,6 +88,19 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @available(iOS 11, *)
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        
+        // Bottom safe area
+        let bottomSafeArea: CGFloat = self.view.safeAreaInsets.bottom
+        
+        self.facebookButton.snp.updateConstraints { (make) in
+            make.bottom.equalTo(self.view.snp.bottom).offset(-40.0 - bottomSafeArea)
+        }
+    }
+    
+    
     // MARK: - Actions
     @objc func loginAction() {
         self.handleCustomFBLogin()

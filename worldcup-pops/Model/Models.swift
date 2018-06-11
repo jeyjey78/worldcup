@@ -22,6 +22,7 @@ class Team  {
     }
 }
 
+
 class Match {
     var awayTeam: Int!
     var homeTeam: Int!
@@ -32,22 +33,25 @@ class Match {
     var awayScore: Int?
     var homeScore: Int?
     
-    init(_ awayTeam: Int, _ homeTeam: Int, _ date: String, _ stadium: Int, _ group: String, _ step: String, _ awayScore: Int?, _ homeScore: Int?) {
+    init(_ awayTeam: Int, _ homeTeam: Int, _ string: String, _ stadium: Int, _ group: String, _ step: String, _ awayScore: Int?, _ homeScore: Int?) {
         self.awayTeam = awayTeam
         self.homeTeam = homeTeam
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let s = dateFormatter.date(from:date)
-        self.date = s
-        
         self.stadium = stadium
         self.step = step
         self.group = group
         self.awayScore = awayScore
         self.homeScore = homeScore
+        
+        //date
+        let RFC3339DateFormatter = DateFormatter()
+        RFC3339DateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+        self.date = RFC3339DateFormatter.date(from: string)
+        //date?.addTimeInterval(TimeInterval(3600 * 2))
     }
 }
+
 
 class Stadium {
     var name = ""
@@ -55,11 +59,12 @@ class Stadium {
     var id = 0
     
     init (_ name: String,_ city: String, _ id: Int) {
-        self.name = ""
-        self.city = ""
+        self.name = name
+        self.city = city
         self.id = id
     }
 }
+
 
 class Bet {
     var userid = ""

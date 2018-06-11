@@ -12,6 +12,8 @@ class MatchBetViewController: UIViewController {
     
     var flowDelegate: ProfileFlow?
     var match: Match
+    var bets: [Bet] = []
+    var alreadyBet = false
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var customNavigationBar = NavigationBar()
@@ -26,10 +28,26 @@ class MatchBetViewController: UIViewController {
         return label
     }()
     
+    fileprivate var dateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.font = UIFont.circularStdMedium(20.0)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    fileprivate var stadiumLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.font = UIFont.circularStdMedium(14.0)
+        label.textAlignment = .center
+        return label
+    }()
+    
     fileprivate var leftLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
-        label.font = UIFont.circularStdBook(17.0)
+        label.font = UIFont.circularStdMedium(17.0)
         label.textAlignment = .center
         return label
     }()
@@ -37,7 +55,7 @@ class MatchBetViewController: UIViewController {
     fileprivate var rightLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
-        label.font = UIFont.circularStdBook(17.0)
+        label.font = UIFont.circularStdMedium(17.0)
         label.textAlignment = .center
         return label
     }()
@@ -57,13 +75,13 @@ class MatchBetViewController: UIViewController {
     private var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 27.0, bottom: 0.0, right: 27.0)
+        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 40.0, bottom: 0.0, right: 40.0)
         layout.itemSize = MatchBetCollectionViewCell.size
-        layout.minimumInteritemSpacing = 17.0
+        layout.minimumInteritemSpacing = 25.0
         return layout
     }()
     
-    private var collectionView: UICollectionView = {
+    var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         collectionView.backgroundColor = UIColor.clear
         collectionView.isPagingEnabled = false
@@ -87,6 +105,8 @@ class MatchBetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
+        
+        self.loadBets()
         
         // Background
         self.view.addSubview(self.backgroundImageView)
@@ -161,12 +181,34 @@ class MatchBetViewController: UIViewController {
             make.top.equalTo(self.rightImageView.snp.bottom).offset(4.0)
         }
         
+        // Date label
+        self.dateLabel.text = self.match.date.toString(dateFormat: "dd MMM yyyy - HH:mm")
+        self.view.addSubview(self.dateLabel)
+        self.dateLabel.snp.makeConstraints { (make) in
+            make.centerX.width.equalToSuperview()
+            make.height.equalTo(30.0)
+            make.top.equalTo(self.leftLabel.snp.bottom).offset(20.0)
+        }
+        
+        // Stadium label
+        self.stadiumLabel.adjustsFontSizeToFitWidth = true
+        self.stadiumLabel.text = self.flowDelegate!.stadiums[self.match.stadium! - 1].name  + " - " + self.flowDelegate!.stadiums[self.match.stadium! - 1].city
+        self.view.addSubview(self.stadiumLabel)
+        self.stadiumLabel.snp.makeConstraints { (make) in
+            make.centerX.width.equalToSuperview()
+            make.height.equalTo(30.0)
+            make.top.equalTo(self.dateLabel.snp.bottom)
+        }
+        
         // Bet button
+        if self.alreadyBet {
+            self.updateBetButton()
+        }
         self.betButton.addTarget(self, action: #selector(betAction), for: .touchUpInside)
         self.view.addSubview(self.betButton)
         self.betButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.leftLabel.snp.bottom).offset(40.0)
+            make.top.equalTo(self.leftLabel.snp.bottom).offset(110.0)
             make.height.equalTo(54.0)
             make.width.equalTo(250.0)
         }
@@ -179,7 +221,7 @@ class MatchBetViewController: UIViewController {
         self.collectionView.snp.makeConstraints { (make) in
             make.top.equalTo(self.betButton.snp.bottom).offset(20.0)
             make.width.left.equalToSuperview()
-            make.height.equalTo(Screen.size.height/2)
+            make.height.equalTo(250.0)
         }
     }
 
@@ -189,7 +231,30 @@ class MatchBetViewController: UIViewController {
     }
     
     
+    // MARK: - View
+    func updateBetButton() {
+        self.betButton.setTitle("Tous les paris", for: .normal)
+        self.betButton.setTitleColor(UIColor.white, for: .normal)
+        self.betButton.backgroundColor = UIColor.clear
+        self.betButton.titleLabel?.font = UIFont.circularStdBlack(20.0)
+        self.betButton.isEnabled = false
+    }
+    
     // MARK: - Actions
+    func loadBets() {
+        self.bets = []
+        for bet in self.flowDelegate!.bets {
+            if bet.homeTeam == self.match.homeTeam && bet.awayTeam == self.match.awayTeam {
+                if bet.userid == self.flowDelegate!.userId {
+                    self.alreadyBet = true
+                }
+                
+                self.bets.append(bet)
+            }
+        }
+    }
+
+    
     @objc func betAction() {
         self.flowDelegate?.continueToAddBet(self, match: self.match)
     }
@@ -204,11 +269,15 @@ class MatchBetViewController: UIViewController {
 extension MatchBetViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return self.bets.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MatchBetCollectionViewCell.identifier, for: indexPath) as! MatchBetCollectionViewCell
+        cell.pseudoLabel.text = self.bets[indexPath.row].userName
+        let winner = self.bets[indexPath.row].awayScore > self.bets[indexPath.row].homeScore ? self.bets[indexPath.row].awayTeam : self.bets[indexPath.row].homeTeam
+        cell.flagImageView.image = UIImage(named: "flag-\(self.flowDelegate!.teams[winner-1].name)")
+        cell.scoreLabel.text = "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)"
         
         return cell
     }
