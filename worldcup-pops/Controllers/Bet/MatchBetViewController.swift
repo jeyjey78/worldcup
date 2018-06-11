@@ -45,12 +45,12 @@ class MatchBetViewController: UIViewController {
     fileprivate var betButton: UIButton = {
         let button = UIButton()
         button.setTitle("Parier 💸", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont.circularStdBlack(24.0)
         button.layer.cornerRadius = 27.0
         button.layer.borderColor = UIColor.white.cgColor
         button.layer.borderWidth = 1.0
-        button.backgroundColor = UIColor.clear
+        button.backgroundColor = UIColor.white
         return button
     }()
     

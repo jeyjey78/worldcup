@@ -18,7 +18,7 @@ class CountriesViewController: UIViewController {
         return CGSize(width: width, height: height)
     }
     
-    var countries = ["allemagne", "angleterre", "arabie-saoudite", "argentine", "australie", "belgique", "bresil", "coree-du-sud", "costa-rica", "croatie", "danemark", "egypte", "equateur", "espagne", "france", "iran", "islande", "japon", "maroc", "mexique", "nigeria", "panama", "perou", "pologne", "portugal", "russie", "senegal", "serbie", "suede", "suisse", "tunisie", "uruguay"]
+    var countries = Constants.countries
     
     var flowDelegate: ProfileFlow?
     var collectionView: UICollectionView?
