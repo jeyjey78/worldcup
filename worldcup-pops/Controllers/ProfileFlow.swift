@@ -19,6 +19,7 @@ class ProfileFlow: Flow {
     var matchs: [Match] = []
     var stadiums: [Stadium] = []
     var bets: [Bet] = []
+    var userId = ""
     
     init () {
         let shopController = ProfileViewController(self)
@@ -29,6 +30,10 @@ class ProfileFlow: Flow {
         self.loadKnockout()
         self.loadStadium()
         self.loadBets()
+        
+        // userId
+        let defaults = UserDefaults.standard
+        self.userId = defaults.object(forKey: Constants.firebaseId) as! String
         
         self.navigation = ProfileNavigationController(rootViewController: shopController)
     }

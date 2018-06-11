@@ -13,7 +13,10 @@ class BetTableViewCell: UITableViewCell {
     static let identifier = "BetTableViewCell"
     static let height: CGFloat = 80.0
     
-    fileprivate var winLabel: UILabel = {
+    var leftImageView = UIImageView()
+    var rightImageView = UIImageView()
+    
+    var leftLabel: UILabel = {
         let label = UILabel()
         label.text = "France"
         label.textColor = UIColor.white
@@ -22,7 +25,7 @@ class BetTableViewCell: UITableViewCell {
         return label
     }()
     
-    fileprivate var loseLabel: UILabel = {
+    var rightLabel: UILabel = {
         let label = UILabel()
         label.text = "Espagne"
         label.textColor = UIColor.white
@@ -31,7 +34,7 @@ class BetTableViewCell: UITableViewCell {
         return label
     }()
     
-    fileprivate var scoreLabel: UILabel = {
+    var scoreLabel: UILabel = {
         let label = UILabel()
         label.text = "2 - 0"
         label.textColor = UIColor.white
@@ -66,30 +69,45 @@ class BetTableViewCell: UITableViewCell {
         let proportionalWidth: CGFloat = Screen.size.width / 2
         
         // Win label
-        self.addSubview(self.winLabel)
-        self.winLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(30.0)
+        self.addSubview(self.leftImageView)
+        self.leftImageView.snp.makeConstraints { (make) in
+            make.left.equalTo(self).offset(Screen.size.width * 0.17)
+            make.top.equalTo(self).offset(10.0)
+            make.height.width.equalTo(30.0)
+        }
+        
+        self.addSubview(self.leftLabel)
+        self.leftLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.leftImageView.snp.bottom).offset(3.0)
             make.height.equalTo(20.0)
             make.width.equalTo(proportionalWidth)
-            make.left.equalTo(self)
+            make.centerX.equalTo(self.leftImageView)
         }
         
         // Lose label
-        self.addSubview(self.loseLabel)
-        self.loseLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.winLabel)
+        self.rightImageView.contentMode = .scaleAspectFill
+        self.addSubview(self.rightImageView)
+        self.rightImageView.snp.makeConstraints { (make) in
+            make.right.equalTo(self).offset(-(Screen.size.width * 0.17))
+            make.top.equalTo(self).offset(10.0)
+            make.height.width.equalTo(30.0)
+        }
+        
+        self.addSubview(self.rightLabel)
+        self.rightLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.leftLabel)
             make.height.equalTo(20.0)
             make.width.equalTo(proportionalWidth)
-            make.left.equalTo(self.winLabel.snp.right)
+            make.centerX.equalTo(self.rightImageView)
         }
         
         // Score label
         self.addSubview(self.scoreLabel)
         self.scoreLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.winLabel)
+            make.centerY.equalTo(self.leftImageView.snp.bottom)
             make.height.equalTo(25.0)
             make.width.equalTo(50.0)
-            make.left.equalTo(self.winLabel.snp.right).offset(-25.0)
+            make.centerX.equalToSuperview()
         }
         
         self.addSubview(self.separator)

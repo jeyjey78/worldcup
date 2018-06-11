@@ -42,7 +42,7 @@ class ProfileViewController: UIViewController {
     
     fileprivate var betButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Bet", for: .normal)
+        button.setTitle("Paris", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont.circularStdBlack(17.0)
         button.backgroundColor = UIColor.white
@@ -57,7 +57,7 @@ class ProfileViewController: UIViewController {
     
     fileprivate var countryButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Countries", for: .normal)
+        button.setTitle("Pays", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont.circularStdBlack(17.0)
         button.backgroundColor = UIColor.white

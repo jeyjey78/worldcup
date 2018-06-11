@@ -14,6 +14,7 @@ class BetViewController: UIViewController {
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var customNavigationBar = NavigationBar()
+    fileprivate var bets: [Bet] = []
     
     var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -49,6 +50,8 @@ class BetViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
 
+        self.getAllBets()
+        
         // Background
         self.view.addSubview(self.backgroundImageView)
         self.backgroundImageView.snp.makeConstraints { (make) in
@@ -109,6 +112,16 @@ class BetViewController: UIViewController {
     @objc func backProfile() {
         self.flowDelegate?.backProfile(self)
     }
+    
+    
+    // MARK: - Action
+    func getAllBets() {
+        for bet in self.flowDelegate!.bets {
+            if bet.userid == self.flowDelegate!.userId {
+                self.bets.append(bet)
+            }
+        }
+    }
 }
 
 
@@ -120,13 +133,19 @@ extension BetViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 10
+
+        return self.bets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BetTableViewCell.identifier) as! BetTableViewCell
+        cell.leftLabel.text = self.flowDelegate?.teams[self.bets[indexPath.row].homeTeam - 1].name ?? ""
+        cell.rightLabel.text = self.flowDelegate?.teams[self.bets[indexPath.row].awayTeam - 1].name ?? ""
+        cell.leftImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.bets[indexPath.row].homeTeam - 1].name))")
+        cell.rightImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.bets[indexPath.row].awayTeam - 1].name))")
         
+        cell.scoreLabel.text = "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)"
+
         return cell
     }
 }
