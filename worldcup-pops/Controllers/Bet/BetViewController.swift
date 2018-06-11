@@ -116,6 +116,8 @@ class BetViewController: UIViewController {
     
     // MARK: - Action
     func getAllBets() {
+        self.bets = []
+        log.debugMessage("number of bets : \(self.flowDelegate?.bets.count)")
         for bet in self.flowDelegate!.bets {
             if bet.userid == self.flowDelegate!.userId {
                 self.bets.append(bet)

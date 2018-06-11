@@ -465,9 +465,14 @@ class AddBetViewController: UIViewController {
             self.warningLabel.text = "Identifiant non trouvé... Reconnectez-vous 😅"
             return
         }
-
+        
+        let userName = defaults.object(forKey: Constants.username) as! String
+        let date = ""
+        
         let value = [
             "user_id": userId,
+            "user_name": userName,
+            "date": date,
             "home_team": self.match.homeTeam,
             "home_score" : self.homeScore,
             "home_pen": self.homePenaltyScore,
@@ -483,7 +488,8 @@ class AddBetViewController: UIViewController {
                 self.warningLabel.text = "Une erreure est survenue... 😅 Internet?"
                 print(error?.localizedDescription ?? "Failed to update value")
             } else {
-                self.flowDelegate?.closeAction()
+                let bet = Bet(userId, userName, date, self.match.homeTeam, self.homeScore, self.homePenaltyScore, self.match.awayTeam, self.awayScore, self.awayPenaltyScore)
+                self.flowDelegate?.saveBet(self, bet: bet)
                 print("Success update newValue to database")
             }
         }

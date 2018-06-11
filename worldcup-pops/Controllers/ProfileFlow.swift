@@ -22,6 +22,7 @@ class ProfileFlow: Flow {
     var userId = ""
     
     init () {
+        log.debugMessage("INIT *****")
         let shopController = ProfileViewController(self)
         shopController.navigationController?.setNavigationBarHidden(true, animated: false)
         
@@ -201,6 +202,7 @@ class ProfileFlow: Flow {
     }
     
     func loadBets() {
+        self.bets = []
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("bets")
         reference.observe(.value) { (snapshot) in
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
@@ -261,6 +263,7 @@ protocol ProfileFlowDelegate {
     func continueToMatch(_ controller: UIViewController, match: Match)
     func continueToMatchCountry(_ controller: UIViewController, countryId: Int)
     
+    func saveBet(_ controller: UIViewController, bet: Bet)
     func backProfile(_ controller: UIViewController)
     func backAction(_ controller: UIViewController)
     func closeAction()
@@ -306,6 +309,14 @@ extension ProfileFlow: ProfileFlowDelegate {
         self.navigation.present(betController, animated: true, completion: nil)
     }
     
+    
+    // MARK: - Bet
+    func saveBet(_ controller: UIViewController, bet: Bet) {
+        log.debugMessage("number of bets 2: \(self.bets.count)")
+        self.bets.append(bet)
+        log.debugMessage("number of bets 3: \(self.bets.count)")
+        self.navigation.dismiss(animated: true, completion: nil)
+    }
     
     // MARK: - Back
     func backProfile(_ controller: UIViewController) {
