@@ -17,7 +17,8 @@ class ProfileFlow: Flow {
     var appFlowDelegate: AppFlowDelegate?
     var teams: [Team] = []
     var matchs: [Match] = []
-    var stadium: [Stadium] = []
+    var stadiums: [Stadium] = []
+    var bets: [Bet] = []
     
     init () {
         let shopController = ProfileViewController(self)
@@ -27,6 +28,7 @@ class ProfileFlow: Flow {
         self.loadMatchs()
         self.loadKnockout()
         self.loadStadium()
+        self.loadBets()
         
         self.navigation = ProfileNavigationController(rootViewController: shopController)
     }
@@ -187,8 +189,58 @@ class ProfileFlow: Flow {
                 }
                 
                 let stadium = Stadium(name, city, id)
-                self.stadium.append(stadium)
+                self.stadiums.append(stadium)
                 
+            }
+        }
+    }
+    
+    func loadBets() {
+        let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("bets")
+        reference.observe(.value) { (snapshot) in
+            for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                var userid = ""
+                var userName = ""
+                var date = ""
+                var homeTeam = 0
+                var homeScore = 0
+                var homePen = 0
+                var awayTeam = 0
+                var awayScore = 0
+                var awayPen = 0
+                
+                for element in elements.children.allObjects as! [FIRDataSnapshot] {
+                    if element.key == "user_id" {
+                        userid = element.value as! String
+                    }
+                    if element.key == "user_name" {
+                        userName = element.value as! String
+                    }
+                    if element.key == "date" {
+                        date = element.value as! String
+                    }
+                    if element.key == "home_team" {
+                        homeTeam = element.value as! Int
+                    }
+                    if element.key == "home_score" {
+                        homeScore = element.value as! Int
+                    }
+                    if element.key == "home_pen" {
+                        homePen = element.value as! Int
+                    }
+                    if element.key == "away_team" {
+                        awayTeam = element.value as! Int
+                    }
+                    if element.key == "away_score" {
+                        awayScore = element.value as! Int
+                    }
+                    if element.key == "away_pen" {
+                        awayPen = element.value as! Int
+                    }
+                }
+                
+                let bet = Bet(userid, userName, date, homeTeam, homeScore, homePen, awayTeam, awayScore, awayPen)
+                self.bets.append(bet)
             }
         }
     }

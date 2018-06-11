@@ -62,14 +62,27 @@ class Stadium {
 }
 
 class Bet {
-    var parieur: String?
-    var score: String?
-    var winner: String?
+    var userid = ""
+    var userName = ""
+    var date = ""
+    var homeTeam = 0
+    var homeScore = 0
+    var homePen = 0
+    var awayTeam = 0
+    var awayScore = 0
+    var awayPen = 0
     
-    init() {
-        
+    init(_ userid: String, _ userName: String, _ date: String, _ homeTeam: Int, _ homeScore: Int, _ homePen: Int, _ awayTeam: Int, _ awayScore: Int, _ awayPen: Int) {
+        self.userid = userid
+        self.userName = userName
+        self.date = date
+        self.homeTeam = homeTeam
+        self.homeScore = homeScore
+        self.homePen = homePen
+        self.awayTeam = awayTeam
+        self.awayScore = awayScore
+        self.awayPen = awayPen
     }
-    
 }
 
 
