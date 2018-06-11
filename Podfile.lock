@@ -24,14 +24,14 @@ PODS:
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseAuth (3.0.6):
     - FirebaseAnalytics (~> 3.4)
-    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseCore (3.4.5):
     - GoogleInterchangeUtilities (~> 1.2)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseDatabase (3.1.1):
     - FirebaseAnalytics (~> 3.5)
   - FirebaseInstanceID (1.0.8)
@@ -43,15 +43,16 @@ PODS:
   - GoogleToolboxForMac/DebugUtils (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
   - GoogleToolboxForMac/Defines (2.1.0)
-  - "GoogleToolboxForMac/NSData+zlib (2.1.0)":
+  - GoogleToolboxForMac/NSData+zlib (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.0)":
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.0):
     - GoogleToolboxForMac/DebugUtils (= 2.1.0)
     - GoogleToolboxForMac/Defines (= 2.1.0)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.1.0)"
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
   - JASON (3.1)
+  - lottie-ios (2.5.0)
   - SnapKit (4.0.0)
   - Willow (5.0.2)
 
@@ -63,29 +64,9 @@ DEPENDENCIES:
   - Firebase/Database
   - FirebaseUI/Auth
   - JASON
+  - lottie-ios
   - SnapKit (~> 4.0.0)
   - Willow (~> 5.0)
-
-SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - Alamofire
-    - Bolts
-    - FBSDKCoreKit
-    - FBSDKLoginKit
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseAuth
-    - FirebaseCore
-    - FirebaseDatabase
-    - FirebaseInstanceID
-    - FirebaseUI
-    - GoogleInterchangeUtilities
-    - GoogleSymbolUtilities
-    - GoogleToolboxForMac
-    - GTMSessionFetcher
-    - JASON
-    - SnapKit
-    - Willow
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
@@ -104,9 +85,10 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   JASON: c1204b01c9979eef35b6948ca939aac5e7bef081
+  lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   Willow: 959c8fd6906f95c4e78c344cbaded176816d1b16
 
-PODFILE CHECKSUM: 5ff3347e556d87878c91f1222bcb16a82220c368
+PODFILE CHECKSUM: 624d2569881ddb9936cbc27e2aabd8eb04b4c850
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.4.0

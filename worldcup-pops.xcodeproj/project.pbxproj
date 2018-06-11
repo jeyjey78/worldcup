@@ -49,6 +49,8 @@
 		3FFFFCB1209603C3008A8865 /* MatchCountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFCB0209603C3008A8865 /* MatchCountryTableViewCell.swift */; };
 		3FFFFCB3209916D3008A8865 /* MatchBetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFFCB2209916D3008A8865 /* MatchBetCollectionViewCell.swift */; };
 		3FFFFCB5209A546C008A8865 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FFFFCB4209A546C008A8865 /* GoogleService-Info.plist */; };
+		7A80320720CEAFF100B1A9E5 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A80320620CEAFF100B1A9E5 /* Lottie.framework */; };
+		7A80320920CEB7FB00B1A9E5 /* confirmation-animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A80320820CEB7FB00B1A9E5 /* confirmation-animation.json */; };
 		7FD7CB9E1BA7958418698983 /* Pods_worldcup_pops.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +122,8 @@
 		3FFFFCB2209916D3008A8865 /* MatchBetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchBetCollectionViewCell.swift; sourceTree = "<group>"; };
 		3FFFFCB4209A546C008A8865 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		49A919F9DC036B48A31FCCB0 /* Pods-worldcup-pops.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worldcup-pops.debug.xcconfig"; path = "Pods/Target Support Files/Pods-worldcup-pops/Pods-worldcup-pops.debug.xcconfig"; sourceTree = "<group>"; };
+		7A80320620CEAFF100B1A9E5 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A80320820CEB7FB00B1A9E5 /* confirmation-animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "confirmation-animation.json"; sourceTree = "<group>"; };
 		CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_worldcup_pops.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -128,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A80320720CEAFF100B1A9E5 /* Lottie.framework in Frameworks */,
 				3FFFFC7E208B3987008A8865 /* FBSDKLoginKit.framework in Frameworks */,
 				3FFFFC7C208B3983008A8865 /* FBSDKCoreKit.framework in Frameworks */,
 				3FFFFC7A208B397B008A8865 /* Alamofire.framework in Frameworks */,
@@ -218,6 +223,7 @@
 				3F9553FB2086908E00B2A478 /* LaunchScreen.storyboard */,
 				3F9553F92086908E00B2A478 /* Assets.xcassets */,
 				3FB661C820C5E1B4004F59D4 /* data.json */,
+				7A80320820CEB7FB00B1A9E5 /* confirmation-animation.json */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -336,6 +342,7 @@
 		76106D9A82508B36E5407194 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7A80320620CEAFF100B1A9E5 /* Lottie.framework */,
 				3FFFFC7F208B3987008A8865 /* FBSDKLoginKit.framework */,
 				3FFFFC7D208B3983008A8865 /* FBSDKCoreKit.framework */,
 				3FFFFC7B208B397B008A8865 /* Alamofire.framework */,
@@ -470,6 +477,7 @@
 				3FFFFCA820913147008A8865 /* CircularStd-Book.otf in Resources */,
 				3FFFFCA920913147008A8865 /* CircularStd-Medium.otf in Resources */,
 				3FB661C920C5E1B4004F59D4 /* data.json in Resources */,
+				7A80320920CEB7FB00B1A9E5 /* confirmation-animation.json in Resources */,
 				3FFFFC8C208CBC64008A8865 /* CircularStd-Black.otf in Resources */,
 				3F9553FD2086908E00B2A478 /* LaunchScreen.storyboard in Resources */,
 				3F9553FA2086908E00B2A478 /* Assets.xcassets in Resources */,
@@ -578,6 +586,7 @@
 				"${BUILT_PRODUCTS_DIR}/JASON/JASON.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Willow/Willow.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -590,6 +599,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JASON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Willow.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

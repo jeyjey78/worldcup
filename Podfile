@@ -12,6 +12,7 @@ target 'worldcup-pops' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Willow', '~> 5.0'
+  pod 'lottie-ios'
 end
 
 # After install, set VALID_ARCHS to arm64

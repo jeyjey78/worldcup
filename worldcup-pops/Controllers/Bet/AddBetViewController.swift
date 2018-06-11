@@ -8,13 +8,14 @@
 
 import UIKit
 import FirebaseDatabase
-
+import Lottie
 
 class AddBetViewController: UIViewController {
     
     var flowDelegate: ProfileFlow?
     var match: Match
     
+    fileprivate var animation: LOTAnimationView = LOTAnimationView(name: "confirmation-animation")
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var customNavigationBar = NavigationBar()
     fileprivate var leftImageView = UIImageView()
@@ -123,6 +124,33 @@ class AddBetViewController: UIViewController {
         button.backgroundColor = UIColor.white
         return button
     }()
+    
+    fileprivate var confirmationButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Aucun doute, je suis le meilleur", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont.circularStdBlack(14.0)
+        button.layer.cornerRadius = 27.0
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1.0
+        button.backgroundColor = UIColor.white
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        return button
+    }()
+    
+    fileprivate var cancelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Finalement, je vais changer...", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.circularStdBlack(14.0)
+        button.layer.cornerRadius = 27.0
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1.0
+        button.backgroundColor = UIColor.clear
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        return button
+    }()
+    
     
     // MARK: - Life cycle
     init(_ match: Match) {
@@ -247,7 +275,7 @@ class AddBetViewController: UIViewController {
         }
         
         // bet button
-        self.betButton.addTarget(self, action: #selector(betAction), for: .touchUpInside)
+        self.betButton.addTarget(self, action: #selector(confirmationAction), for: .touchUpInside)
         self.view.addSubview(self.betButton)
         self.betButton.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.warningLabel.snp.top).offset(-30.0)
@@ -256,9 +284,37 @@ class AddBetViewController: UIViewController {
             make.right.equalTo(self.view.snp.right).offset(-50.0)
         }
         
+        self.cancelButton.alpha = 0.0
+        self.cancelButton.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
+        self.view.addSubview(self.cancelButton)
+        self.cancelButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.warningLabel.snp.top).offset(-30.0)
+            make.height.equalTo(54.0)
+            make.left.equalTo(self.view).offset(50.0)
+            make.right.equalTo(self.view.snp.right).offset(-50.0)
+        }
+        
+        self.confirmationButton.alpha = 0.0
+        self.confirmationButton.addTarget(self, action: #selector(betAction), for: .touchUpInside)
+        self.view.addSubview(self.confirmationButton)
+        self.confirmationButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.cancelButton.snp.top).offset(-20.0)
+            make.height.equalTo(54.0)
+            make.left.equalTo(self.view).offset(50.0)
+            make.right.equalTo(self.view.snp.right).offset(-50.0)
+        }
+        
         if self.match.step != "poule" {
             self.penaltyBetView()
         }
+        
+        self.animation.alpha = 0.0
+        self.animation.loopAnimation = true
+        self.view.addSubview(self.animation)
+        self.animation.snp.makeConstraints({ (make) in
+            make.height.width.equalTo(200.0)
+            make.centerY.centerX.equalToSuperview()
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -433,4 +489,62 @@ class AddBetViewController: UIViewController {
         }
     }
 
+    
+    // MARK: - Animation
+    @objc func confirmationAction () {
+        self.titleLabel.text = "Êtes-vous sur de votre pari ?"
+        UIView.animate(withDuration: 0.3, animations: {
+            self.leftImageView.alpha = 0.0
+            self.leftLabel.alpha = 0.0
+            self.increaseLeftButton.alpha = 0.0
+            self.reduceLeftButton.alpha = 0.0
+            
+            self.rightImageView.alpha = 0.0
+            self.rightLabel.alpha = 0.0
+            self.increaseRightButton.alpha = 0.0
+            self.reduceRightButton.alpha = 0.0
+            
+            self.penaltyView.alpha = 0.0
+            self.betButton.alpha = 0.0
+
+            
+        }) { (finished) in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.animation.alpha = 1.0
+                self.cancelButton.alpha = 1.0
+                self.confirmationButton.alpha = 1.0
+            }) { (finished) in
+                self.animation.play()
+            }
+        }
+    }
+    
+    @objc func cancelAction() {
+        self.titleLabel.text = "Faites vos jeux!"
+        UIView.animate(withDuration: 0.3, animations: {
+            self.animation.alpha = 0.0
+            self.cancelButton.alpha = 0.0
+            self.confirmationButton.alpha = 0.0
+
+        }) { (finished) in
+            self.animation.pause()
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.leftImageView.alpha = 1.0
+                self.leftLabel.alpha = 1.0
+                self.increaseLeftButton.alpha = 1.0
+                self.reduceLeftButton.alpha = 1.0
+                
+                self.rightImageView.alpha = 1.0
+                self.rightLabel.alpha = 1.0
+                self.increaseRightButton.alpha = 1.0
+                self.reduceRightButton.alpha = 1.0
+                
+                self.penaltyView.alpha = 1.0
+                self.betButton.alpha = 1.0
+            }) { (finished) in
+                
+            }
+        }
+    }
 }
