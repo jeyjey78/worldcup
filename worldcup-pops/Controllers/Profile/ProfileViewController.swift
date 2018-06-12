@@ -46,6 +46,7 @@ class ProfileViewController: UIViewController {
         button.setTitle("Mes paris", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont.circularStdBlack(17.0)
+        button.titleLabel?.numberOfLines = 0
         button.backgroundColor = UIColor.white
         button.clipsToBounds = false
         button.layer.shadowColor = UIColor.black.cgColor
@@ -61,6 +62,7 @@ class ProfileViewController: UIViewController {
         button.setTitle("Pays", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont.circularStdBlack(17.0)
+        button.titleLabel?.numberOfLines = 0
         button.backgroundColor = UIColor.white
         button.clipsToBounds = false
         button.layer.shadowColor = UIColor.black.cgColor
