@@ -473,6 +473,11 @@ class AddBetViewController: UIViewController {
     }
     
     @objc func betAction() {
+        log.debugMessage("matchdate: \(self.match.date) -- \(Date())")
+        guard self.match.date > Date() else {
+            self.warningLabel.text = "Trop tard! Tricheur 😏"
+           return
+        }
         let defaults = UserDefaults.standard
         guard let userId = defaults.object(forKey: Constants.firebaseId) as? String else {
             self.warningLabel.text = "Identifiant non trouvé... Reconnectez-vous 😅"

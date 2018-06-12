@@ -204,6 +204,9 @@ class MatchBetViewController: UIViewController {
         if self.alreadyBet {
             self.updateBetButton()
         }
+        if self.match.date < Date() {
+            self.updateBetButton()
+        }
         self.betButton.addTarget(self, action: #selector(betAction), for: .touchUpInside)
         self.view.addSubview(self.betButton)
         self.betButton.snp.makeConstraints { (make) in
