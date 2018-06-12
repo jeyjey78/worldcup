@@ -18,10 +18,18 @@ class LoginViewController: UIViewController {
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var fifaImageView = UIImageView(image: UIImage(named: "fifa-logo"))
-    
+    fileprivate var loader = UIActivityIndicatorView()
     fileprivate var facebookButton = UIButton()
     
-    var loading = false
+    fileprivate var playLoader = false {
+        didSet {
+            if oldValue != self.playLoader {
+                self.loader.isHidden = !self.playLoader
+                self.playLoader ? self.loader.startAnimating() : self.loader.stopAnimating()
+            }
+        }
+    }
+    
     
     // MARK: - life cycle
     init(_ delegate: AppFlowDelegate) {
@@ -54,14 +62,14 @@ class LoginViewController: UIViewController {
         // Facebook button
         // Gradient
         let gradient = CAGradientLayer()
-        gradient.frame = CGRect(x: 0.0, y: 0.0, width: Screen.size.width*0.72, height: 50.0)
+        gradient.frame = CGRect(x: 0.0, y: 0.0, width: 260.0, height: 50.0)
         gradient.colors = [UIColor.messengerBlueDark.cgColor, UIColor.messengerBlueLight.cgColor]
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
         gradient.cornerRadius = 25.0
         
         self.facebookButton.layer.insertSublayer(gradient, below: nil)
-        self.facebookButton.setTitle("Se connecter", for: .normal)
+        self.facebookButton.setTitle("Connexion", for: .normal)
         self.facebookButton.setTitleColor(UIColor.white, for: .normal)
         self.facebookButton.titleLabel?.font = UIFont.circularStdBlack(17.0)
         self.facebookButton.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
@@ -69,7 +77,7 @@ class LoginViewController: UIViewController {
         self.facebookButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.height.equalTo(54.0)
-            make.width.equalTo(270.0)
+            make.width.equalTo(260.0)
             make.bottom.equalTo(self.view.snp.bottom).offset(-40.0)
         }
         
@@ -78,8 +86,17 @@ class LoginViewController: UIViewController {
         self.facebookButton.addSubview(imageView)
         imageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(21.0)
-            make.left.equalTo(self.facebookButton).offset(19.9)
+            make.left.equalTo(self.facebookButton.snp.left).offset(25.0)
             make.centerY.equalTo(self.facebookButton)
+        }
+        
+        // Loader
+        self.loader.activityIndicatorViewStyle = .white
+        self.loader.isHidden = true
+        self.facebookButton.addSubview(self.loader)
+        self.loader.snp.makeConstraints { (make) in
+            make.right.equalTo(self.facebookButton.snp.right).offset(-15.0)
+            make.centerY.equalToSuperview()
         }
     }
 
@@ -112,7 +129,7 @@ class LoginViewController: UIViewController {
                 return
             }
             
-            self.loading = true
+            self.playLoader = true
             self.facebookProfileDetails()
         }
     }
@@ -120,7 +137,7 @@ class LoginViewController: UIViewController {
     func facebookProfileDetails() {
         FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, first_name, email, picture.type(large)"]).start { (connection, result, err) in
             if err != nil {
-                self.loading = false
+                self.playLoader = false
                 
                 return
             }
@@ -148,14 +165,14 @@ class LoginViewController: UIViewController {
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             if let error = error {
-                self.loading = false
+                self.playLoader = false
                 
                 return
             }
             
             guard let user = user else {
                 if let error = error {
-                    self.loading = false
+                    self.playLoader = false
                     log.errorMessage(error.localizedDescription)
                 }
                 
@@ -165,7 +182,7 @@ class LoginViewController: UIViewController {
             // stock firebase uid
             let defaults = UserDefaults.standard
             defaults.set(user.uid , forKey: Constants.firebaseId)
-            
+            self.playLoader = false
             self.appdelegate.continueToProfile()
         }
     }
