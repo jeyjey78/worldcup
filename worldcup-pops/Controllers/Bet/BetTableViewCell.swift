@@ -40,6 +40,7 @@ class BetTableViewCell: UITableViewCell {
         label.textColor = UIColor.white
         label.font = UIFont.circularStdMedium(21.0)
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     
@@ -61,6 +62,16 @@ class BetTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.rightImageView.image = nil
+        self.leftImageView.image = nil
+        self.leftLabel.text = nil
+        self.rightLabel.text = nil
+        self.scoreLabel.text = nil
     }
     
     
@@ -104,7 +115,7 @@ class BetTableViewCell: UITableViewCell {
         // Score label
         self.addSubview(self.scoreLabel)
         self.scoreLabel.snp.makeConstraints { (make) in
-            make.height.equalTo(25.0)
+            make.height.equalTo(70.0)
             make.width.equalTo(70.0)
             make.centerX.centerY.equalToSuperview()
         }

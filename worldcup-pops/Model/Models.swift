@@ -34,8 +34,10 @@ class Match {
     var step = ""
     var awayScore: Int?
     var homeScore: Int?
+    var awayPen: Int?
+    var homePen: Int?
     
-    init(_ awayTeam: Int, _ homeTeam: Int, _ string: String, _ stadium: Int, _ group: String, _ step: String, _ awayScore: Int?, _ homeScore: Int?) {
+    init(_ awayTeam: Int, _ homeTeam: Int, _ string: String, _ stadium: Int, _ group: String, _ step: String, _ awayScore: Int?, _ homeScore: Int?, _ awayPen: Int?, _ homePen: Int?) {
         self.awayTeam = awayTeam
         self.homeTeam = homeTeam
         self.stadium = stadium
@@ -43,6 +45,8 @@ class Match {
         self.group = group
         self.awayScore = awayScore
         self.homeScore = homeScore
+        self.awayPen = awayPen
+        self.homePen = homePen
         
         //date
         let RFC3339DateFormatter = DateFormatter()
@@ -74,12 +78,12 @@ class Bet {
     var date = ""
     var homeTeam = 0
     var homeScore = 0
-    var homePen = 0
+    var homePen: Int?
     var awayTeam = 0
     var awayScore = 0
-    var awayPen = 0
+    var awayPen: Int?
     
-    init(_ userid: String, _ userName: String, _ date: String, _ homeTeam: Int, _ homeScore: Int, _ homePen: Int, _ awayTeam: Int, _ awayScore: Int, _ awayPen: Int) {
+    init(_ userid: String, _ userName: String, _ date: String, _ homeTeam: Int, _ homeScore: Int, _ homePen: Int?, _ awayTeam: Int, _ awayScore: Int, _ awayPen: Int?) {
         self.userid = userid
         self.userName = userName
         self.date = date

@@ -22,7 +22,6 @@ class ProfileFlow: Flow {
     var userId = ""
     
     init () {
-        log.debugMessage("INIT *****")
         let shopController = ProfileViewController(self)
         shopController.navigationController?.setNavigationBarHidden(true, animated: false)
         
@@ -98,6 +97,8 @@ class ProfileFlow: Flow {
                         for match in matches .children.allObjects as! [FIRDataSnapshot] {
                             var awayScore: Int?
                             var homeScore: Int?
+                            var awayPen: Int?
+                            var homePen: Int?
                             for elemMatch in match.children.allObjects as! [FIRDataSnapshot] {
                                 if elemMatch.key == "away_team" {
                                     away = elemMatch.value as! Int
@@ -117,9 +118,15 @@ class ProfileFlow: Flow {
                                 if elemMatch.key == "home_score" {
                                     homeScore = elemMatch.value as? Int
                                 }
+                                if elemMatch.key == "away_pen" {
+                                    awayPen = elemMatch.value as? Int
+                                }
+                                if elemMatch.key == "home_pen" {
+                                    homePen = elemMatch.value as? Int
+                                }
                             }
                             
-                            let match = Match(away, home, date, stadium, group, step, awayScore, homeScore)
+                            let match = Match(away, home, date, stadium, group, step, awayScore, homeScore, awayPen, homePen)
                             self.matchs.append(match)
                         }
                     }
@@ -149,6 +156,8 @@ class ProfileFlow: Flow {
                     for match in matches .children.allObjects as! [FIRDataSnapshot] {
                         var awayScore: Int?
                         var homeScore: Int?
+                        var awayPen: Int?
+                        var homePen: Int?
                         for elemMatch in match.children.allObjects as! [FIRDataSnapshot] {
                             if elemMatch.key == "away_team" {
                                 away = ((elemMatch.value as? Int) != nil) ? elemMatch.value as! Int  : 0
@@ -168,9 +177,15 @@ class ProfileFlow: Flow {
                             if elemMatch.key == "home_score" {
                                 homeScore = elemMatch.value as? Int
                             }
+                            if elemMatch.key == "away_pen" {
+                                awayPen = elemMatch.value as? Int
+                            }
+                            if elemMatch.key == "home_pen" {
+                                homePen = elemMatch.value as? Int
+                            }
                         }
                         
-                        let match = Match(away, home, date, stadium, group, step, awayScore, homeScore)
+                        let match = Match(away, home, date, stadium, group, step, awayScore, homeScore, awayPen, homePen)
                         self.matchs.append(match)
                     }
                 }
@@ -215,10 +230,10 @@ class ProfileFlow: Flow {
                 var date = ""
                 var homeTeam = 0
                 var homeScore = 0
-                var homePen = 0
+                var homePen: Int?
                 var awayTeam = 0
                 var awayScore = 0
-                var awayPen = 0
+                var awayPen: Int?
                 
                 for element in elements.children.allObjects as! [FIRDataSnapshot] {
                     if element.key == "user_id" {
@@ -237,7 +252,7 @@ class ProfileFlow: Flow {
                         homeScore = element.value as! Int
                     }
                     if element.key == "home_pen" {
-                        homePen = element.value as! Int
+                        homePen = element.value as? Int
                     }
                     if element.key == "away_team" {
                         awayTeam = element.value as! Int
@@ -246,7 +261,7 @@ class ProfileFlow: Flow {
                         awayScore = element.value as! Int
                     }
                     if element.key == "away_pen" {
-                        awayPen = element.value as! Int
+                        awayPen = element.value as? Int
                     }
                 }
                 

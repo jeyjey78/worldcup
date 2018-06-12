@@ -229,7 +229,8 @@ extension MatchCountryViewController: UITableViewDataSource {
         if index < self.matches.count {
             cell.leftLabel.text = self.flowDelegate?.teams[self.matches[index].homeTeam - 1].name ?? ""
             cell.rightLabel.text = self.flowDelegate?.teams[self.matches[index].awayTeam - 1].name ?? ""
-            
+            cell.leftImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.matches[indexPath.row].homeTeam - 1].name))")
+            cell.rightImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.matches[indexPath.row].awayTeam - 1].name))")
             
             if let homeScore = self.matches[index].homeScore, let awayScore = self.matches[index].awayScore {
                 cell.scoreLabel.text = "\(homeScore) - \(awayScore)"
@@ -288,7 +289,7 @@ extension MatchCountryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 80.0
+        return MatchCountryTableViewCell.height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

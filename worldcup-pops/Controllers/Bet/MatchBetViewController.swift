@@ -25,6 +25,7 @@ class MatchBetViewController: UIViewController {
         label.textColor = UIColor.white
         label.font = UIFont.circularStdBold(32.0)
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     
@@ -150,15 +151,27 @@ class MatchBetViewController: UIViewController {
         
         // score
         if let homeScore = self.match.homeScore, let awayScore = self.match.awayScore {
-            self.scoreLabel.text = "\(homeScore) - \(awayScore)"
+            let score = "\(homeScore) - \(awayScore)"
+            if let homePen = self.match.homePen, let awayPen = self.match.awayPen {
+                let startAttribute = NSMutableAttributedString(string: score, attributes: [NSAttributedStringKey.font : UIFont.circularStdBold(32.0), NSAttributedStringKey.foregroundColor : UIColor.white])
+                let endAttribute = NSMutableAttributedString(string: "\nPen: \(homePen) - \(awayPen)", attributes: [NSAttributedStringKey.font : UIFont.circularStdBook(14.0), NSAttributedStringKey.foregroundColor : UIColor.white])
+                
+                startAttribute.append(endAttribute)
+                self.scoreLabel.attributedText = startAttribute
+            }
+            else {
+                self.scoreLabel.text = score
+            }
+            
         }
         else {
             self.scoreLabel.text = "-"
         }
+        
         self.view.addSubview(self.scoreLabel)
         self.scoreLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.leftImageView)
-            make.height.equalTo(30.0)
+            make.height.equalTo(90.0)
             make.width.equalTo(70.0)
             make.centerX.equalTo(self.view)
         }
@@ -281,9 +294,22 @@ extension MatchBetViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MatchBetCollectionViewCell.identifier, for: indexPath) as! MatchBetCollectionViewCell
         cell.pseudoLabel.text = self.bets[indexPath.row].userName
-        let winner = self.bets[indexPath.row].awayScore > self.bets[indexPath.row].homeScore ? self.bets[indexPath.row].awayTeam : self.bets[indexPath.row].homeTeam
-        cell.flagImageView.image = UIImage(named: "flag-\(self.flowDelegate!.teams[winner-1].name)")
-        cell.scoreLabel.text = "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)"
+        let awayPenalty = self.bets[indexPath.row].awayPen == nil ? 0 : self.bets[indexPath.row].awayPen
+        let homePenalty = self.bets[indexPath.row].homePen == nil ? 0 : self.bets[indexPath.row].homePen
+        let winner = self.bets[indexPath.row].awayScore + awayPenalty! > self.bets[indexPath.row].homeScore + homePenalty! ? self.bets[indexPath.row].awayTeam : self.bets[indexPath.row].homeTeam
+        cell.flagImageView.image = self.bets[indexPath.row].awayScore + awayPenalty! == self.bets[indexPath.row].homeScore + homePenalty! ? UIImage(named: "flag-egalite") : UIImage(named: "flag-\(self.flowDelegate!.teams[winner-1].name)")
+        
+        log.debugMessage("homePen \(self.bets[indexPath.row].homePen)")
+        if let awayPen = self.bets[indexPath.row].awayPen, let homePen = self.bets[indexPath.row].homePen {
+            let startAttribute = NSMutableAttributedString(string: "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)", attributes: [NSAttributedStringKey.font :UIFont.circularStdBold(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 24.0 : 36.0) , NSAttributedStringKey.foregroundColor : UIColor.white])
+            let endAttribute = NSMutableAttributedString(string: "\nPen: \(homePen) - \(awayPen)", attributes: [NSAttributedStringKey.font : UIFont.circularStdBook(12.0), NSAttributedStringKey.foregroundColor : UIColor.white])
+            
+            startAttribute.append(endAttribute)
+            cell.scoreLabel.attributedText = startAttribute
+        }
+        else {
+            cell.scoreLabel.text = "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)"
+        }
         
         return cell
     }

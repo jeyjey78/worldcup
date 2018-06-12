@@ -11,7 +11,10 @@ import UIKit
 class MatchCountryTableViewCell: UITableViewCell {
 
     static let identifier = "MatchCountryTableViewCell"
-    static let height: CGFloat = 80.0
+    static let height: CGFloat = 100.0
+    
+    var leftImageView = UIImageView()
+    var rightImageView = UIImageView()
     
     var leftLabel: UILabel = {
         let label = UILabel()
@@ -63,6 +66,8 @@ class MatchCountryTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        self.rightImageView.image = nil
+        self.leftImageView.image = nil
         self.leftLabel.text = nil
         self.rightLabel.text = nil
         self.scoreLabel.text = nil
@@ -74,30 +79,44 @@ class MatchCountryTableViewCell: UITableViewCell {
         let proportionalWidth: CGFloat = Screen.size.width / 2
         
         // Win label
+        self.addSubview(self.leftImageView)
+        self.leftImageView.snp.makeConstraints { (make) in
+            make.left.equalTo(self).offset(Screen.size.width * 0.17)
+            make.top.equalTo(self).offset(10.0)
+            make.height.width.equalTo(50.0)
+        }
+        
         self.addSubview(self.leftLabel)
         self.leftLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(30.0)
+            make.top.equalTo(self.leftImageView.snp.bottom).offset(3.0)
             make.height.equalTo(20.0)
             make.width.equalTo(proportionalWidth)
-            make.left.equalTo(self)
+            make.centerX.equalTo(self.leftImageView)
         }
         
         // Lose label
+        self.rightImageView.contentMode = .scaleAspectFill
+        self.addSubview(self.rightImageView)
+        self.rightImageView.snp.makeConstraints { (make) in
+            make.right.equalTo(self).offset(-(Screen.size.width * 0.17))
+            make.top.equalTo(self).offset(10.0)
+            make.height.width.equalTo(50.0)
+        }
+        
         self.addSubview(self.rightLabel)
         self.rightLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.leftLabel)
             make.height.equalTo(20.0)
             make.width.equalTo(proportionalWidth)
-            make.left.equalTo(self.leftLabel.snp.right)
+            make.centerX.equalTo(self.rightImageView)
         }
         
         // Score label
         self.addSubview(self.scoreLabel)
         self.scoreLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.leftLabel)
             make.height.equalTo(25.0)
-            make.width.equalTo(50.0)
-            make.left.equalTo(self.leftLabel.snp.right).offset(-25.0)
+            make.width.equalTo(70.0)
+            make.centerX.centerY.equalToSuperview()
         }
         
         self.addSubview(self.separator)

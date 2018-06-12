@@ -485,6 +485,8 @@ class AddBetViewController: UIViewController {
         
         let userName = defaults.object(forKey: Constants.username) as! String
         let date = Date().toString(dateFormat: "yyyy-MM-dd HH:mm")
+        let homePen = self.homePenaltyScore > 0 || self.awayPenaltyScore > 0 ? self.homePenaltyScore : nil
+        let awayPen = self.homePenaltyScore > 0 || self.awayPenaltyScore > 0 ? self.awayPenaltyScore : nil
         
         let value = [
             "user_id": userId,
@@ -492,12 +494,11 @@ class AddBetViewController: UIViewController {
             "date": date,
             "home_team": self.match.homeTeam,
             "home_score" : self.homeScore,
-            "home_pen": self.homePenaltyScore,
+            "home_pen": homePen,
             "away_team": self.match.awayTeam,
             "away_score": self.awayScore,
-            "away_pen" : self.awayPenaltyScore
+           "away_pen" :  awayPen
             ] as [String : Any]
-        
         
         let raw = FIRDatabase.database().reference().child("bets").childByAutoId()
         raw.setValue(value) { (error, ref) in
@@ -505,7 +506,7 @@ class AddBetViewController: UIViewController {
                 self.warningLabel.text = "Une erreure est survenue... 😅 Internet?"
                 print(error?.localizedDescription ?? "Failed to update value")
             } else {
-                let bet = Bet(userId, userName, date, self.match.homeTeam, self.homeScore, self.homePenaltyScore, self.match.awayTeam, self.awayScore, self.awayPenaltyScore)
+                let bet = Bet(userId, userName, date, self.match.homeTeam, self.homeScore, homePen, self.match.awayTeam, self.awayScore, awayPen)
                 self.flowDelegate?.saveBet(self, bet: bet)
                 print("Success update newValue to database")
             }
@@ -515,7 +516,7 @@ class AddBetViewController: UIViewController {
     
     // MARK: - Animation
     @objc func confirmationAction () {
-        self.titleLabel.text = "Êtes-vous sur de votre pari ?"
+        self.titleLabel.text = "Êtes-vous sûr ?"
         UIView.animate(withDuration: 0.3, animations: {
             self.leftImageView.alpha = 0.0
             self.leftLabel.alpha = 0.0
@@ -543,7 +544,7 @@ class AddBetViewController: UIViewController {
     }
     
     @objc func cancelAction() {
-        self.titleLabel.text = "Faites vos jeux!"
+        self.titleLabel.text = "Faites vos jeux !"
         UIView.animate(withDuration: 0.3, animations: {
             self.animation.alpha = 0.0
             self.cancelButton.alpha = 0.0

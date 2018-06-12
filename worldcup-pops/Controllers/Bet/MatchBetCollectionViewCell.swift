@@ -19,7 +19,6 @@ class MatchBetCollectionViewCell: UICollectionViewCell {
     
     var pseudoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Jeyjey"
         label.textColor = UIColor.white
         label.font = UIFont.circularStdBlack( UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 17.0 : 27.0)
         label.textAlignment = .center
@@ -28,10 +27,10 @@ class MatchBetCollectionViewCell: UICollectionViewCell {
     
     var scoreLabel: UILabel = {
         let label = UILabel()
-        label.text = "2 - 0"
         label.textColor = UIColor.white
         label.font = UIFont.circularStdBold(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 24.0 : 36.0)
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     
@@ -60,7 +59,12 @@ class MatchBetCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        self.flagImageView.image = nil
+        self.pseudoLabel.text = nil
+        self.scoreLabel.text = nil
     }
+    
     
     // MARK: - View
     func configureView() {
@@ -99,8 +103,8 @@ class MatchBetCollectionViewCell: UICollectionViewCell {
         self.addSubview(self.scoreLabel)
         self.scoreLabel.snp.makeConstraints { (make) in
             make.centerX.width.equalToSuperview()
-            make.height.equalTo(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 30.0 : 40.0)
-            make.top.equalTo(self.flagImageView.snp.bottom).offset( UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 10.0 : 20.0)
+            make.height.equalTo(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 60.0 : 70.0)
+            make.top.equalTo(self.flagImageView.snp.bottom)//.offset( UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 0.0 : 0.0)
         }
     }
 }

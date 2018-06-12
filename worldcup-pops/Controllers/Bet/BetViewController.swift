@@ -22,7 +22,7 @@ class BetViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = UIColor.clear
         tableView.register(BetTableViewCell.self, forCellReuseIdentifier: BetTableViewCell.identifier)
-        tableView.contentInset = UIEdgeInsets(top: -35.0, left: 0.0, bottom: 80.0, right: 0.0)
+        tableView.contentInset = UIEdgeInsets(top: -35.0, left: 0.0, bottom: 100.0, right: 0.0)
         return tableView
     }()
     
@@ -150,8 +150,12 @@ extension BetViewController: UITableViewDataSource {
         cell.leftImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.bets[indexPath.row].homeTeam - 1].name))")
         cell.rightImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.bets[indexPath.row].awayTeam - 1].name))")
         
-        cell.scoreLabel.text = "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)"
-
+        if let awayPen = self.bets[indexPath.row].awayPen, let homePen = self.bets[indexPath.row].homePen {
+            cell.scoreLabel.attributedText = String().customTextAttributes("\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)", "\nPen: \(homePen) - \(awayPen)")
+        }
+        else {
+            cell.scoreLabel.text = "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)"
+        }
         return cell
     }
 }

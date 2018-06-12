@@ -15,7 +15,6 @@ class AllMatchsViewController: UIViewController {
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var customNavigationBar = NavigationBar()
-    fileprivate let steps = ["poules", "1/8 de finale", "1/4 de finale", "1/2 de finale", "petite-finale","finale"]
     
     fileprivate var dateLabel: UILabel = {
         let label = UILabel()
@@ -128,7 +127,28 @@ extension AllMatchsViewController: UITableViewDataSource {
         cell.leftImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.matchs[indexPath.row].homeTeam - 1].name))")
         cell.rightImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.matchs[indexPath.row].awayTeam - 1].name))")
         
-        cell.scoreLabel.text = "\(self.matchs[indexPath.row].date.toString(dateFormat: "HH:mm"))"
+        var step = ""
+        if self.matchs[indexPath.row].step == "poule" {
+            step = "groupe \(self.matchs[indexPath.row].group)"
+        }
+        else {
+            switch self.matchs[indexPath.row].step {
+            case "round_16":
+                step = "1/8ème"
+            case "round_8":
+                step = "quart"
+            case "round_4":
+                step = "demi"
+            case "round_2":
+                step = "finale"
+            case "round_2_loser":
+                step = "petite\nfinale"
+            default:
+                step = ""
+            }
+        }
+        
+        cell.scoreLabel.attributedText = String().customTextAttributes(self.matchs[indexPath.row].date.toString(dateFormat: "HH:mm"), "\n" + step)
         return cell
     }
 }
