@@ -84,7 +84,7 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.textColor = UIColor.white
         label.textAlignment = .right
-        label.font = UIFont.circularStdBold(30.0)
+        label.font = UIFont.circularStdBold(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 24.0 : 30.0)
         label.adjustsFontSizeToFitWidth = true
         label.text = "2 win - 0 lose"
         return label
@@ -117,8 +117,8 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(self.matchsButton)
         self.matchsButton.snp.makeConstraints { (make) in
             make.height.width.equalTo(100.0)
-            make.left.equalTo(40.0)
-            make.top.equalTo(self.view.snp.top).offset(Screen.size.height * 0.15)
+            make.left.equalTo(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 30.0 : 40.0)
+            make.top.equalTo(self.view.snp.top).offset(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? Screen.size.height * 0.1 : Screen.size.height * 0.15)
         }
         
         // Score view
@@ -126,7 +126,7 @@ class ProfileViewController: UIViewController {
         self.scoreView.snp.makeConstraints { (make) in
             make.height.equalTo(150.0)
             make.width.equalTo(150.0)
-            make.right.equalTo(self.view.snp.right).offset(-50.0)
+            make.right.equalTo(self.view.snp.right).offset(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? -30.0 : -50.0)
             make.top.equalTo(self.view.snp.top).offset(Screen.size.height * 0.15)
         }
         
@@ -173,7 +173,7 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(self.betButton)
         self.betButton.snp.makeConstraints { (make) in
             make.height.width.equalTo(100.0)
-            make.left.equalTo(60.0)
+            make.left.equalTo(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 35.0 : 60.0)
             make.top.equalTo(self.pseudoLabel.snp.bottom).offset(Screen.size.height * 0.05)
         }
         
@@ -182,8 +182,8 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(self.countryButton)
         self.countryButton.snp.makeConstraints { (make) in
             make.height.width.equalTo(100.0)
-            make.right.equalTo(-50.0)
-            make.top.equalTo(self.pseudoLabel.snp.bottom).offset(Screen.size.height * 0.15)
+            make.right.equalTo(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? -35.0 : -50.0)
+            make.top.equalTo(self.pseudoLabel.snp.bottom).offset(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? Screen.size.height * 0.1 : Screen.size.height * 0.15)
         }
 
         self.setProfilePicture()

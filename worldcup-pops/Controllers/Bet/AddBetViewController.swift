@@ -202,7 +202,7 @@ class AddBetViewController: UIViewController {
         self.view.addSubview(self.leftImageView)
         self.leftImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(130.0)
-            make.left.equalTo(self.view).offset(30.0)
+            make.left.equalTo(self.view).offset( UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 15.0 : 30.0)
             if self.match.step != "poule" {
                 make.centerY.equalTo(self.view).offset(-80.0)
             }
@@ -240,7 +240,7 @@ class AddBetViewController: UIViewController {
         self.rightImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(130.0)
             make.centerY.equalTo(self.leftImageView)
-            make.right.equalTo(self.view.snp.right).offset(-30.0)
+            make.right.equalTo(self.view.snp.right).offset( UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? -15.0 : -30.0)
         }
         
         self.rightLabel.text = "\(self.awayScore)"
@@ -313,7 +313,8 @@ class AddBetViewController: UIViewController {
         self.view.addSubview(self.animation)
         self.animation.snp.makeConstraints({ (make) in
             make.height.width.equalTo(200.0)
-            make.centerY.centerX.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? -50.0 : -10.0)
         })
     }
 

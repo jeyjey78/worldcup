@@ -135,7 +135,7 @@ class MatchBetViewController: UIViewController {
         self.view.addSubview(self.leftImageView)
         self.leftImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(100.0)
-            make.left.equalTo(self.view).offset(40.0)
+            make.left.equalTo(self.view).offset(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 20.0 : 40.0)
             make.top.equalTo(self.customNavigationBar.snp.bottom).offset(20.0)
         }
         
@@ -169,7 +169,7 @@ class MatchBetViewController: UIViewController {
         self.rightImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(100.0)
             make.centerY.equalTo(self.leftImageView)
-            make.right.equalTo(self.view.snp.right).offset(-40.0)
+            make.right.equalTo(self.view.snp.right).offset(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? -20.0 : -40.0)
         }
         
         self.rightLabel.text = self.flowDelegate?.teams[self.match.awayTeam - 1].name ?? ""
@@ -208,7 +208,7 @@ class MatchBetViewController: UIViewController {
         self.view.addSubview(self.betButton)
         self.betButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.leftLabel.snp.bottom).offset(110.0)
+            make.top.equalTo(self.leftLabel.snp.bottom).offset(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 90.0 : 110.0)
             make.height.equalTo(54.0)
             make.width.equalTo(250.0)
         }
@@ -219,9 +219,9 @@ class MatchBetViewController: UIViewController {
         self.collectionView.delegate = self
         self.view.addSubview(self.collectionView)
         self.collectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.betButton.snp.bottom).offset(20.0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-30.0)
             make.width.left.equalToSuperview()
-            make.height.equalTo(250.0)
+            make.height.equalTo(MatchBetCollectionViewCell.size.height + 20.0)
         }
     }
 
@@ -235,8 +235,9 @@ class MatchBetViewController: UIViewController {
     func updateBetButton() {
         self.betButton.setTitle("Tous les paris", for: .normal)
         self.betButton.setTitleColor(UIColor.white, for: .normal)
+        self.betButton.layer.borderColor = UIColor.clear.cgColor
         self.betButton.backgroundColor = UIColor.clear
-        self.betButton.titleLabel?.font = UIFont.circularStdBlack(20.0)
+        self.betButton.titleLabel?.font = UIFont.circularStdBlack(27.0)
         self.betButton.isEnabled = false
     }
     

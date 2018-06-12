@@ -41,7 +41,7 @@ class SelectFavoriteCountryViewController: UIViewController {
         navigationItem.leftBarButtonItem = backBarButton
         self.customNavigationBar.pushItem(navigationItem, animated: true)
         
-        self.customNavigationBar.topItem?.title = "Pays"
+        self.customNavigationBar.topItem?.title = "Pays favoris"
         
         // CollectionView
         self.collectionViewFlowLayout = UICollectionViewFlowLayout()
