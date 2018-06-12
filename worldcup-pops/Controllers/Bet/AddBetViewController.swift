@@ -193,7 +193,7 @@ class AddBetViewController: UIViewController {
         self.titleLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.height.equalTo(35.0)
-            make.width.equalTo(200.0)
+            make.width.equalToSuperview()
             make.top.equalTo(self.customNavigationBar.snp.bottom).offset(30.0)
         }
         
@@ -473,7 +473,6 @@ class AddBetViewController: UIViewController {
     }
     
     @objc func betAction() {
-        log.debugMessage("matchdate: \(self.match.date) -- \(Date())")
         guard self.match.date > Date() else {
             self.warningLabel.text = "Trop tard! Tricheur 😏"
            return
