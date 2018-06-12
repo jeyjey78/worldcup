@@ -19,6 +19,7 @@ class MatchBetViewController: UIViewController {
     fileprivate var customNavigationBar = NavigationBar()
     fileprivate var leftImageView = UIImageView()
     fileprivate var rightImageView = UIImageView()
+    fileprivate var winner : Int = 0
     
     fileprivate var scoreLabel: UILabel = {
         let label = UILabel()
@@ -130,6 +131,12 @@ class MatchBetViewController: UIViewController {
         self.customNavigationBar.pushItem(navigationItem, animated: true)
         
         self.customNavigationBar.topItem?.title = "Match"
+        
+        if let homeScore = self.match.awayScore, let awayScore = self.match.awayScore {
+            let awayPenalty = self.match.awayPen == nil ? 0 : self.match.awayPen
+            let homePenalty = self.match.homePen == nil ? 0 : self.match.homePen
+            self.winner = awayScore + awayPenalty! > homeScore + homePenalty! ? self.match.awayTeam : self.match.homeTeam
+        }
         
         // winner
         self.leftImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.match.homeTeam-1].name))")
@@ -299,7 +306,6 @@ extension MatchBetViewController: UICollectionViewDataSource {
         let winner = self.bets[indexPath.row].awayScore + awayPenalty! > self.bets[indexPath.row].homeScore + homePenalty! ? self.bets[indexPath.row].awayTeam : self.bets[indexPath.row].homeTeam
         cell.flagImageView.image = self.bets[indexPath.row].awayScore + awayPenalty! == self.bets[indexPath.row].homeScore + homePenalty! ? UIImage(named: "flag-egalite") : UIImage(named: "flag-\(self.flowDelegate!.teams[winner-1].name)")
         
-        log.debugMessage("homePen \(self.bets[indexPath.row].homePen)")
         if let awayPen = self.bets[indexPath.row].awayPen, let homePen = self.bets[indexPath.row].homePen {
             let startAttribute = NSMutableAttributedString(string: "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)", attributes: [NSAttributedStringKey.font :UIFont.circularStdBold(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 24.0 : 36.0) , NSAttributedStringKey.foregroundColor : UIColor.white])
             let endAttribute = NSMutableAttributedString(string: "\nPen: \(homePen) - \(awayPen)", attributes: [NSAttributedStringKey.font : UIFont.circularStdBook(12.0), NSAttributedStringKey.foregroundColor : UIColor.white])
@@ -309,6 +315,19 @@ extension MatchBetViewController: UICollectionViewDataSource {
         }
         else {
             cell.scoreLabel.text = "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)"
+        }
+        
+        log.debugMessage("self.winner: \(self.winner) -- winner \(winner)")
+        if self.winner != 0 {
+            if let matchHomeScore = self.match.homeScore, let matchAwayScore = self.match.awayScore, matchHomeScore == self.bets[indexPath.row].homeScore + homePenalty! && matchAwayScore == self.bets[indexPath.row].awayScore + awayPenalty! {
+                cell.status = .total
+            }
+            else if winner == self.winner {
+                cell.status = .win
+            }
+            else {
+                cell.status = .lose
+            }
         }
         
         return cell

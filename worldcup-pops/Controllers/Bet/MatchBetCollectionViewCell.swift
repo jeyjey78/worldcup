@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum StatusBet {
+    case total
+    case win
+    case lose
+}
+
 class MatchBetCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "MatchBetTableViewCell"
@@ -15,7 +21,25 @@ class MatchBetCollectionViewCell: UICollectionViewCell {
     
     fileprivate var iconImageView = UIImageView(image: UIImage(named: "win-icon"))
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-bet"))
+    fileprivate var statusImageView = UIImageView()
     var flagImageView = UIImageView(image: UIImage(named: "flag-france"))
+    
+    var status: StatusBet? {
+        didSet {
+            Queue.main {
+                switch self.status {
+                case .total?:
+                    self.statusImageView.image =  UIImage(named: "total-icon")
+                case .win?:
+                    self.statusImageView.image =  UIImage(named: "win-icon")
+                case .lose?:
+                    self.statusImageView.image =  UIImage(named: "lose-icon")
+                default:
+                    self.statusImageView.image = nil
+                }
+            }
+        }
+    }
     
     var pseudoLabel: UILabel = {
         let label = UILabel()
@@ -60,6 +84,7 @@ class MatchBetCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        self.statusImageView.image = nil
         self.flagImageView.image = nil
         self.pseudoLabel.text = nil
         self.scoreLabel.text = nil
@@ -80,6 +105,13 @@ class MatchBetCollectionViewCell: UICollectionViewCell {
         self.addSubview(self.backgroundImageView)
         self.backgroundImageView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
+        }
+        
+        // Icon
+        self.addSubview(self.statusImageView)
+        self.statusImageView.snp.makeConstraints { (make) in
+            make.height.width.equalTo(20.0)
+            make.top.left.equalTo(self).offset(15.0)
         }
         
         // Pseudo
