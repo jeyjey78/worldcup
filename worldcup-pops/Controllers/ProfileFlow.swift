@@ -51,6 +51,7 @@ class ProfileFlow: Flow {
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 var name = ""
                 var shortName = ""
+                var group = ""
                 var id = 0
                 
                 for element in elements.children.allObjects as! [FIRDataSnapshot] {
@@ -63,9 +64,12 @@ class ProfileFlow: Flow {
                     if element.key == "id" {
                         id = element.value as! Int
                     }
+                    if element.key == "group" {
+                        group = element.value as! String
+                    }
                 }
                 
-                let team = Team(name, shortName, id)
+                let team = Team(name, shortName, id, group)
                 self.teams.append(team)
                 
             }

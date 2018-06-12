@@ -13,12 +13,14 @@ import FirebaseDatabase
 class Team  {
     var name = ""
     var shortName = ""
+    var group = ""
     var id = 0
     
-    init(_ name: String, _ shortName: String, _ id: Int) {
+    init(_ name: String, _ shortName: String, _ id: Int, _ group: String) {
         self.name = name
         self.shortName = shortName
         self.id = id
+        self.group = group
     }
 }
 

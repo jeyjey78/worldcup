@@ -31,6 +31,33 @@ class MatchCountryViewController: UIViewController {
         return tableView
     }()
     
+    fileprivate var goalLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.font = UIFont.circularStdMedium(21.0)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
+    fileprivate var pointLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.font = UIFont.circularStdMedium(21.0)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
+    fileprivate var groupLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.font = UIFont.circularStdMedium(21.0)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
     
     // MARK: - Life cycle
     init(_ country: Int) {
@@ -80,12 +107,73 @@ class MatchCountryViewController: UIViewController {
             make.top.equalTo(self.customNavigationBar.snp.bottom).offset(20.0)
         }
         
+        // Goal
+        var goals = 0
+        for match in self.matches {
+            if match.homeTeam == self.countryId {
+                goals += match.homeScore ?? 0
+            }
+            else if match.awayTeam == self.countryId {
+                goals += match.awayScore ?? 0
+            }
+        }
+        
+        self.goalLabel.text = "Buts\n \(goals)"
+        self.view.addSubview(self.goalLabel)
+        self.goalLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.countryImageView)
+            make.height.equalTo(60.0)
+            make.right.equalTo(self.view.snp.right).offset(-10.0)
+            make.left.equalTo(self.countryImageView.snp.right).offset(10.0)
+        }
+        
+        // Points
+        var points = 0
+        for match in self.matches {
+            if match.step == "poule" {
+                if match.homeTeam == self.countryId {
+                    if let homeScore = match.homeScore, let awayScore = match.awayScore, homeScore > awayScore {
+                        points += 3
+                    }
+                    else if let homeScore = match.homeScore, let awayScore = match.awayScore, homeScore == awayScore {
+                        points += 1
+                    }
+                }
+                else if match.awayTeam == self.countryId {
+                    if let homeScore = match.homeScore, let awayScore = match.awayScore, homeScore < awayScore {
+                        points += 3
+                    }
+                    else if let homeScore = match.homeScore, let awayScore = match.awayScore, homeScore == awayScore {
+                        points += 1
+                    }
+                }
+            }
+        }
+        
+        self.pointLabel.text = "Points\n \(points)"
+        self.view.addSubview(self.pointLabel)
+        self.pointLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.countryImageView)
+            make.height.equalTo(60.0)
+            make.left.equalTo(self.view.snp.left).offset(10.0)
+            make.right.equalTo(self.countryImageView.snp.left).offset(-10.0)
+        }
+        
+        // group
+        self.groupLabel.text = "Groupe \(self.flowDelegate!.teams[self.countryId].group)"
+        self.view.addSubview(self.groupLabel)
+        self.groupLabel.snp.makeConstraints { (make) in
+            make.centerX.width.equalToSuperview()
+            make.height.equalTo(25.0)
+            make.top.equalTo(self.countryImageView.snp.bottom).offset(10.0)
+        }
+        
         // TableView
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.countryImageView.snp.bottom).offset(20.0)
+            make.top.equalTo(self.groupLabel.snp.bottom).offset(20.0)
             make.width.left.equalToSuperview()
             make.height.equalTo(Screen.size.height - 140.0)
         }
