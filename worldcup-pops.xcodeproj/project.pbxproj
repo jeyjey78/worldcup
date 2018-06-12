@@ -54,6 +54,8 @@
 		7A80320920CEB7FB00B1A9E5 /* confirmation-animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A80320820CEB7FB00B1A9E5 /* confirmation-animation.json */; };
 		7A80320C20CFB76E00B1A9E5 /* AllMatchsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A80320B20CFB76E00B1A9E5 /* AllMatchsViewController.swift */; };
 		7A80320E20CFB78600B1A9E5 /* AllMatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A80320D20CFB78600B1A9E5 /* AllMatchTableViewCell.swift */; };
+		7A80321220CFD1DA00B1A9E5 /* SelectFavoriteCountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A80321120CFD1DA00B1A9E5 /* SelectFavoriteCountryViewController.swift */; };
+		7A80321420CFDEBA00B1A9E5 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A80321320CFDEBA00B1A9E5 /* Queue.swift */; };
 		7FD7CB9E1BA7958418698983 /* Pods_worldcup_pops.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +132,8 @@
 		7A80320820CEB7FB00B1A9E5 /* confirmation-animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "confirmation-animation.json"; sourceTree = "<group>"; };
 		7A80320B20CFB76E00B1A9E5 /* AllMatchsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMatchsViewController.swift; sourceTree = "<group>"; };
 		7A80320D20CFB78600B1A9E5 /* AllMatchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMatchTableViewCell.swift; sourceTree = "<group>"; };
+		7A80321120CFD1DA00B1A9E5 /* SelectFavoriteCountryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFavoriteCountryViewController.swift; sourceTree = "<group>"; };
+		7A80321320CFDEBA00B1A9E5 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_worldcup_pops.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -299,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				3FFFFC88208CBA14008A8865 /* Screen.swift */,
+				7A80321320CFDEBA00B1A9E5 /* Queue.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -319,6 +324,7 @@
 			children = (
 				3FFFFC92208CCECC008A8865 /* ProfileViewController.swift */,
 				3FFFFC99208FD5F9008A8865 /* ProfileNavigationController.swift */,
+				7A80321120CFD1DA00B1A9E5 /* SelectFavoriteCountryViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -650,7 +656,9 @@
 				7A80320C20CFB76E00B1A9E5 /* AllMatchsViewController.swift in Sources */,
 				3FB661C220B46640004F59D4 /* File.swift in Sources */,
 				3FFFFC91208CCEA8008A8865 /* ProfileFlow.swift in Sources */,
+				7A80321420CFDEBA00B1A9E5 /* Queue.swift in Sources */,
 				3FFFFC93208CCECC008A8865 /* ProfileViewController.swift in Sources */,
+				7A80321220CFD1DA00B1A9E5 /* SelectFavoriteCountryViewController.swift in Sources */,
 				3FFFFCAD20946911008A8865 /* MatchBetTableViewCell.swift in Sources */,
 				3FFFFCA1208FDFDC008A8865 /* BetViewController.swift in Sources */,
 				3FFFFCAB2093BF5B008A8865 /* MatchBetViewController.swift in Sources */,

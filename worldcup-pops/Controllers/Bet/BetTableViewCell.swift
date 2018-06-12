@@ -11,7 +11,7 @@ import UIKit
 class BetTableViewCell: UITableViewCell {
     
     static let identifier = "BetTableViewCell"
-    static let height: CGFloat = 80.0
+    static let height: CGFloat = 100.0
     
     var leftImageView = UIImageView()
     var rightImageView = UIImageView()
@@ -73,7 +73,7 @@ class BetTableViewCell: UITableViewCell {
         self.leftImageView.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(Screen.size.width * 0.17)
             make.top.equalTo(self).offset(10.0)
-            make.height.width.equalTo(30.0)
+            make.height.width.equalTo(50.0)
         }
         
         self.addSubview(self.leftLabel)
@@ -90,7 +90,7 @@ class BetTableViewCell: UITableViewCell {
         self.rightImageView.snp.makeConstraints { (make) in
             make.right.equalTo(self).offset(-(Screen.size.width * 0.17))
             make.top.equalTo(self).offset(10.0)
-            make.height.width.equalTo(30.0)
+            make.height.width.equalTo(50.0)
         }
         
         self.addSubview(self.rightLabel)
@@ -104,10 +104,9 @@ class BetTableViewCell: UITableViewCell {
         // Score label
         self.addSubview(self.scoreLabel)
         self.scoreLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.leftImageView.snp.bottom)
             make.height.equalTo(25.0)
-            make.width.equalTo(50.0)
-            make.centerX.equalToSuperview()
+            make.width.equalTo(70.0)
+            make.centerX.centerY.equalToSuperview()
         }
         
         self.addSubview(self.separator)

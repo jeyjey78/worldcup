@@ -75,7 +75,7 @@ class ProfileViewController: UIViewController {
        let label = UILabel()
         label.textColor = UIColor.white
         label.textAlignment = .center
-        label.font = UIFont.circularStdBlack(17.0)
+        label.font = UIFont.circularStdMedium(21.0)
         label.adjustsFontSizeToFitWidth = true
         return label
     }()
@@ -150,6 +150,9 @@ class ProfileViewController: UIViewController {
         }
         
         // Profile Picture
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(selectCountryAction))
+        self.profilePicture.isUserInteractionEnabled = true
+        self.profilePicture.addGestureRecognizer(gesture)
         self.view.addSubview(self.profilePicture)
         self.profilePicture.snp.makeConstraints { (make) in
             make.centerX.centerY.equalToSuperview()
@@ -160,7 +163,7 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(self.pseudoLabel)
         self.pseudoLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.profilePicture.snp.bottom).offset(10.0)
+            make.top.equalTo(self.profilePicture.snp.bottom).offset(5.0)
             make.height.equalTo(20.0)
             make.width.equalTo(200.0)
         }
@@ -183,6 +186,7 @@ class ProfileViewController: UIViewController {
             make.top.equalTo(self.pseudoLabel.snp.bottom).offset(Screen.size.height * 0.15)
         }
 
+        self.setProfilePicture()
     }
 
     override func didReceiveMemoryWarning() {
@@ -204,68 +208,33 @@ class ProfileViewController: UIViewController {
         self.flowDelegate?.continueToDayMatch(self)
     }
     
+    @objc func selectCountryAction() {
+        self.flowDelegate?.continueToSelectCountry()
+    }
+    
+    func setProfilePicture() {
+        if let country = UserDefaults.standard.object(forKey: Constants.userCountry) as? String {
+            self.profilePicture.image = UIImage(named: "flag-\(country)")
+            self.animeProfilePicture()
+        }
+        else {
+            self.profilePicture.image = UIImage(named: "profile")
+        }
+    }
+    
+    
     // Animation
-    func animeButtons() {
-        UIView.animate(withDuration: 0.3, delay: 1.0, options: [.repeat, .autoreverse, .curveEaseInOut], animations: {
-            self.betButton.transform = CGAffineTransform(translationX: 0.0, y: -20.0)
+    func animeProfilePicture() {
+        Queue.main {
+            UIView.animate(withDuration: 0.4, delay: 1.0, options: [.allowUserInteraction, .curveEaseInOut], animations: {
+                self.profilePicture.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+            }, completion: nil)
             
-        }, completion: { (finished) in
-            self.betButton.transform = CGAffineTransform.identity
-        })
-    }
-    
-    // Firebase
-    func configureDatabase() {
-        self.country = FIRDatabase.database().reference().child("france")
-        self.country.observe(.value) { (snapshot) in
-            for artists in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                //getting values
-                let country = artists.value as? [String: AnyObject]
-                log.debugMessage("country: \(country)")
-                
-                
-//                //creating artist object with model and fetched values
-//                let artist = ArtistModel(id: artistId as! String?, name: artistName as! String?, genre: artistGenre as! String?)
-//
-//                //appending it to list
-//                self.artistList.append(artist)
-            }
+            UIView.animate(withDuration: 1.0, delay: 1.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
+                self.profilePicture.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 2.0)
+            }, completion: { (_) in
+                self.profilePicture.transform = CGAffineTransform.identity
+            })
         }
-    
-    }
-    
-    func addCountry(){
-
-        let countries = ["allemagne", "angleterre", "arabie-saoudite", "argentine", "australie", "belgique", "bresil", "coree-du-sud", "costa-rica", "croatie", "danemark", "egypte", "equateur", "espagne", "france", "iceland", "iran", "japon", "maroc", "mexique", "nigeria", "panama", "peru", "poland", "portugal", "russia", "senegal", "serbie", "suede", "suisse", "tunisie", "uruguay"]
-
-        var rawValue: Any!
-        
-        if let path = Bundle.main.path(forResource: "data", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                log.debugMessage("Data: \(jsonResult)")
-                let raw = FIRDatabase.database().reference().child("worldcuppops")
-                raw.setValue(rawValue)
-                
-                rawValue = jsonResult
-                if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let person = jsonResult as? [Any] {
-                    // do stuff
-                    log.debugMessage("raw")
-                    
-                }
-            } catch {
-                // handle error
-            }
-        }
-        
-//        for (index, country) in countries.enumerated() {
-//            let raw = FIRDatabase.database().reference().child("country\(index)")
-//            let key = raw.childByAutoId().key
-//
-//            raw.setValue(rawValue)
-//        }
-        
-        self.configureDatabase()
     }
 }

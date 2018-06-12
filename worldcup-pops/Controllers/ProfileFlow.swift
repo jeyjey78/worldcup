@@ -264,7 +264,9 @@ protocol ProfileFlowDelegate {
     func continueToMatch(_ controller: UIViewController, match: Match)
     func continueToMatchCountry(_ controller: UIViewController, countryId: Int)
     func continueToDayMatch(_ controller: UIViewController)
+    func continueToSelectCountry()
     
+    func saveUserCountry(_ country: String)
     func saveBet(_ controller: UIViewController, bet: Bet)
     func backProfile(_ controller: UIViewController)
     func backAction(_ controller: UIViewController)
@@ -318,6 +320,25 @@ extension ProfileFlow: ProfileFlowDelegate {
         self.navigation.pushViewController(allmatchController, animated: true)
     }
     
+    
+    // User country
+    func continueToSelectCountry() {
+        let controller = SelectFavoriteCountryViewController()
+        controller.flowDelegate = self
+        
+        self.navigation.present(controller, animated: true, completion: nil)
+    }
+    
+    func saveUserCountry(_ country: String) {
+        let defaults = UserDefaults.standard
+        defaults.set(country, forKey: Constants.userCountry)
+        
+        if let controller = self.navigation.viewControllers.last as? ProfileViewController {
+            controller.setProfilePicture()
+        }
+        
+        self.navigation.dismiss(animated: true, completion: nil)
+    }
     
     // MARK: - Bet
     func saveBet(_ controller: UIViewController, bet: Bet) {
