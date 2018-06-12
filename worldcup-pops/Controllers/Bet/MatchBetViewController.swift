@@ -252,6 +252,8 @@ class MatchBetViewController: UIViewController {
                 self.bets.append(bet)
             }
         }
+        
+        self.bets = self.bets.sorted(by: { $0.date > $1.date })
     }
 
     

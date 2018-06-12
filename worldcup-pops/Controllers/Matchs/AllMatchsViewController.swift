@@ -1,56 +1,47 @@
 //
-//  BetViewController.swift
+//  AllMatchsViewController.swift
 //  worldcup-pops
 //
-//  Created by Jeremy gros on 24/04/2018.
+//  Created by Jérémy GROS on 12/06/2018.
 //  Copyright © 2018 Jeremy gros. All rights reserved.
 //
 
 import UIKit
 
-class BetViewController: UIViewController {
-    
+class AllMatchsViewController: UIViewController {
+
     var flowDelegate: ProfileFlow?
+    var matchs: [Match] = []
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var customNavigationBar = NavigationBar()
-    fileprivate var bets: [Bet] = []
+    fileprivate let steps = ["poules", "1/8 de finale", "1/4 de finale", "1/2 de finale", "petite-finale","finale"]
+    
+    fileprivate var dateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.font = UIFont.circularStdMedium(20.0)
+        label.textAlignment = .center
+        return label
+    }()
     
     var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = UIColor.clear
-        tableView.register(BetTableViewCell.self, forCellReuseIdentifier: BetTableViewCell.identifier)
+        tableView.register(AllMatchTableViewCell.self, forCellReuseIdentifier: AllMatchTableViewCell.identifier)
         tableView.contentInset = UIEdgeInsets(top: -35.0, left: 0.0, bottom: 80.0, right: 0.0)
         return tableView
     }()
     
-    fileprivate var winLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Winner 2"
-        label.textColor = UIColor.white
-        label.font = UIFont.circularStdBold(18.0)
-        label.textAlignment = .center
-        return label
-    }()
     
-    fileprivate var loseLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Loser 5"
-        label.textColor = UIColor.white
-        label.font = UIFont.circularStdBold(18.0)
-        label.textAlignment = .center
-        return label
-    }()
-    
-    // Liste de mes parris (vainqueur-looser et score)
-
+    //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
-
-        self.getAllBets()
+        
+        self.getDayMatchs()
         
         // Background
         self.view.addSubview(self.backgroundImageView)
@@ -72,24 +63,15 @@ class BetViewController: UIViewController {
         navigationItem.leftBarButtonItem = backBarButton
         self.customNavigationBar.pushItem(navigationItem, animated: true)
         
-        self.customNavigationBar.topItem?.title = "Tous mes paris"
+        self.customNavigationBar.topItem?.title = "Les matchs du jour"
         
-        // Win label
-        self.view.addSubview(self.winLabel)
-        self.winLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.customNavigationBar.snp.bottom).offset(20.0)
-            make.height.equalTo(20.0)
-            make.width.equalTo(120.0)
-            make.left.equalTo(self.view).offset(20.0)
-        }
-        
-        // Lose label
-        self.view.addSubview(self.loseLabel)
-        self.loseLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.winLabel)
-            make.height.equalTo(20.0)
-            make.width.equalTo(120.0)
-            make.right.equalTo(self.view.snp.right).offset(-20.0)
+        //date
+        self.dateLabel.text = "\(Date().toString(dateFormat: "dd MMM yyyy"))"
+        self.view.addSubview(self.dateLabel)
+        self.dateLabel.snp.makeConstraints { (make) in
+            make.centerX.width.equalToSuperview()
+            make.top.equalTo(self.customNavigationBar.snp.bottom).offset(10.0)
+            make.height.equalTo(50.0)
         }
         
         // TableView
@@ -97,7 +79,7 @@ class BetViewController: UIViewController {
         self.tableView.delegate = self
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.winLabel.snp.bottom).offset(20.0)
+            make.top.equalTo(self.dateLabel.snp.bottom).offset(20.0)
             make.height.width.left.equalToSuperview()
         }
     }
@@ -114,51 +96,46 @@ class BetViewController: UIViewController {
     }
     
     
-    // MARK: - Action
-    func getAllBets() {
-        self.bets = []
-        for bet in self.flowDelegate!.bets {
-            if bet.userid == self.flowDelegate!.userId {
-                self.bets.append(bet)
+    // MARK: - Actions
+    func getDayMatchs() {
+        for match in self.flowDelegate!.matchs {
+            if match.date.toString(dateFormat: "dd MMM yyyy") == Date().toString(dateFormat: "dd MMM yyyy") {
+                self.matchs.append(match)
             }
         }
-        self.bets = self.bets.sorted(by: { $0.date > $1.date })
         
-        for bet in self.bets {
-            log.debugMessage("bet.date: \(bet.date)")
-        }
+        self.matchs = self.matchs.sorted(by: { $0.date < $1.date })
     }
 }
 
 
 // MARK: - UITableView Data Source
-extension BetViewController: UITableViewDataSource {
+extension AllMatchsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return self.bets.count
+        
+        return self.matchs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: BetTableViewCell.identifier) as! BetTableViewCell
-        cell.leftLabel.text = self.flowDelegate?.teams[self.bets[indexPath.row].homeTeam - 1].name ?? ""
-        cell.rightLabel.text = self.flowDelegate?.teams[self.bets[indexPath.row].awayTeam - 1].name ?? ""
-        cell.leftImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.bets[indexPath.row].homeTeam - 1].name))")
-        cell.rightImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.bets[indexPath.row].awayTeam - 1].name))")
+        let cell = tableView.dequeueReusableCell(withIdentifier: AllMatchTableViewCell.identifier) as! AllMatchTableViewCell
+        cell.leftLabel.text = self.flowDelegate?.teams[self.matchs[indexPath.row].homeTeam - 1].name ?? ""
+        cell.rightLabel.text = self.flowDelegate?.teams[self.matchs[indexPath.row].awayTeam - 1].name ?? ""
+        cell.leftImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.matchs[indexPath.row].homeTeam - 1].name))")
+        cell.rightImageView.image = UIImage(named: "flag-\(String(describing: self.flowDelegate!.teams[self.matchs[indexPath.row].awayTeam - 1].name))")
         
-        cell.scoreLabel.text = "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)"
-
+        cell.scoreLabel.text = "\(self.matchs[indexPath.row].date.toString(dateFormat: "HH:mm"))"
         return cell
     }
 }
 
 
 // MARK: - UITableView Delegate
-extension BetViewController: UITableViewDelegate {
+extension AllMatchsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 1.0
@@ -169,13 +146,13 @@ extension BetViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        return 80.0
+        
+        return AllMatchTableViewCell.height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        //self.flowDelegate?.continueToMatch(self, match: )
+        self.flowDelegate?.continueToMatch(self, match: self.matchs[indexPath.row])
     }
 }

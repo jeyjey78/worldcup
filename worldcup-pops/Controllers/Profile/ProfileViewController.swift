@@ -27,9 +27,10 @@ class ProfileViewController: UIViewController {
     
     fileprivate var matchsButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Matchs", for: .normal)
+        button.setTitle("Matchs\ndu jour", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont.circularStdBlack(17.0)
+        button.titleLabel?.numberOfLines = 0
         button.backgroundColor = UIColor.white
         button.clipsToBounds = false
         button.layer.shadowColor = UIColor.black.cgColor
@@ -112,6 +113,7 @@ class ProfileViewController: UIViewController {
         }
         
         // Match button
+        self.matchsButton.addTarget(self, action: #selector(continueToDayMatch), for: .touchUpInside)
         self.view.addSubview(self.matchsButton)
         self.matchsButton.snp.makeConstraints { (make) in
             make.height.width.equalTo(100.0)
@@ -196,6 +198,10 @@ class ProfileViewController: UIViewController {
     
     @objc func continueToBet() {
         self.flowDelegate?.continueToOwnerBet(self)
+    }
+    
+    @objc func continueToDayMatch() {
+        self.flowDelegate?.continueToDayMatch(self)
     }
     
     // Animation

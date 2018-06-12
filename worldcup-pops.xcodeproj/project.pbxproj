@@ -52,6 +52,8 @@
 		3FFFFCB5209A546C008A8865 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FFFFCB4209A546C008A8865 /* GoogleService-Info.plist */; };
 		7A80320720CEAFF100B1A9E5 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A80320620CEAFF100B1A9E5 /* Lottie.framework */; };
 		7A80320920CEB7FB00B1A9E5 /* confirmation-animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A80320820CEB7FB00B1A9E5 /* confirmation-animation.json */; };
+		7A80320C20CFB76E00B1A9E5 /* AllMatchsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A80320B20CFB76E00B1A9E5 /* AllMatchsViewController.swift */; };
+		7A80320E20CFB78600B1A9E5 /* AllMatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A80320D20CFB78600B1A9E5 /* AllMatchTableViewCell.swift */; };
 		7FD7CB9E1BA7958418698983 /* Pods_worldcup_pops.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +128,8 @@
 		49A919F9DC036B48A31FCCB0 /* Pods-worldcup-pops.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worldcup-pops.debug.xcconfig"; path = "Pods/Target Support Files/Pods-worldcup-pops/Pods-worldcup-pops.debug.xcconfig"; sourceTree = "<group>"; };
 		7A80320620CEAFF100B1A9E5 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A80320820CEB7FB00B1A9E5 /* confirmation-animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "confirmation-animation.json"; sourceTree = "<group>"; };
+		7A80320B20CFB76E00B1A9E5 /* AllMatchsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMatchsViewController.swift; sourceTree = "<group>"; };
+		7A80320D20CFB78600B1A9E5 /* AllMatchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMatchTableViewCell.swift; sourceTree = "<group>"; };
 		CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_worldcup_pops.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -233,6 +237,7 @@
 		3F955421208AA14800B2A478 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7A80320A20CFB73D00B1A9E5 /* Matchs */,
 				3FFFFC9F208FDFC4008A8865 /* Bet */,
 				3F955422208AA15B00B2A478 /* Login */,
 				3FFFFC96208E92E2008A8865 /* Contries */,
@@ -355,6 +360,15 @@
 				CBBC58C072F7DB397FF859DE /* Pods_worldcup_pops.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A80320A20CFB73D00B1A9E5 /* Matchs */ = {
+			isa = PBXGroup;
+			children = (
+				7A80320B20CFB76E00B1A9E5 /* AllMatchsViewController.swift */,
+				7A80320D20CFB78600B1A9E5 /* AllMatchTableViewCell.swift */,
+			);
+			path = Matchs;
 			sourceTree = "<group>";
 		};
 		911620A6622E938126DD9BB5 /* Pods */ = {
@@ -618,6 +632,7 @@
 			files = (
 				3F4E87B020CF113A003F2517 /* AppExtensions.swift in Sources */,
 				3F97C029209DF4A400CD1652 /* Log.swift in Sources */,
+				7A80320E20CFB78600B1A9E5 /* AllMatchTableViewCell.swift in Sources */,
 				3F955429208AA2FB00B2A478 /* LoginViewController.swift in Sources */,
 				3F955425208AA1BF00B2A478 /* Flow.swift in Sources */,
 				3FFFFCB3209916D3008A8865 /* MatchBetCollectionViewCell.swift in Sources */,
@@ -632,6 +647,7 @@
 				3F4E87AE20CDC059003F2517 /* AddBetViewController.swift in Sources */,
 				3FFFFC98208E931A008A8865 /* CountriesCollectionViewCell.swift in Sources */,
 				3FFFFC9A208FD5F9008A8865 /* ProfileNavigationController.swift in Sources */,
+				7A80320C20CFB76E00B1A9E5 /* AllMatchsViewController.swift in Sources */,
 				3FB661C220B46640004F59D4 /* File.swift in Sources */,
 				3FFFFC91208CCEA8008A8865 /* ProfileFlow.swift in Sources */,
 				3FFFFC93208CCECC008A8865 /* ProfileViewController.swift in Sources */,

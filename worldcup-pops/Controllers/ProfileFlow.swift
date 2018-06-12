@@ -263,6 +263,7 @@ protocol ProfileFlowDelegate {
     func continueToOwnerBet(_ controller: UIViewController)
     func continueToMatch(_ controller: UIViewController, match: Match)
     func continueToMatchCountry(_ controller: UIViewController, countryId: Int)
+    func continueToDayMatch(_ controller: UIViewController)
     
     func saveBet(_ controller: UIViewController, bet: Bet)
     func backProfile(_ controller: UIViewController)
@@ -308,6 +309,13 @@ extension ProfileFlow: ProfileFlowDelegate {
         betController.flowDelegate = self
         
         self.navigation.present(betController, animated: true, completion: nil)
+    }
+    
+    func continueToDayMatch(_ controller: UIViewController) {
+        let allmatchController = AllMatchsViewController()
+        allmatchController.flowDelegate = self
+        
+        self.navigation.pushViewController(allmatchController, animated: true)
     }
     
     
