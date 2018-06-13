@@ -10,6 +10,18 @@ import UIKit
 import Foundation
 import FirebaseDatabase
 
+class User  {
+    var username = ""
+    var points = 0
+    var id = ""
+    
+    init(_ username: String, _ points: Int, _ id: String) {
+        self.username = username
+        self.points = points
+        self.id = id
+    }
+}
+
 class Team  {
     var name = ""
     var shortName = ""

@@ -144,7 +144,7 @@ class MatchBetViewController: UIViewController {
         self.leftImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(100.0)
             make.left.equalTo(self.view).offset(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 20.0 : 40.0)
-            make.top.equalTo(self.customNavigationBar.snp.bottom).offset(20.0)
+            make.top.equalTo(self.customNavigationBar.snp.bottom).offset(UIDevice().type == .iPhoneX ? 40.0 : 20.0)
         }
         
         self.leftLabel.text = self.flowDelegate?.teams[self.match.homeTeam - 1].name ?? ""
@@ -231,7 +231,7 @@ class MatchBetViewController: UIViewController {
         self.view.addSubview(self.betButton)
         self.betButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.leftLabel.snp.bottom).offset(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 90.0 : 110.0)
+            make.top.equalTo(self.leftLabel.snp.bottom).offset(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 90.0 : UIDevice().type == .iPhoneX ? 150.0 : 110.0)
             make.height.equalTo(54.0)
             make.width.equalTo(250.0)
         }
@@ -251,6 +251,15 @@ class MatchBetViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @available(iOS 11.0, *)
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        
+        self.collectionView.snp.updateConstraints({ (make) in
+           make.bottom.equalTo(self.view.snp.bottom).offset(-30.0 - self.view.safeAreaInsets.bottom)
+        })
     }
     
     

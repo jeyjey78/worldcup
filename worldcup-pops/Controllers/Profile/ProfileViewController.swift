@@ -14,10 +14,16 @@ class ProfileViewController: UIViewController {
 
     var flowDelegate: ProfileFlow?
     var country: FIRDatabaseReference!
+    var bets : [Bet] = []
     
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var profilePicture = UIImageView(image: UIImage(named: "profile"))
     fileprivate var popsImageView = UIImageView(image: UIImage(named: "pops-icon"))
+    var userPoints = 0 {
+        didSet {
+            self.winLabel.text = "\(self.userPoints) points"
+        }
+    }
     
     fileprivate var scoreView: UIView = {
         let view = UIView()
@@ -85,7 +91,7 @@ class ProfileViewController: UIViewController {
     fileprivate var winLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
-        label.textAlignment = .right
+        label.textAlignment = .center
         label.font = UIFont.circularStdBold(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 24.0 : 30.0)
         label.adjustsFontSizeToFitWidth = true
         label.text = "2 win - 0 lose"
@@ -124,6 +130,9 @@ class ProfileViewController: UIViewController {
         }
         
         // Score view
+        let gesturePop = UITapGestureRecognizer(target: self, action: #selector(continueToUsers))
+        self.scoreView.isUserInteractionEnabled = true
+        self.scoreView.addGestureRecognizer(gesturePop)
         self.view.addSubview(self.scoreView)
         self.scoreView.snp.makeConstraints { (make) in
             make.height.equalTo(150.0)
@@ -142,6 +151,7 @@ class ProfileViewController: UIViewController {
         }
         
         // Win label
+        self.winLabel.text = "\(self.userPoints) points"
         self.scoreView.transform = CGAffineTransform(rotationAngle: 0.3)
         self.scoreView.addSubview(self.winLabel)
         self.winLabel.snp.makeConstraints { (make) in
@@ -208,6 +218,10 @@ class ProfileViewController: UIViewController {
     
     @objc func continueToDayMatch() {
         self.flowDelegate?.continueToDayMatch(self)
+    }
+    
+    @objc func continueToUsers() {
+        self.flowDelegate?.continueToUsers(self)
     }
     
     @objc func selectCountryAction() {

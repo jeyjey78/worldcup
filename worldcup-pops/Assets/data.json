@@ -1206,8 +1206,8 @@
                         {
                         "name": 49,
                         "type": "qualified",
-                        "home_team": "winner_a",
-                        "away_team": "runner_b",
+                        "home_team": 50,
+                        "away_team": 50,
                         "home_result": null,
                         "away_result": null,
                         "home_penalty": null,
@@ -1222,8 +1222,8 @@
                         {
                         "name": 50,
                         "type": "qualified",
-                        "home_team": "winner_c",
-                        "away_team": "runner_d",
+                        "home_team": 50,
+                        "away_team": 50,
                         "home_result": null,
                         "away_result": null,
                         "home_penalty": null,
@@ -1238,8 +1238,8 @@
                         {
                         "name": 51,
                         "type": "qualified",
-                        "home_team": "winner_b",
-                        "away_team": "runner_a",
+                        "home_team": 50,
+                        "away_team": 50,
                         "home_result": null,
                         "away_result": null,
                         "home_penalty": null,
@@ -1254,8 +1254,8 @@
                         {
                         "name": 52,
                         "type": "qualified",
-                        "home_team": "winner_d",
-                        "away_team": "runner_c",
+                        "home_team": 50,
+                        "away_team": 50,
                         "home_result": null,
                         "away_result": null,
                         "home_penalty": null,
@@ -1270,8 +1270,8 @@
                         {
                         "name": 53,
                         "type": "qualified",
-                        "home_team": "winner_e",
-                        "away_team": "runner_f",
+                        "home_team": 50,
+                        "away_team": 50,
                         "home_result": null,
                         "away_result": null,
                         "home_penalty": null,
@@ -1286,8 +1286,8 @@
                         {
                         "name": 54,
                         "type": "qualified",
-                        "home_team": "winner_g",
-                        "away_team": "runner_h",
+                        "home_team": 50,
+                        "away_team": 50,
                         "home_result": null,
                         "away_result": null,
                         "home_penalty": null,
@@ -1302,8 +1302,8 @@
                         {
                         "name": 55,
                         "type": "qualified",
-                        "home_team": "winner_f",
-                        "away_team": "runner_e",
+                        "home_team": 50,
+                        "away_team": 50,
                         "home_result": null,
                         "away_result": null,
                         "home_penalty": null,
@@ -1318,8 +1318,8 @@
                         {
                         "name": 56,
                         "type": "qualified",
-                        "home_team": "winner_h",
-                        "away_team": "runner_g",
+                        "home_team": 50,
+                        "away_team": 50,
                         "home_result": null,
                         "away_result": null,
                         "home_penalty": null,
@@ -1482,32 +1482,18 @@
                         ]
         }
     },
+    "users": {
+        "0000": {
+            "user_name": "jeyjey",
+            "points": 0
+        }
+    },
      "bets" : [
                 {
                 "match_id": 3,
-                "user_id": 13,
+                "user_id": "13",
                 "home_score": 0,
                 "away_score": 2,
-                "home_team": 10,
-                "away_team": 9,
-                "home_pen": 0,
-                "away_pen": 0
-                },
-                {
-                "match_id": 4,
-                "user_id": 13,
-                "home_score": 1,
-                "away_score": 2,
-                "home_team": 10,
-                "away_team": 9,
-                "home_pen": 0,
-                "away_pen": 0
-                },
-                {
-                "match_id": 5,
-                "user_id": 11,
-                "home_score": 0,
-                "away_score": 4,
                 "home_team": 10,
                 "away_team": 9,
                 "home_pen": 0,

@@ -19,17 +19,14 @@ class ProfileFlow: Flow {
     var matchs: [Match] = []
     var stadiums: [Stadium] = []
     var bets: [Bet] = []
+    var users: [User] = []
     var userId = ""
     
     init () {
         let shopController = ProfileViewController(self)
         shopController.navigationController?.setNavigationBarHidden(true, animated: false)
         
-        self.loadTeams()
-        self.loadMatchs()
-        self.loadKnockout()
-        self.loadStadium()
-        self.loadBets()
+        self.loadUsers()
         
         // userId
         let defaults = UserDefaults.standard
@@ -44,6 +41,33 @@ class ProfileFlow: Flow {
     }
     
     // MARK: - Firebase
+    func loadUsers() {
+        self.users = []
+        let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("users")
+        reference.observe(.value) { (snapshot) in
+            for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                var username = ""
+                var points = 0
+                let id = elements.key
+                
+                for element in elements.children.allObjects as! [FIRDataSnapshot] {
+                    if element.key == "user_name" {
+                        username = element.value as! String
+                    }
+                    if element.key == "points" {
+                        points = element.value as! Int
+                    }
+                }
+                
+                let user = User(username, points, id)
+                self.users.append(user)
+                
+            }
+            
+            self.loadTeams()
+        }
+    }
+    
     func loadTeams() {
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("teams")
         reference.observe(.value) { (snapshot) in
@@ -72,6 +96,8 @@ class ProfileFlow: Flow {
                 self.teams.append(team)
                 
             }
+            
+            self.loadMatchs()
         }
     }
     
@@ -131,6 +157,8 @@ class ProfileFlow: Flow {
                         }
                     }
             }
+            
+             self.loadKnockout()
         }
     }
     
@@ -190,6 +218,8 @@ class ProfileFlow: Flow {
                     }
                 }
             }
+            
+            self.loadStadium()
         }
     }
     
@@ -217,6 +247,8 @@ class ProfileFlow: Flow {
                 self.stadiums.append(stadium)
                 
             }
+            
+            self.loadBets()
         }
     }
     
@@ -268,7 +300,8 @@ class ProfileFlow: Flow {
                 let bet = Bet(userid, userName, date, homeTeam, homeScore, homePen, awayTeam, awayScore, awayPen)
                 self.bets.append(bet)
             }
-            log.debugMessage("Bets flow count : \(self.bets.count)")
+            
+            self.updatePoints()
         }
     }
 
@@ -279,6 +312,7 @@ class ProfileFlow: Flow {
 protocol ProfileFlowDelegate {
     
     func continueToCountries(_ controller: UIViewController)
+    func continueToUsers(_ controller: UIViewController)
     func continueToOwnerBet(_ controller: UIViewController)
     func continueToMatch(_ controller: UIViewController, match: Match)
     func continueToMatchCountry(_ controller: UIViewController, countryId: Int)
@@ -302,6 +336,13 @@ extension ProfileFlow: ProfileFlowDelegate {
         countriesController.flowDelegate = self
         
         self.navigation.pushViewController(countriesController, animated: true)
+    }
+    
+    func continueToUsers(_ controller: UIViewController) {
+        let controller = UsersViewController()
+        controller.flowDelegate = self
+        
+        self.navigation.pushViewController(controller, animated: true)
     }
     
     func continueToOwnerBet(_ controller: UIViewController) {
@@ -384,5 +425,53 @@ extension ProfileFlow: ProfileFlowDelegate {
     
     func closeAction() {
         self.navigation.dismiss(animated: true, completion: nil)
+    }
+    
+    // Points
+    func updatePoints() {
+        var bets: [Bet] = []
+        for bet in self.bets {
+            if bet.userid == self.userId {
+                bets.append(bet)
+            }
+        }
+        
+        var points = 0
+        
+        for match in self.matchs {
+            for bet in bets {
+                if match.homeTeam == bet.homeTeam && match.awayTeam == bet.awayTeam {
+                    if let matchHomeScore = match.homeScore, let matchAwayScore = match.awayScore{
+                        let matchHomePen = match.homePen ?? 0
+                        let matchAwayPen = match.awayPen ?? 0
+                        let betHomePen = bet.homePen ?? 0
+                        let betAwayPen = bet.awayPen ?? 0
+                        
+                        if matchHomeScore + matchHomePen == bet.homeScore + betHomePen && matchAwayScore + matchAwayPen == bet.awayScore + betAwayPen {
+                            points += 3
+                        }
+                        else if (matchHomeScore + matchHomePen > matchAwayScore + matchAwayPen && bet.homeScore + betHomePen  > bet.awayScore + betAwayPen) ||
+                            (matchHomeScore + matchHomePen < matchAwayScore + matchAwayPen && bet.homeScore + betHomePen  < bet.awayScore + betAwayPen) {
+                            points += 1
+                        }
+                    }
+                }
+            }
+        }
+        
+        if let controller = self.navigation.visibleViewController as? ProfileViewController {
+            controller.userPoints = points
+        }
+        
+        self.sendPoints(points)
+    }
+    
+    func sendPoints(_ points: Int) {
+        let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("users").child(self.userId)
+        let value = [
+            "user_name": UserDefaults.standard.object(forKey: Constants.username) ?? "",
+            "points": points] as [String: Any]
+        
+        reference.setValue(value)
     }
 }

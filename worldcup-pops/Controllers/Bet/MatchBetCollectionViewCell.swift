@@ -17,7 +17,7 @@ enum StatusBet {
 class MatchBetCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "MatchBetTableViewCell"
-    static let size: CGSize = UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? CGSize(width: 150.0, height: 150.0) :  CGSize(width: 220.0, height: 220.0)
+    static let size: CGSize = UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? CGSize(width: 150.0, height: 150.0) :  UIDevice().type == .iPhoneX ? CGSize(width: 250.0, height: 250.0) : CGSize(width: 220.0, height: 220.0)
     
     fileprivate var iconImageView = UIImageView(image: UIImage(named: "win-icon"))
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-bet"))
@@ -44,7 +44,7 @@ class MatchBetCollectionViewCell: UICollectionViewCell {
     var pseudoLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
-        label.font = UIFont.circularStdBlack( UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 17.0 : 27.0)
+        label.font = UIFont.circularStdBlack(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 17.0 : 27.0)
         label.textAlignment = .center
         return label
     }()
@@ -127,7 +127,7 @@ class MatchBetCollectionViewCell: UICollectionViewCell {
         self.addSubview(self.flagImageView)
         self.flagImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.height.width.equalTo(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 50.0 : 70.0)
+            make.height.width.equalTo(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 50.0 : UIDevice().type == .iPhoneX ? 90.0 : 70.0)
             make.top.equalTo(self.pseudoLabel.snp.bottom).offset(20.0)
         }
         
