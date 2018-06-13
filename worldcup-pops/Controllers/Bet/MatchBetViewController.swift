@@ -326,7 +326,6 @@ extension MatchBetViewController: UICollectionViewDataSource {
             cell.scoreLabel.text = "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)"
         }
         
-        log.debugMessage("self.winner: \(self.winner) -- winner \(winner)")
         if self.winner != 0 {
             if let matchHomeScore = self.match.homeScore, let matchAwayScore = self.match.awayScore, matchHomeScore == self.bets[indexPath.row].homeScore + homePenalty! && matchAwayScore == self.bets[indexPath.row].awayScore + awayPenalty! {
                 cell.status = .total

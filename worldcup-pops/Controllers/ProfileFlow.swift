@@ -44,7 +44,7 @@ class ProfileFlow: Flow {
     func loadUsers() {
         self.users = []
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("users")
-        reference.observe(.value) { (snapshot) in
+        reference.observeSingleEvent(of: .value) { (snapshot) in
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 var username = ""
                 var points = 0
@@ -70,7 +70,7 @@ class ProfileFlow: Flow {
     
     func loadTeams() {
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("teams")
-        reference.observe(.value) { (snapshot) in
+        reference.observeSingleEvent(of: .value) { (snapshot) in
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 var name = ""
                 var shortName = ""
@@ -103,7 +103,7 @@ class ProfileFlow: Flow {
     
     func loadMatchs() {
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("groups")
-        reference.observe(.value) { (snapshot) in
+        reference.observeSingleEvent(of: .value) { (snapshot) in
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 let group = elements.key
                 let step = "poule"
@@ -164,7 +164,7 @@ class ProfileFlow: Flow {
     
     func loadKnockout() {
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("knockout")
-        reference.observe(.value) { (snapshot) in
+        reference.observeSingleEvent(of: .value) { (snapshot) in
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 let group = ""
                 let step = elements.key
@@ -225,7 +225,7 @@ class ProfileFlow: Flow {
     
     func loadStadium() {
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("stadiums")
-        reference.observe(.value) { (snapshot) in
+        reference.observeSingleEvent(of: .value) { (snapshot) in
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 var name = ""
                 var city = ""
@@ -255,7 +255,7 @@ class ProfileFlow: Flow {
     func loadBets() {
         self.bets = []
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("bets")
-        reference.observe(.value) { (snapshot) in
+        reference.observeSingleEvent(of: .value) { (snapshot) in
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 var userid = ""
                 var userName = ""
@@ -473,5 +473,6 @@ extension ProfileFlow: ProfileFlowDelegate {
             "points": points] as [String: Any]
         
         reference.setValue(value)
+        reference.removeAllObservers()
     }
 }

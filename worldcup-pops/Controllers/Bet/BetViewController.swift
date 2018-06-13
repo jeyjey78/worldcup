@@ -156,6 +156,40 @@ extension BetViewController: UITableViewDataSource {
         else {
             cell.scoreLabel.text = "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)"
         }
+        
+
+        
+        for match in self.flowDelegate!.matchs {
+            if match.homeTeam == self.bets[indexPath.row].homeTeam && match.awayTeam == self.bets[indexPath.row].awayTeam {
+                if let matchHomeScore = match.homeScore, let matchAwayScore = match.awayScore {
+                    var winnerMatch = 0
+                    var winnerBet = 0
+                    let awayPenalty = match.awayPen == nil ? 0 : match.awayPen
+                    let homePenalty = match.homePen == nil ? 0 : match.homePen
+                    let awayBetPenalty = self.bets[indexPath.row].awayPen == nil ? 0 : self.bets[indexPath.row].awayPen
+                    let homeBetPenalty = self.bets[indexPath.row].homePen == nil ? 0 : self.bets[indexPath.row].homePen
+                    
+                    
+                    if let homeScore = match.awayScore, let awayScore = match.awayScore {
+                        winnerMatch = awayScore + awayPenalty! > homeScore + homePenalty! ? match.awayTeam : match.homeTeam
+                    }
+                    winnerBet = self.bets[indexPath.row].awayScore + awayBetPenalty! > self.bets[indexPath.row].homeScore + homeBetPenalty! ? self.bets[indexPath.row].awayTeam : self.bets[indexPath.row].homeTeam
+                    
+                    if  matchHomeScore == self.bets[indexPath.row].homeScore + homePenalty! && matchAwayScore == self.bets[indexPath.row].awayScore + awayPenalty! {
+                        cell.status = .total
+                    }
+                    else if winnerMatch == winnerBet {
+                        cell.status = .win
+                    }
+                    else {
+                        cell.status = .lose
+                    }
+                }
+            }
+        }
+        
+
+        
         return cell
     }
 }

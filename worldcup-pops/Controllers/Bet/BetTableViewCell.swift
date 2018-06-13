@@ -15,6 +15,24 @@ class BetTableViewCell: UITableViewCell {
     
     var leftImageView = UIImageView()
     var rightImageView = UIImageView()
+    var statusImageView = UIImageView()
+    
+    var status: StatusBet? {
+        didSet {
+            Queue.main {
+                switch self.status {
+                case .total?:
+                    self.statusImageView.image =  UIImage(named: "total-icon")
+                case .win?:
+                    self.statusImageView.image =  UIImage(named: "win-icon")
+                case .lose?:
+                    self.statusImageView.image =  UIImage(named: "lose-icon")
+                default:
+                    self.statusImageView.image = nil
+                }
+            }
+        }
+    }
     
     var leftLabel: UILabel = {
         let label = UILabel()
@@ -79,7 +97,14 @@ class BetTableViewCell: UITableViewCell {
     func configureView() {
         let proportionalWidth: CGFloat = Screen.size.width / 2
         
-        // Win label
+        self.addSubview(self.statusImageView)
+        self.statusImageView.snp.makeConstraints { (make) in
+            make.height.width.equalTo(30.0)
+            make.centerY.equalTo(self)
+            make.left.equalTo(self).offset(10.0)
+        }
+        
+        // left label
         self.addSubview(self.leftImageView)
         self.leftImageView.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(Screen.size.width * 0.17)
