@@ -313,8 +313,10 @@ extension MatchBetViewController: UICollectionViewDataSource {
         let awayPenalty = self.bets[indexPath.row].awayPen == nil ? 0 : self.bets[indexPath.row].awayPen
         let homePenalty = self.bets[indexPath.row].homePen == nil ? 0 : self.bets[indexPath.row].homePen
         let winner = self.bets[indexPath.row].awayScore + awayPenalty! > self.bets[indexPath.row].homeScore + homePenalty! ? self.bets[indexPath.row].awayTeam : self.bets[indexPath.row].homeTeam
+        
         cell.flagImageView.image = self.bets[indexPath.row].awayScore + awayPenalty! == self.bets[indexPath.row].homeScore + homePenalty! ? UIImage(named: "flag-egalite") : UIImage(named: "flag-\(self.flowDelegate!.teams[winner-1].name)")
         
+        // Penalty
         if let awayPen = self.bets[indexPath.row].awayPen, let homePen = self.bets[indexPath.row].homePen {
             let startAttribute = NSMutableAttributedString(string: "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)", attributes: [NSAttributedStringKey.font :UIFont.circularStdBold(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 24.0 : 36.0) , NSAttributedStringKey.foregroundColor : UIColor.white])
             let endAttribute = NSMutableAttributedString(string: "\nPen: \(homePen) - \(awayPen)", attributes: [NSAttributedStringKey.font : UIFont.circularStdBook(12.0), NSAttributedStringKey.foregroundColor : UIColor.white])
@@ -325,12 +327,21 @@ extension MatchBetViewController: UICollectionViewDataSource {
         else {
             cell.scoreLabel.text = "\(self.bets[indexPath.row].homeScore) - \(self.bets[indexPath.row].awayScore)"
         }
+
         
-        if self.winner != 0 {
-            if let matchHomeScore = self.match.homeScore, let matchAwayScore = self.match.awayScore, matchHomeScore == self.bets[indexPath.row].homeScore + homePenalty! && matchAwayScore == self.bets[indexPath.row].awayScore + awayPenalty! {
+        // Icon status
+        if let matchHomeScore = match.homeScore, let matchAwayScore = match.awayScore {
+            let awayPenalty = match.awayPen == nil ? 0 : match.awayPen
+            let homePenalty = match.homePen == nil ? 0 : match.homePen
+            let awayBetPenalty = self.bets[indexPath.row].awayPen == nil ? 0 : self.bets[indexPath.row].awayPen
+            let homeBetPenalty = self.bets[indexPath.row].homePen == nil ? 0 : self.bets[indexPath.row].homePen
+            
+            if  matchHomeScore + homePenalty! == self.bets[indexPath.row].homeScore + homeBetPenalty! && matchAwayScore + awayPenalty! == self.bets[indexPath.row].awayScore + awayBetPenalty! {
                 cell.status = .total
             }
-            else if winner == self.winner {
+            else if (matchHomeScore + homePenalty! > matchAwayScore + awayPenalty! && self.bets[indexPath.row].homeScore + homeBetPenalty! > self.bets[indexPath.row].awayScore + awayBetPenalty!) ||
+                (matchHomeScore + homePenalty! < matchAwayScore + awayPenalty! && self.bets[indexPath.row].homeScore + homeBetPenalty! < self.bets[indexPath.row].awayScore + awayBetPenalty!) ||
+                (matchHomeScore + homePenalty! == matchAwayScore + awayPenalty! && self.bets[indexPath.row].homeScore + homeBetPenalty! == self.bets[indexPath.row].awayScore + awayBetPenalty!) {
                 cell.status = .win
             }
             else {
