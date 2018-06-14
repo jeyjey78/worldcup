@@ -45,7 +45,6 @@ class BetViewController: UIViewController {
     }()
     
     // Liste de mes parris (vainqueur-looser et score)
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
@@ -74,30 +73,12 @@ class BetViewController: UIViewController {
         
         self.customNavigationBar.topItem?.title = "Tous mes paris"
         
-        // Win label
-        self.view.addSubview(self.winLabel)
-        self.winLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.customNavigationBar.snp.bottom).offset(20.0)
-            make.height.equalTo(20.0)
-            make.width.equalTo(120.0)
-            make.left.equalTo(self.view).offset(20.0)
-        }
-        
-        // Lose label
-        self.view.addSubview(self.loseLabel)
-        self.loseLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.winLabel)
-            make.height.equalTo(20.0)
-            make.width.equalTo(120.0)
-            make.right.equalTo(self.view.snp.right).offset(-20.0)
-        }
-        
         // TableView
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.winLabel.snp.bottom).offset(20.0)
+            make.top.equalTo(self.customNavigationBar.snp.bottom).offset(20.0)
             make.height.width.left.equalToSuperview()
         }
     }

@@ -26,13 +26,13 @@ class ProfileFlow: Flow {
         let shopController = ProfileViewController(self)
         shopController.navigationController?.setNavigationBarHidden(true, animated: false)
         
-        self.loadUsers()
-        
         // userId
         let defaults = UserDefaults.standard
         self.userId = defaults.object(forKey: Constants.firebaseId) as! String
         
         self.navigation = ProfileNavigationController(rootViewController: shopController)
+        
+        self.loadUsers()
     }
     
     func start() -> UIViewController {
@@ -43,6 +43,11 @@ class ProfileFlow: Flow {
     // MARK: - Firebase
     func loadUsers() {
         self.users = []
+        
+        if let controller = self.navigation.visibleViewController as? ProfileViewController {
+            controller.playLoader = true
+        }
+        
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("users")
         reference.observeSingleEvent(of: .value) { (snapshot) in
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
@@ -299,6 +304,10 @@ class ProfileFlow: Flow {
                 
                 let bet = Bet(userid, userName, date, homeTeam, homeScore, homePen, awayTeam, awayScore, awayPen)
                 self.bets.append(bet)
+            }
+            
+            if let controller = self.navigation.visibleViewController as? ProfileViewController {
+                controller.playLoader = false
             }
             
             self.updatePoints()

@@ -19,9 +19,20 @@ class ProfileViewController: UIViewController {
     fileprivate var backgroundImageView = UIImageView(image: UIImage(named: "background-worldcup"))
     fileprivate var profilePicture = UIImageView(image: UIImage(named: "profile"))
     fileprivate var popsImageView = UIImageView(image: UIImage(named: "pops-icon"))
+    fileprivate var loader = UIActivityIndicatorView()
+    
     var userPoints = 0 {
         didSet {
             self.winLabel.text = "\(self.userPoints) points"
+        }
+    }
+    
+    var playLoader = false {
+        didSet {
+            if oldValue != self.playLoader {
+                self.loader.isHidden = !self.playLoader
+                self.playLoader ? self.loader.startAnimating() : self.loader.stopAnimating()
+            }
         }
     }
     
@@ -119,6 +130,16 @@ class ProfileViewController: UIViewController {
         self.backgroundImageView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
+        // Loader
+        self.loader.activityIndicatorViewStyle = .whiteLarge
+        self.loader.isHidden = true
+        self.view.addSubview(self.loader)
+        self.loader.snp.makeConstraints { (make) in
+            make.right.equalTo(self.view.snp.right).offset(-20.0)
+            make.top.equalTo(self.view).offset(30.0)
+        }
+        
         
         // Match button
         self.matchsButton.addTarget(self, action: #selector(continueToDayMatch), for: .touchUpInside)

@@ -129,7 +129,7 @@ extension AllMatchsViewController: UITableViewDataSource {
         
         var step = ""
         if self.matchs[indexPath.row].step == "poule" {
-            step = "groupe \(self.matchs[indexPath.row].group)"
+            step = "groupe \(self.matchs[indexPath.row].group.uppercased())"
         }
         else {
             switch self.matchs[indexPath.row].step {
