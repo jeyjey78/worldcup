@@ -874,6 +874,7 @@
 			baseConfigurationReference = 273F29AFFDE153095CB96B87 /* Pods-worldcup-pops.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = E9CVFPMH5K;
 				INFOPLIST_FILE = "$(SRCROOT)/worldcup-pops/XYZ/Info.plist";
@@ -881,8 +882,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pops.worldcup;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a059de39-2125-417a-a23b-6de1559b19d3";
-				PROVISIONING_PROFILE_SPECIFIER = "Pops - worldcup";
+				PROVISIONING_PROFILE = "28b2e100-63a5-4689-843f-7f6a346f751a";
+				PROVISIONING_PROFILE_SPECIFIER = "Pops - worldcup Staging";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
