@@ -413,6 +413,7 @@
 				3F9553ED2086908E00B2A478 /* Resources */,
 				D387E178787B72CA5C202524 /* [CP] Embed Pods Frameworks */,
 				694B35397DE29471B774218E /* [CP] Copy Pods Resources */,
+				7A80321A20D2655D00B1A9E5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -588,6 +589,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-worldcup-pops/Pods-worldcup-pops-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		7A80321A20D2655D00B1A9E5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 784e46b2aa06b89ee77d2b8ee32b29d1ed54a480 a5ad7353f271ddcd637537bad725ae070fcf9664103854151be58b8547938f32";
 		};
 		B363BFCE88E7866F29B880B8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

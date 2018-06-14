@@ -4,6 +4,8 @@ use_frameworks!
 
 target 'worldcup-pops' do
   pod 'Alamofire'
+  pod 'Crashlytics', '~> 3.9'
+  pod 'Fabric'
   pod 'JASON'
   pod 'SnapKit', '~> 4.0.0'
   pod 'FBSDKLoginKit'
