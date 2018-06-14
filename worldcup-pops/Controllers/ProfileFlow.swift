@@ -46,6 +46,7 @@ class ProfileFlow: Flow {
         
         if let controller = self.navigation.visibleViewController as? ProfileViewController {
             controller.playLoader = true
+            controller.refreshButton.isEnabled = false
         }
         
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("users")
@@ -74,6 +75,7 @@ class ProfileFlow: Flow {
     }
     
     func loadTeams() {
+        self.teams = []
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("teams")
         reference.observeSingleEvent(of: .value) { (snapshot) in
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
@@ -107,6 +109,7 @@ class ProfileFlow: Flow {
     }
     
     func loadMatchs() {
+        self.matchs = []
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("groups")
         reference.observeSingleEvent(of: .value) { (snapshot) in
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
@@ -229,6 +232,7 @@ class ProfileFlow: Flow {
     }
     
     func loadStadium() {
+        self.stadiums = []
         let reference: FIRDatabaseReference = FIRDatabase.database().reference().child("stadiums")
         reference.observeSingleEvent(of: .value) { (snapshot) in
             for elements in snapshot.children.allObjects as! [FIRDataSnapshot] {
@@ -308,6 +312,7 @@ class ProfileFlow: Flow {
             
             if let controller = self.navigation.visibleViewController as? ProfileViewController {
                 controller.playLoader = false
+                controller.refreshButton.isEnabled = true
             }
             
             self.updatePoints()
@@ -333,6 +338,8 @@ protocol ProfileFlowDelegate {
     func backProfile(_ controller: UIViewController)
     func backAction(_ controller: UIViewController)
     func closeAction()
+    
+    func reloadData()
 }
 
 
@@ -460,7 +467,8 @@ extension ProfileFlow: ProfileFlowDelegate {
                             points += 3
                         }
                         else if (matchHomeScore + matchHomePen > matchAwayScore + matchAwayPen && bet.homeScore + betHomePen  > bet.awayScore + betAwayPen) ||
-                            (matchHomeScore + matchHomePen < matchAwayScore + matchAwayPen && bet.homeScore + betHomePen  < bet.awayScore + betAwayPen) {
+                            (matchHomeScore + matchHomePen < matchAwayScore + matchAwayPen && bet.homeScore + betHomePen  < bet.awayScore + betAwayPen) ||
+                            (matchHomeScore + matchHomePen == matchAwayScore + matchAwayPen && bet.homeScore + betHomePen  == bet.awayScore + betAwayPen) {
                             points += 1
                         }
                     }
@@ -483,5 +491,9 @@ extension ProfileFlow: ProfileFlowDelegate {
         
         reference.setValue(value)
         reference.removeAllObservers()
+    }
+    
+    func reloadData() {
+        self.loadUsers()
     }
 }

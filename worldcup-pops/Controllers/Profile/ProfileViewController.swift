@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController {
     fileprivate var profilePicture = UIImageView(image: UIImage(named: "profile"))
     fileprivate var popsImageView = UIImageView(image: UIImage(named: "pops-icon"))
     fileprivate var loader = UIActivityIndicatorView()
+    var refreshButton = UIButton()
     
     var userPoints = 0 {
         didSet {
@@ -140,7 +141,6 @@ class ProfileViewController: UIViewController {
             make.top.equalTo(self.view).offset(30.0)
         }
         
-        
         // Match button
         self.matchsButton.addTarget(self, action: #selector(continueToDayMatch), for: .touchUpInside)
         self.view.addSubview(self.matchsButton)
@@ -197,8 +197,18 @@ class ProfileViewController: UIViewController {
         self.pseudoLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(self.profilePicture.snp.bottom).offset(5.0)
-            make.height.equalTo(20.0)
+            make.height.equalTo(25.0)
             make.width.equalTo(200.0)
+        }
+        
+        // Refresh
+        self.refreshButton.setImage(UIImage(named: "refresh-icon"), for: .normal)
+        self.refreshButton.addTarget(self, action: #selector(refreshAction), for: .touchUpInside)
+        self.view.addSubview(self.refreshButton)
+        self.refreshButton.snp.makeConstraints { (make) in
+            make.height.width.equalTo(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? 40 : 50.0)
+            make.centerY.equalTo(self.pseudoLabel).offset(20.0)
+            make.right.equalTo(self.view).offset(UIDevice().type == .iPhone5 || UIDevice().type == .iPhoneSE ? -40.0 : -60.0)
         }
         
         // Bet button
@@ -257,6 +267,10 @@ class ProfileViewController: UIViewController {
         else {
             self.profilePicture.image = UIImage(named: "profile")
         }
+    }
+    
+    @objc func refreshAction() {
+        self.flowDelegate?.reloadData()
     }
     
     
