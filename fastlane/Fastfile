@@ -18,7 +18,12 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    build_app(workspace: "worldcup-pops.xcworkspace", scheme: "worldcup-pops")
+    build_app(
+      workspace: "worldcup-pops.xcworkspace",
+      scheme: "worldcup-pops",
+      export_method: "ad-hoc",
+      export_xcargs: "-allowProvisioningUpdates"
+    )
 
     # upload to Beta by Crashlytics
     crashlytics(
