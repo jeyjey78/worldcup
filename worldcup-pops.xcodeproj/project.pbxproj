@@ -882,7 +882,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pops.worldcup;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5c6e384c-eb0a-4a65-92f5-fecb94794bc7";
+				PROVISIONING_PROFILE = "ff1583da-17e8-44c5-a71c-be14185f5c58";
 				PROVISIONING_PROFILE_SPECIFIER = "Pops - worldcup Staging";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

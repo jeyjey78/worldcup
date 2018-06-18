@@ -85,6 +85,7 @@ class BetTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        self.statusImageView.image = nil
         self.rightImageView.image = nil
         self.leftImageView.image = nil
         self.leftLabel.text = nil
