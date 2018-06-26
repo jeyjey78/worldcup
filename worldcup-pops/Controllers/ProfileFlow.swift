@@ -444,6 +444,25 @@ extension ProfileFlow: ProfileFlowDelegate {
     }
     
     // Points
+    func getPoints(round: String, win: Bool) -> Int {
+        switch round {
+        case "poule":
+            return win ? 3 : 1
+        case "round_16":
+            return win ? 4 : 2
+        case "round_8":
+            return win ? 5 : 3
+        case "round_4":
+            return win ? 6 : 4
+        case "round_2_loser":
+            return win ? 7 : 4
+        case "round_2":
+            return win ? 10 : 5
+        default:
+            return 0
+        }
+    }
+    
     func updatePoints() {
         var bets: [Bet] = []
         for bet in self.bets {
@@ -464,12 +483,12 @@ extension ProfileFlow: ProfileFlowDelegate {
                         let betAwayPen = bet.awayPen ?? 0
                         
                         if matchHomeScore + matchHomePen == bet.homeScore + betHomePen && matchAwayScore + matchAwayPen == bet.awayScore + betAwayPen {
-                            points += 3
+                            points += self.getPoints(round: match.step, win: true)
                         }
                         else if (matchHomeScore + matchHomePen > matchAwayScore + matchAwayPen && bet.homeScore + betHomePen  > bet.awayScore + betAwayPen) ||
                             (matchHomeScore + matchHomePen < matchAwayScore + matchAwayPen && bet.homeScore + betHomePen  < bet.awayScore + betAwayPen) ||
                             (matchHomeScore + matchHomePen == matchAwayScore + matchAwayPen && bet.homeScore + betHomePen  == bet.awayScore + betAwayPen) {
-                            points += 1
+                            points += self.getPoints(round: match.step, win: false)
                         }
                     }
                 }
